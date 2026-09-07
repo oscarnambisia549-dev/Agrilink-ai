@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AgriLink AI</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5faf6;
+    color:#18351f;
+}
+
+/* NAVIGATION */
+
+nav{
+    background:#126b2f;
+    color:white;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#b9f6c8;
+}
+
+nav ul{
+    display:flex;
+    gap:25px;
+    list-style:none;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#0c5c29,#2e8b46);
+    color:white;
+    padding:90px 7%;
+}
+
+.hero-content{
+    max-width:1150px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:clamp(40px,6vw,70px);
+    max-width:750px;
+    line-height:1.05;
+    margin-bottom:25px;
+}
+
+.hero p{
+    font-size:20px;
+    max-width:650px;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.buttons a{
+    display:inline-block;
+    padding:14px 24px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+.primary{
+    background:white;
+    color:#126b2f;
+}
+
+.secondary{
+    border:2px solid white;
+    color:white;
+}
+
+/* SECTIONS */
+
+section{
+    padding:70px 7%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.title h2{
+    font-size:38px;
+    color:#126b2f;
+    margin-bottom:10px;
+}
+
+.title p{
+    color:#65736a;
+}
+
+/* SERVICES */
+
+.services{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:28px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.card .icon{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#126b2f;
+}
+
+.card p{
+    line-height:1.6;
+    color:#617067;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    background:#eaf6ed;
+    max-width:none;
+}
+
+.dashboard-box{
+    max-width:1100px;
+    margin:auto;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.stat{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.stat h3{
+    font-size:28px;
+    color:#126b2f;
+    margin:10px 0;
+}
+
+/* MARKETPLACE */
+
+.marketplace{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.product{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.product-image{
+    height:150px;
+    background:#dff2e3;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:65px;
+}
+
+.product-info{
+    padding:20px;
+}
+
+.price{
+    color:#126b2f;
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.buy{
+    display:block;
+    background:#126b2f;
+    color:white;
+    padding:12px;
+    text-align:center;
+    border-radius:7px;
+    text-decoration:none;
+    margin-top:15px;
+}
+
+/* AI */
+
+.ai-section{
+    background:#12351f;
+    color:white;
+    max-width:none;
+}
+
+.ai-box{
+    max-width:800px;
+    margin:auto;
+    text-align:center;
+}
+
+.ai-box h2{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.ai-box p{
+    color:#d5e8da;
+    margin-bottom:25px;
+}
+
+.ai-input{
+    display:flex;
+    background:white;
+    padding:8px;
+    border-radius:10px;
+}
+
+.ai-input input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:15px;
+    font-size:16px;
+}
+
+.ai-input button{
+    border:none;
+    background:#126b2f;
+    color:white;
+    padding:0 22px;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+/* ROLES */
+
+.roles{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.role{
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+
+.role h2{
+    color:#126b2f;
+    margin-bottom:15px;
+}
+
+.role button{
+    margin-top:20px;
+    padding:12px 20px;
+    border:none;
+    background:#126b2f;
+    color:white;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0c2113;
+    color:#b9cabe;
+    text-align:center;
+    padding:30px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    nav ul{
+        display:none;
+    }
+
+    .services,
+    .marketplace,
+    .stats,
+    .roles{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding:65px 7%;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .ai-input{
+        flex-direction:column;
+        gap:8px;
+    }
+
+    .ai-input button{
+        padding:14px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+<div class="logo">
+🌱 AgriLink <span>AI</span>
+</div>
+
+<ul>
+
+<li><a href="#services">Services</a></li>
+
+<li><a href="#market">Marketplace</a></li>
+
+<li><a href="#ai">AI Assistant</a></li>
+
+<li><a href="#contact">Contact</a></li>
+
+</ul>
+
+</nav>
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>
+One platform.<br>
+Every farmer.<br>
+A better future.
+</h1>
+
+<p>
+AgriLink AI connects farmers with buyers and provides
+AI-powered tools for smarter farming, better markets,
+and higher incomes.
+</p>
+
+<div class="buttons">
+
+<a class="primary" href="#roles">
+Get Started
+</a>
+
+<a class="secondary" href="#services">
+Explore AgriLink
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SERVICES -->
+
+<section id="services">
+
+<div class="title">
+
+<h2>Everything Farmers Need</h2>
+
+<p>
+Powerful agricultural tools in one platform.
+</p>
+
+</div>
+
+
+<div class="services">
+
+
+<div class="card">
+
+<div class="icon">🤖</div>
+
+<h3>AI Farming Assistant</h3>
+
+<p>
+Ask questions about crops, soil, planting,
+fertilizer and farm management.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🛒</div>
+
+<h3>Produce Marketplace</h3>
+
+<p>
+Farmers can list their produce and connect
+with potential buyers.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🌦️</div>
+
+<h3>Weather Insights</h3>
+
+<p>
+Use weather information to make better
+planting and harvesting decisions.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🐛</div>
+
+<h3>Pest & Disease Detection</h3>
+
+<p>
+Get help identifying common crop diseases
+and pest problems.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">🚚</div>
+
+<h3>Farm Logistics</h3>
+
+<p>
+Connect farmers with transportation and
+delivery solutions.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="icon">💰</div>
+
+<h3>Financial Access</h3>
+
+<p>
+Help farmers discover suitable financing
+and insurance opportunities.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section class="dashboard">
+
+<div class="dashboard-box">
+
+<div class="title">
+
+<h2>Farmer Dashboard</h2>
+
+<p>
+A simple view of your farm.
+</p>
+
+</div>
+
+
+<div class="stats">
+
+
+<div class="stat">
+
+🌦️
+
+<h3>24°C</h3>
+
+Good conditions
+
+</div>
+
+
+<div class="stat">
+
+💰
+
+<h3>KSh 85</h3>
+
+Market price/kg
+
+</div>
+
+
+<div class="stat">
+
+🌽
+
+<h3>12</h3>
+
+Active listings
+
+</div>
+
+
+<div class="stat">
+
+🤖
+
+<h3>3</h3>
+
+AI insights
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MARKETPLACE -->
+
+<section id="market">
+
+<div class="title">
+
+<h2>AgriLink Marketplace</h2>
+
+<p>
+Connect farmers directly with buyers.
+</p>
+
+</div>
+
+
+<div class="marketplace">
+
+
+<div class="product">
+
+<div class="product-image">
+🌽
+</div>
+
+<div class="product-info">
+
+<h3>Fresh Maize</h3>
+
+<p>From local farmers</p>
+
+<div class="price">
+KSh 85 / kg
+</div>
+
+<a class="buy" href="#">
+Contact Farmer
+</a>
+
+</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-image">
+🥑
+</div>
+
+<div class="product-info">
+
+<h3>Fresh Avocados</h3>
+
+<p>Quality farm produce</p>
+
+<div class="price">
+KSh 120 / kg
+</div>
+
+<a class="buy" href="#">
+Contact Farmer
+</a>
+
+</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-image">
+🍅
+</div>
+
+<div class="product-info">
+
+<h3>Fresh Tomatoes</h3>
+
+<p>Direct from farmers</p>
+
+<div class="price">
+KSh 100 / kg
+</div>
+
+<a class="buy" href="#">
+Contact Farmer
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- AI ASSISTANT -->
+
+<section id="ai" class="ai-section">
+
+<div class="ai-box">
+
+<h2>🤖 AgriLink AI Assistant</h2>
+
+<p>
+Your digital farming companion.
+Ask questions and get farming guidance.
+</p>
+
+
+<div class="ai-input">
+
+<input
+type="text"
+placeholder="Ask: How do I control maize pests?"
+id="question"
+>
+
+<button onclick="askAI()">
+Ask AI
+</button>
+
+</div>
+
+<p id="answer" style="margin-top:20px;"></p>
+
+</div>
+
+</section>
+
+
+<!-- USER TYPES -->
+
+<section id="roles">
+
+<div class="title">
+
+<h2>Join AgriLink AI</h2>
+
+<p>
+Choose how you want to use the platform.
+</p>
+
+</div>
+
+
+<div class="roles">
+
+
+<div class="role">
+
+<h2>👨‍🌾 I'm a Farmer</h2>
+
+<p>
+List your produce, find buyers, monitor
+your farm and get AI-powered advice.
+</p>
+
+<button onclick="farmer()">
+Create Farmer Account
+</button>
+
+</div>
+
+
+<div class="role">
+
+<h2>🛒 I'm a Buyer</h2>
+
+<p>
+Discover agricultural products and connect
+directly with farmers.
+</p>
+
+<button onclick="buyer()">
+Join as Buyer
+</button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="title">
+
+<h2>Contact AgriLink AI</h2>
+
+<p>
+Growing agriculture through innovation.
+</p>
+
+<br>
+
+<p>
+📧 info@agrilinkai.com
+</p>
+
+<p>
+📍 Nairobi, Kenya
+</p>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2026 AgriLink AI. All Rights Reserved.
+
+<br><br>
+
+One platform. Every farmer.
+A better future through AI. 🌱🚀
+
+</footer>
+
+
+<script>
+
+function askAI(){
+
+let question =
+document.getElementById("question").value;
+
+let answer =
+document.getElementById("answer");
+
+
+if(question.trim()===""){
+
+answer.innerText =
+"Please enter a farming question.";
+
+return;
+
+}
+
+answer.innerText =
+"🤖 AgriLink AI: Thanks! Your question is being analyzed. In the full MVP, this will connect to our AI farming assistant.";
+
+}
+
+
+function farmer(){
+
+alert(
+"🌱 Farmer registration will be connected to the AgriLink AI backend next."
+);
+
+}
+
+
+function buyer(){
+
+alert(
+"🛒 Buyer registration will be connected to the AgriLink AI backend next."
+);
+
+}
+
+</script>
+
+
+</body>
+  </html>
