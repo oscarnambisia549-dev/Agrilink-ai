@@ -823,53 +823,6 @@ One platform. Every farmer.
 A better future through AI. 🌱🚀
 
 </footer>
-
-
-<script>
-
-function askAI(){
-
-let question =
-document.getElementById("question").value;
-
-let answer =
-document.getElementById("answer");
-
-
-if(question.trim()===""){
-
-answer.innerText =
-"Please enter a farming question.";
-
-return;
-
-}
-
-answer.innerText =
-"🤖 AgriLink AI: Thanks! Your question is being analyzed. In the full MVP, this will connect to our AI farming assistant.";
-
-}
-
-
-function farmer(){
-
-alert(
-"🌱 Farmer registration will be connected to the AgriLink AI backend next."
-);
-
-}
-
-
-function buyer(){
-
-alert(
-"🛒 Buyer registration will be connected to the AgriLink AI backend next."
-);
-
-}
-
-</script>
-
-
+<script src="script.js"></script>
 </body>
   </html>
