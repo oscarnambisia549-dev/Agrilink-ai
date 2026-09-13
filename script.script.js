@@ -32,3 +32,4 @@ function askAI() {
       "🤖 Thanks for your question. Soon AgriLink AI will use a real AI model to provide personalized farming advice.";
   }
 }
+console.log("AgriLink AI: Supabase configuration loaded.");
