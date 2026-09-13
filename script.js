@@ -1,6 +1,12 @@
-// AgriLink AI JavaScript
-// Main application logic will go here.
+const SUPABASE_URL = "your-supabase-url";
+const SUPABASE_PUBLISHABLE_KEY = "your-sb-publishable-key";
 
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+function askAI() {
 function askAI() {
   let question = document.getElementById("question").value.trim();
   let answer = document.getElementById("answer");
