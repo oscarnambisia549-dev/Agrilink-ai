@@ -38,3 +38,17 @@ function askAI() {
 );
 
 console.log("AgriLink AI: Supabase connected!");
+async function testSupabaseConnection() {
+  const { data, error } = await supabaseClient
+    .from('farmers')
+    .select('*')
+    .limit(1);
+
+  if (error) {
+    console.error("Supabase error:", error);
+  } else {
+    console.log("AgriLink AI database connected!", data);
+  }
+}
+
+testSupabaseConnection();
