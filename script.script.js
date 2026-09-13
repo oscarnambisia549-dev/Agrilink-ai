@@ -52,3 +52,24 @@ async function testSupabaseConnection() {
 }
 
 testSupabaseConnection();
+    async function addFarmer(name, phone, location, farmType) {
+  const { data, error } = await supabaseClient
+    .from('farmers')
+    .insert([
+      {
+        name: name,
+        phone: phone,
+        location: location,
+        "farm type": farmType
+      }
+    ])
+    .select();
+
+  if (error) {
+    console.error("Error saving farmer:", error);
+    return false;
+  }
+
+  console.log("Farmer saved successfully:", data);
+  return true;
+  }
