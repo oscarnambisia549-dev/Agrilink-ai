@@ -31,5 +31,10 @@ function askAI() {
     answer.innerText =
       "🤖 Thanks for your question. Soon AgriLink AI will use a real AI model to provide personalized farming advice.";
   }
-}
-console.log("AgriLink AI: Supabase configuration loaded.");
+}  
+    const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+console.log("AgriLink AI: Supabase connected!");
