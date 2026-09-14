@@ -92,4 +92,24 @@ testSupabaseConnection();
 
   console.log("Farmer saved successfully:", data);
   return true;
+  }async function farmer() {
+  const name = prompt("Enter your name:");
+  if (!name) return;
+
+  const phone = prompt("Enter your phone number:");
+  if (!phone) return;
+
+  const location = prompt("Enter your location:");
+  if (!location) return;
+
+  const farmType = prompt("Enter your farm type:");
+  if (!farmType) return;
+
+  const success = await addFarmer(name, phone, location, farmType);
+
+  if (success) {
+    alert("Farmer account created successfully! 🌱");
+  } else {
+    alert("Something went wrong. Please try again.");
   }
+        }
