@@ -1,115 +1,180 @@
-const SUPABASE_URL = "https://cjgbeankvgtychqqgvlq.supabase.co/rest/v1/";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+// ==========================================
+// SUPABASE CONFIGURATION
+// ==========================================
+
+const SUPABASE_URL = "https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
 
 const supabaseClient = supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
 
+
+// ==========================================
+// AI FARMING ASSISTANT
+// ==========================================
+
 function askAI() {
-function askAI() {
-  let question = document.getElementById("question").value.trim();
-  let answer = document.getElementById("answer");
 
-  if (question === "") {
-    answer.innerText = "🌱 Please enter a farming question.";
-    return;
-  }
+    const question = document
+        .getElementById("question")
+        .value
+        .trim();
 
-  let q = question.toLowerCase();
+    const answer = document.getElementById("answer");
 
-  if (q.includes("maize")) {
-    answer.innerText =
-      "🌽 Maize advice: Check for yellow leaves, pests, and ensure proper fertilizer application. If possible, upload a photo in a future version for more accurate diagnosis.";
-  } else if (q.includes("tomato")) {
-    answer.innerText =
-      "🍅 Tomatoes need consistent watering, good drainage, and regular checks for pests and diseases.";
-  } else if (q.includes("weather")) {
-    answer.innerText =
-      "🌦️ Weather information will be available once AgriLink AI is connected to a live weather service.";
-  } else {
-    answer.innerText =
-      "🤖 Thanks for your question. Soon AgriLink AI will use a real AI model to provide personalized farming advice.";
-  }
-}  
-    const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+    if (question === "") {
+        answer.innerText =
+            "🌱 Please enter a farming question.";
+        return;
+    }
 
-console.log("AgriLink AI: Supabase connected!");
-async function testSupabaseConnection() {
-  const { data, error } = await supabaseClient
-    .from('farmers')
-    .select('*')
-    .limit(1);
+    const q = question.toLowerCase();
 
-  if (error) {
-    console.error("Supabase error:", error);
-  } else {
-    console.log("AgriLink AI database connected!", data);
-  }
+
+    // MAIZE
+    if (q.includes("maize") || q.includes("corn")) {
+
+        answer.innerText =
+            "🌽 Maize advice: Check your crops regularly for pests, yellow leaves, and signs of disease. Make sure the soil has enough nutrients and avoid overwatering.";
+    }
+
+
+    // TOMATOES
+    else if (q.includes("tomato") || q.includes("tomatoes")) {
+
+        answer.innerText =
+            "🍅 Tomato advice: Give tomatoes consistent watering, good drainage, enough sunlight, and regularly check for pests and diseases.";
+    }
+
+
+    // AVOCADOS
+    else if (q.includes("avocado") || q.includes("avocados")) {
+
+        answer.innerText =
+            "🥑 Avocado advice: Avoid waterlogged soil, maintain good drainage, and regularly check the trees for pests and diseases.";
+    }
+
+
+    // PESTS
+    else if (
+        q.includes("pest") ||
+        q.includes("insect") ||
+        q.includes("bugs")
+    ) {
+
+        answer.innerText =
+            "🐛 Pest advice: Inspect your crops regularly and identify the pest before choosing a treatment. Use environmentally responsible control methods whenever possible.";
+    }
+
+
+    // DISEASE
+    else if (
+        q.includes("disease") ||
+        q.includes("sick") ||
+        q.includes("spots") ||
+        q.includes("yellow leaves")
+    ) {
+
+        answer.innerText =
+            "🌱 Plant health advice: Check the affected leaves, stems, roots, and soil. Keep affected plants separated where possible and consider getting a professional diagnosis.";
+    }
+
+
+    // SOIL & FERTILIZER
+    else if (
+        q.includes("soil") ||
+        q.includes("fertilizer") ||
+        q.includes("fertiliser")
+    ) {
+
+        answer.innerText =
+            "🌱 Soil advice: Healthy soil is essential for good yields. Consider testing your soil before applying fertilizer and use nutrients according to your crop's needs.";
+    }
+
+
+    // WEATHER
+    else if (
+        q.includes("weather") ||
+        q.includes("rain") ||
+        q.includes("temperature")
+    ) {
+
+        answer.innerText =
+            "🌦️ Weather information will be available once AgriLink AI is connected to a live weather service.";
+    }
+
+
+    // MARKET
+    else if (
+        q.includes("market") ||
+        q.includes("sell") ||
+        q.includes("buyer")
+    ) {
+
+        answer.innerText =
+            "🛒 AgriLink Marketplace helps farmers connect with potential buyers and find opportunities to sell their produce.";
+    }
+
+
+    // DEFAULT
+    else {
+
+        answer.innerText =
+            "🤖 Thanks for your question! AgriLink AI is being developed to provide personalized farming guidance. Try asking about maize, tomatoes, avocados, pests, soil, fertilizer, weather, or markets.";
+    }
 }
 
-testSupabaseConnection();
-    async function farmer() {
-  const name = prompt("Enter your name:");
-  if (!name) return;
 
-  const phone = prompt("Enter your phone number:");
-  if (!phone) return;
+// ==========================================
+// FARMER ACCOUNT
+// ==========================================
 
-  const location = prompt("Enter your location:");
-  if (!location) return;
+function farmer() {
 
-  const farmType = prompt("Enter your farm type:");
-  if (!farmType) return;
+    alert(
+        "👨‍🌾 Welcome to AgriLink AI!\n\nFarmer registration will be available soon."
+    );
+}
 
-  const success = await addFarmer(name, phone, location, farmType);
 
-  if (success) {
-    alert("Farmer account created successfully! 🌱");
-  } else {
-    alert("Something went wrong. Please try again.");
-  }
-    }(name, phone, location, farmType) {
-  const { data, error } = await supabaseClient
-    .from('farmers')
-    .insert([
-      {
-        name: name,
-        phone: phone,
-        location: location,
-        "farm type": farmType
-      }
-    ])
-    .select();
+// ==========================================
+// BUYER ACCOUNT
+// ==========================================
 
-  if (error) {
-    console.error("Error saving farmer:", error);
-    return false;
-  }
+function buyer() {
 
-  console.log("Farmer saved successfully:", data);
-  return true;
-  }async function farmer() {
-  const name = prompt("Enter your name:");
-  if (!name) return;
+    alert(
+        "🛒 Welcome to AgriLink AI!\n\nBuyer registration will be available soon."
+    );
+}
 
-  const phone = prompt("Enter your phone number:");
-  if (!phone) return;
 
-  const location = prompt("Enter your location:");
-  if (!location) return;
+// ==========================================
+// ENTER KEY FOR AI ASSISTANT
+// ==========================================
 
-  const farmType = prompt("Enter your farm type:");
-  if (!farmType) return;
+document.addEventListener("DOMContentLoaded", function () {
 
-  const success = await addFarmer(name, phone, location, farmType);
+    const questionInput =
+        document.getElementById("question");
 
-  if (success) {
-    alert("Farmer account created successfully! 🌱");
-  } else {
-    alert("Something went wrong. Please try again.");
-  }
-        }
+    if (questionInput) {
+
+        questionInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+                    askAI();
+                }
+
+            }
+        );
+
+    }
+
+});
