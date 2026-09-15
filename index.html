@@ -422,81 +422,99 @@
 
     </section>
 
+<!-- FARMER & BUYER REGISTRATION -->
 
-    <!-- USER TYPES -->
+<section id="roles">
 
-    <section id="roles">
+    <div class="title">
+        <span class="section-label">JOIN AGRILINK AI</span>
+        <h2>Be Part of the Future of Agriculture</h2>
+        <p>Join our growing community of farmers and buyers.</p>
+    </div>
 
-        <div class="title">
+    <div class="roles">
 
-            <span class="section-label">
-                JOIN US
-            </span>
+        <!-- FARMER -->
+        <div class="role">
+            <div class="role-icon">👨‍🌾</div>
 
-            <h2>
-                Join AgriLink AI
-            </h2>
+            <h2>Farmer</h2>
 
             <p>
-                Choose how you want to use the platform.
+                Connect with buyers, get farming insights,
+                discover markets and grow your farm with AI.
             </p>
 
+            <button onclick="showRegistration('farmer')">
+                🌱 Register as Farmer
+            </button>
         </div>
 
+        <!-- BUYER -->
+        <div class="role">
+            <div class="role-icon">🛒</div>
 
-        <div class="roles">
+            <h2>Buyer</h2>
 
+            <p>
+                Find fresh agricultural products directly
+                from farmers and connect with trusted suppliers.
+            </p>
 
-            <!-- FARMER -->
-
-            <div class="role">
-
-                <div class="role-icon">
-                    👨‍🌾
-                </div>
-
-                <h2>
-                    I'm a Farmer
-                </h2>
-
-                <p>
-                    List your produce, find buyers, monitor
-                    your farm and get AI-powered advice.
-                </p>
-
-                <button onclick="farmer()">
-                    Create Farmer Account →
-                </button>
-
-            </div>
-
-
-            <!-- BUYER -->
-
-            <div class="role">
-
-                <div class="role-icon">
-                    🛒
-                </div>
-
-                <h2>
-                    I'm a Buyer
-                </h2>
-
-                <p>
-                    Discover agricultural products and connect
-                    directly with farmers.
-                </p>
-
-                <button onclick="buyer()">
-                    Join as Buyer →
-                </button>
-
-            </div>
-
+            <button onclick="showRegistration('buyer')">
+                🛒 Register as Buyer
+            </button>
         </div>
 
-    </section>
+    </div>
+
+    <!-- REGISTRATION FORM -->
+
+    <div id="registrationBox" class="registration-box">
+
+        <h2 id="registrationTitle">Create Your Account</h2>
+
+        <form id="registrationForm">
+
+            <input
+                type="text"
+                id="fullName"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email Address"
+                required
+            >
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Phone Number"
+                required
+            >
+
+            <input
+                type="text"
+                id="location"
+                placeholder="Location"
+                required
+            >
+
+            <button type="submit">
+                Create Account 🚀
+            </button>
+
+        </form>
+
+        <p id="registrationMessage"></p>
+
+    </div>
+
+</section>
 
 
     <!-- CONTACT -->
