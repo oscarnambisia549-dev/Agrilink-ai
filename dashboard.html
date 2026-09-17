@@ -7,7 +7,6 @@
 <title>AgriLink AI Dashboard</title>
 
 <style>
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -27,9 +26,6 @@ nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    position:sticky;
-    top:0;
-    z-index:100;
 }
 
 .logo{
@@ -47,12 +43,6 @@ nav a{
     font-weight:bold;
 }
 
-.container{
-    max-width:1150px;
-    margin:auto;
-    padding:35px 7%;
-}
-
 .hero{
     background:linear-gradient(135deg,#0c5c29,#2e8b46);
     color:white;
@@ -60,20 +50,22 @@ nav a{
 }
 
 .hero h1{
-    font-size:42px;
+    font-size:40px;
     margin-bottom:12px;
 }
 
-.hero p{
-    font-size:18px;
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:30px 7%;
 }
 
 .card{
     background:white;
-    margin-top:25px;
+    margin-bottom:25px;
     padding:25px;
     border-radius:15px;
-    box-shadow:0 5px 18px rgba(0,0,0,0.08);
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
 }
 
 .card h2{
@@ -81,26 +73,10 @@ nav a{
     margin-bottom:12px;
 }
 
-button{
-    background:#126b2f;
-    color:white;
-    border:none;
-    padding:13px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
-}
-
-button:hover{
-    background:#0c5223;
-}
-
-input,
-select{
+input,select{
     width:100%;
     padding:13px;
-    margin:8px 0 15px;
+    margin:7px 0 15px;
     border:1px solid #ccc;
     border-radius:8px;
     font-size:16px;
@@ -110,10 +86,33 @@ label{
     font-weight:bold;
 }
 
+button{
+    background:#126b2f;
+    color:white;
+    border:none;
+    padding:13px 20px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
 .message{
     margin-top:15px;
     padding:12px;
     border-radius:8px;
+}
+
+.weather-box{
+    background:#f5faf6;
+    padding:18px;
+    margin-top:15px;
+    border-radius:10px;
+    line-height:1.8;
 }
 
 .produce-item{
@@ -124,32 +123,13 @@ label{
     border-radius:10px;
 }
 
-.produce-item strong{
-    color:#126b2f;
-}
-
 .delete-btn{
     background:#b3261e;
     margin-top:10px;
-    padding:9px 14px;
     font-size:14px;
 }
 
-.delete-btn:hover{
-    background:#8c1d18;
-}
-
-.weather-box{
-    background:#f5faf6;
-    border:1px solid #d8eadc;
-    padding:18px;
-    border-radius:10px;
-    margin-top:15px;
-    line-height:1.8;
-}
-
 footer{
-    margin-top:40px;
     background:#18351f;
     color:white;
     text-align:center;
@@ -157,44 +137,31 @@ footer{
 }
 
 .small{
-    color:#666;
-    font-size:14px;
     margin-top:8px;
+    font-size:14px;
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- NAVIGATION -->
-
 <nav>
-
     <div class="logo">
         🌱 AgriLink <span>AI</span>
     </div>
 
     <a href="index.html">Home</a>
-
 </nav>
 
-
-<!-- HERO -->
-
 <section class="hero">
-
     <h1>Farmer Dashboard 🌱</h1>
 
     <p>
         One platform. Every farmer. A better future through AI. 🚀
     </p>
-
 </section>
 
-
 <div class="container">
-
 
 <!-- WEATHER -->
 
@@ -220,4 +187,670 @@ footer{
     <h2>🌽 My Produce</h2>
 
     <p>
-        Add the crops
+        Add the crops or produce available on your farm.
+    </p>
+
+    <br>
+
+    <label for="produce-name">
+        Crop / Produce
+    </label>
+
+    <input
+        type="text"
+        id="produce-name"
+        placeholder="e.g. Maize"
+    >
+
+    <label for="quantity">
+        Quantity
+    </label>
+
+    <input
+        type="number"
+        id="quantity"
+        placeholder="e.g. 50"
+        min="0"
+    >
+
+    <label for="unit">
+        Unit
+    </label>
+
+    <select id="unit">
+        <option value="kg">kg</option>
+        <option value="bags">bags</option>
+        <option value="tonnes">tonnes</option>
+        <option value="pieces">pieces</option>
+        <option value="crates">crates</option>
+    </select>
+
+    <label for="location">
+        Farm Location
+    </label>
+
+    <input
+        type="text"
+        id="location"
+        placeholder="e.g. Nairobi"
+    >
+
+    <button id="add-produce-btn" type="button">
+        ➕ Add Produce
+    </button>
+
+    <div id="produce-message" class="message"></div>
+
+    <h3 style="margin-top:30px;">
+        My Produce List
+    </h3>
+
+    <div id="produce-list">
+        ⏳ Loading produce...
+    </div>
+
+</div>
+
+
+<!-- MARKETPLACE -->
+
+<div class="card">
+
+    <h2>🛒 Marketplace</h2>
+
+    <p>
+        Connect farmers with buyers and agricultural markets.
+    </p>
+
+    <br>
+
+    <button id="marketplace-btn" type="button">
+        Open Marketplace
+    </button>
+
+</div>
+
+
+<!-- AI ASSISTANT -->
+
+<div class="card">
+
+    <h2>🤖 AI Farming Assistant</h2>
+
+    <p>
+        Get AI-powered farming guidance, crop advice,
+        pest information and agricultural insights.
+    </p>
+
+    <br>
+
+    <button id="ai-btn" type="button">
+        Ask AgriLink AI
+    </button>
+
+</div>
+
+
+<!-- FARM INSIGHTS -->
+
+<div class="card">
+
+    <h2>📊 Farm Insights</h2>
+
+    <p>
+        Track farming activities and make better decisions
+        using data.
+    </p>
+
+    <br>
+
+    <button id="insights-btn" type="button">
+        View Farm Insights
+    </button>
+
+</div>
+
+</div>
+
+<footer>
+
+    <p>🌱 AgriLink AI</p>
+
+    <p class="small">
+        Growing Agriculture Through Innovation
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
+
+/* =========================
+   WEATHER
+========================= */
+
+async function loadWeather(){
+
+    const box =
+        document.getElementById("weather-info");
+
+    try{
+
+        const url =
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=-1.286389" +
+        "&longitude=36.817223" +
+        "&current=temperature_2m,wind_speed_10m,weather_code" +
+        "&daily=precipitation_probability_max" +
+        "&timezone=Africa%2FNairobi";
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok){
+            throw new Error("Weather request failed");
+        }
+
+        const data =
+            await response.json();
+
+        const temperature =
+            data.current.temperature_2m;
+
+        const wind =
+            data.current.wind_speed_10m;
+
+        const code =
+            data.current.weather_code;
+
+        const rain =
+            data.daily.precipitation_probability_max[0];
+
+        box.innerHTML = `
+            <strong>Current Weather</strong><br>
+            📍 Farm location: Nairobi, Kenya<br>
+            🌡️ Temperature: ${temperature}°C<br>
+            🌧️ Rain probability: ${rain}%<br>
+            💨 Wind: ${wind} km/h<br>
+            ☀️ Forecast: ${weatherDescription(code)}<br>
+            ✅ Live weather
+        `;
+
+    }catch(error){
+
+        console.error(error);
+
+        box.innerHTML =
+        "❌ Weather could not be loaded.";
+
+    }
+}
+
+
+function weatherDescription(code){
+
+    if(code === 0)
+        return "Clear sky ☀️";
+
+    if(code === 1 || code === 2)
+        return "Partly cloudy ⛅";
+
+    if(code === 3)
+        return "Cloudy ☁️";
+
+    if(code >= 45 && code <= 48)
+        return "Foggy 🌫️";
+
+    if(code >= 51 && code <= 67)
+        return "Rainy 🌧️";
+
+    if(code >= 80 && code <= 82)
+        return "Rain showers 🌦️";
+
+    if(code >= 95)
+        return "Thunderstorm ⛈️";
+
+    return "Unknown";
+}
+
+
+/* =========================
+   LOAD PRODUCE
+========================= */
+
+async function loadProduce(){
+
+    const list =
+        document.getElementById("produce-list");
+
+    list.innerHTML =
+        "⏳ Loading produce...";
+
+    try{
+
+        const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/produce?select=*&order=created_at.desc",
+            {
+                method:"GET",
+
+                headers:{
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_PUBLISHABLE_KEY
+                }
+            }
+        );
+
+        const text =
+            await response.text();
+
+        let data;
+
+        try{
+            data = JSON.parse(text);
+        }catch{
+            data = text;
+        }
+
+        if(!response.ok){
+
+            throw new Error(
+                typeof data === "string"
+                ? data
+                : JSON.stringify(data)
+            );
+
+        }
+
+        list.innerHTML = "";
+
+        if(data.length === 0){
+
+            list.innerHTML =
+                "🌱 No produce added yet.";
+
+            return;
+        }
+
+        data.forEach(
+            displayProduce
+        );
+
+    }catch(error){
+
+        console.error(
+            "LOAD PRODUCE ERROR:",
+            error
+        );
+
+        list.innerHTML =
+        "❌ Produce loading error:<br>" +
+        error.message;
+
+    }
+}
+
+
+/* =========================
+   DISPLAY PRODUCE
+========================= */
+
+function displayProduce(item){
+
+    const list =
+        document.getElementById("produce-list");
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "produce-item";
+
+    div.innerHTML = `
+        <strong>
+            🌽 ${escapeHTML(item.produce_name)}
+        </strong>
+        <br>
+        📦 Quantity:
+        ${escapeHTML(String(item.quantity))}
+        ${escapeHTML(item.unit)}
+        <br>
+        📍 Location:
+        ${escapeHTML(item.location)}
+        <br><br>
+        <button
+            class="delete-btn"
+            type="button"
+            data-id="${item.id}">
+            🗑️ Remove
+        </button>
+    `;
+
+    const deleteButton =
+        div.querySelector(".delete-btn");
+
+    deleteButton.addEventListener(
+        "click",
+        function(){
+            deleteProduce(
+                item.id,
+                deleteButton
+            );
+        }
+    );
+
+    list.appendChild(div);
+}
+
+
+/* =========================
+   ADD PRODUCE
+========================= */
+
+async function addProduce(){
+
+    const button =
+        document.getElementById(
+            "add-produce-btn"
+        );
+
+    const name =
+        document.getElementById(
+            "produce-name"
+        ).value.trim();
+
+    const quantity =
+        document.getElementById(
+            "quantity"
+        ).value;
+
+    const unit =
+        document.getElementById(
+            "unit"
+        ).value;
+
+    const location =
+        document.getElementById(
+            "location"
+        ).value.trim();
+
+    const message =
+        document.getElementById(
+            "produce-message"
+        );
+
+
+    if(
+        name === "" ||
+        quantity === "" ||
+        location === ""
+    ){
+
+        message.innerHTML =
+        "⚠️ Please fill in all fields.";
+
+        return;
+    }
+
+
+    button.disabled = true;
+
+    button.innerText =
+        "⏳ Saving...";
+
+    message.innerHTML =
+        "⏳ Connecting to AgriLink AI...";
+
+
+    try{
+
+        const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/produce",
+            {
+                method:"POST",
+
+                headers:{
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Content-Type":
+                        "application/json",
+
+                    "Prefer":
+                        "return=representation"
+                },
+
+                body:JSON.stringify({
+                    produce_name:name,
+                    quantity:Number(quantity),
+                    unit:unit,
+                    location:location
+                })
+            }
+        );
+
+
+        const text =
+            await response.text();
+
+        let data;
+
+        try{
+            data = JSON.parse(text);
+        }catch{
+            data = text;
+        }
+
+
+        if(!response.ok){
+
+            throw new Error(
+                typeof data === "string"
+                ? data
+                : JSON.stringify(data)
+            );
+        }
+
+
+        message.innerHTML =
+        "✅ Produce saved successfully!";
+
+
+        document.getElementById(
+            "produce-name"
+        ).value = "";
+
+        document.getElementById(
+            "quantity"
+        ).value = "";
+
+        document.getElementById(
+            "location"
+        ).value = "";
+
+
+        await loadProduce();
+
+
+    }catch(error){
+
+        console.error(
+            "ADD PRODUCE ERROR:",
+            error
+        );
+
+        message.innerHTML =
+        "❌ Failed to save:<br>" +
+        error.message;
+
+    }finally{
+
+        button.disabled = false;
+
+        button.innerText =
+            "➕ Add Produce";
+
+    }
+}
+
+
+/* =========================
+   DELETE PRODUCE
+========================= */
+
+async function deleteProduce(
+    id,
+    button
+){
+
+    button.disabled = true;
+
+    try{
+
+        const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/produce?id=eq." +
+            id,
+            {
+                method:"DELETE",
+
+                headers:{
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_PUBLISHABLE_KEY
+                }
+            }
+        );
+
+
+        if(!response.ok){
+
+            const text =
+                await response.text();
+
+            throw new Error(text);
+        }
+
+
+        await loadProduce();
+
+    }catch(error){
+
+        alert(
+            "❌ Could not remove produce: " +
+            error.message
+        );
+
+        button.disabled = false;
+    }
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(text){
+
+    const element =
+        document.createElement("div");
+
+    element.textContent =
+        text;
+
+    return element.innerHTML;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+function showComingSoon(){
+
+    alert(
+        "🚀 This AgriLink AI feature is coming soon!"
+    );
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const addButton =
+            document.getElementById(
+                "add-produce-btn"
+            );
+
+        addButton.addEventListener(
+            "click",
+            addProduce
+        );
+
+
+        document.getElementById(
+            "marketplace-btn"
+        ).addEventListener(
+            "click",
+            showComingSoon
+        );
+
+
+        document.getElementById(
+            "ai-btn"
+        ).addEventListener(
+            "click",
+            showComingSoon
+        );
+
+
+        document.getElementById(
+            "insights-btn"
+        ).addEventListener(
+            "click",
+            showComingSoon
+        );
+
+
+        loadWeather();
+
+        loadProduce();
+
+    }
+);
+
+</script>
+
+</body>
+    </html>
