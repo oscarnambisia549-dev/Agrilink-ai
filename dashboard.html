@@ -1,108 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>AgriLink AI - Farmer Dashboard</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
 
-    <title>AgriLink AI - Farmer Dashboard</title>
+body{
+    background:#f5faf6;
+    color:#18351f;
+}
 
-    <style>
+header{
+    background:linear-gradient(135deg,#0c5c29,#2e8b46);
+    color:white;
+    padding:35px 20px;
+    text-align:center;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
+header h1{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+header p{
+    font-size:16px;
+}
+
+.dashboard{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 20px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.card h2{
+    color:#126b2f;
+    margin-bottom:12px;
+}
+
+.card p{
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.button{
+    display:inline-block;
+    background:#126b2f;
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.button:hover{
+    background:#0c5425;
+}
+
+.weather-section{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    margin-top:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.weather-section h2{
+    color:#126b2f;
+    margin-bottom:20px;
+}
+
+.weather-info{
+    line-height:2;
+    font-size:17px;
+}
+
+.status{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.back{
+    display:inline-block;
+    margin-top:20px;
+    color:#126b2f;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+footer{
+    background:#18351f;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body id="top">
+
+<header>
+    <h1>🌱 AgriLink AI</h1>
+    <p>Farmer Dashboard</p>
+</header>
+
+<main class="dashboard">
+
+    <div class="card">
+        <h2>🌤️ Weather</h2>
+        <p>Check current weather conditions for your farm.</p>
+        <a href="#weather" class="button">View Weather</a>
+    </div>
+
+    <div class="card">
+        <h2>🌾 My Produce</h2>
+        <p>Manage your crops and farm produce.</p>
+    </div>
+
+    <div class="card">
+        <h2>🛒 Marketplace</h2>
+        <p>Connect with buyers and explore agricultural markets.</p>
+    </div>
+
+    <div class="card">
+        <h2>🤖 AI Assistant</h2>
+        <p>Get AI-powered farming assistance and recommendations.</p>
+    </div>
+
+    <div class="card">
+        <h2>📊 Farm Insights</h2>
+        <p>View useful information about your farming activities.</p>
+    </div>
+
+    <section id="weather" class="weather-section">
+
+        <h2>🌤️ Weather Information</h2>
+
+        <p>
+            Get live weather information for the farm location.
+        </p>
+
+        <a href="#weather-info" class="button">
+            Check Weather
+        </a>
+
+        <br>
+
+        <a href="#top" class="back">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
+    <section id="weather-info" class="weather-section">
+
+        <h2>🌤️ Current Weather</h2>
+
+        <div class="weather-info">
+
+            <p id="weatherLocation">
+                📍 Farm location: Loading...
+            </p>
+
+            <p id="weatherTemperature">
+                🌡️ Temperature: Loading...
+            </p>
+
+            <p id="weatherRain">
+                🌧️ Rain probability: Loading...
+            </p>
+
+            <p id="weatherWind">
+                💨 Wind: Loading...
+            </p>
+
+            <p id="weatherForecast">
+                ☀️ Forecast: Loading...
+            </p>
+
+        </div>
+
+        <p id="weatherStatus" class="status">
+            ⏳ Getting live weather...
+        </p>
+
+        <a href="#top" class="back">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>AgriLink AI 🌱🚀</p>
+    <p>One platform. Every farmer. A better future through AI.</p>
+</footer>
+
+<script>
+
+async function loadWeather(){
+
+    const latitude = -1.286389;
+    const longitude = 36.817223;
+
+    const url =
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=" + latitude +
+        "&longitude=" + longitude +
+        "&current=temperature_2m,wind_speed_10m,weather_code" +
+        "&daily=precipitation_probability_max" +
+        "&timezone=Africa%2FNairobi";
+
+    const status = document.getElementById("weatherStatus");
+
+    try{
+
+        status.innerText = "⏳ Getting live weather...";
+
+        const response = await fetch(url);
+
+        if(!response.ok){
+            throw new Error("Weather service unavailable");
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        const data = await response.json();
 
-        body {
-            background: #f5faf6;
-            color: #18351f;
-        }
+        const temperature =
+            data.current.temperature_2m;
 
-        header {
-            background: #126b2f;
-            color: white;
-            padding: 22px 7%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        const wind =
+            data.current.wind_speed_10m;
 
-        header h1 {
-            font-size: 28px;
-        }
+        const rain =
+            data.daily.precipitation_probability_max[0];
 
-        header p {
-            margin-top: 6px;
-            opacity: 0.9;
-        }
+        const weatherCode =
+            data.current.weather_code;
 
-        .container {
-            max-width: 1150px;
-            margin: auto;
-            padding: 30px 7%;
-        }
+        document.getElementById("weatherLocation").innerText =
+            "📍 Farm location: Nairobi, Kenya";
 
-        .welcome {
-            background: linear-gradient(
-                135deg,
-                #0c5c29,
-                #2e8b46
-            );
+        document.getElementById("weatherTemperature").innerText =
+            "🌡️ Temperature: " + temperature + "°C";
 
-            color: white;
-            padding: 30px;
-            border-radius: 18px;
-            margin-bottom: 25px;
-        }
+        document.getElementById("weatherRain").innerText =
+            "🌧️ Rain probability: " + rain + "%";
 
-        .welcome h2 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
+        document.getElementById("weatherWind").innerText =
+            "💨 Wind: " + wind + " km/h";
 
-        .cards {
-            display: grid;
+        document.getElementById("weatherForecast").innerText =
+            "☀️ Forecast: " + getWeatherDescription(weatherCode);
 
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(220px, 1fr)
-                );
+        status.innerText =
+            "✅ Live weather loaded";
 
-            gap: 18px;
-        }
+    }catch(error){
 
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
+        console.error("WEATHER ERROR:",error);
 
-            box-shadow:
-                0 5px 18px
-                rgba(0,0,0,0.08);
-        }
+        status.innerText =
+            "❌ Unable to load live weather.";
 
-        .icon {
-            font-size: 35px;
-            margin-bottom: 12px;
-        }
+    }
 
-        .card h3 {
-            margin-bottom: 8px;
-            color: #126b2f;
-        }
+}
 
-        .card p {
-            color: #55705c;
-            line-height: 1.5;
-       
+
+function getWeatherDescription(code){
+
+    if(code === 0){
+        return "Clear sky";
+    }
+
+    if(code === 1 || code === 2){
+        return "Partly cloudy";
+    }
+
+    if(code === 3){
+        return "Cloudy";
+    }
+
+    if(code >= 51 && code <= 67){
+        return "Rain";
+    }
+
+    if(code >= 71 && code <= 77){
+        return "Snow";
+    }
+
+    if(code >= 80 && code <= 82){
+        return "Rain showers";
+    }
+
+    if(code >= 95 && code <= 99){
+        return "Thunderstorm";
+    }
+
+    return "Mixed weather";
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+        loadWeather();
+    }
+);
+
+</script>
+
+</body>
+</html>
