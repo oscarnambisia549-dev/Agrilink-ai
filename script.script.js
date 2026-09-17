@@ -123,7 +123,6 @@ function showRegistration(role) {
         block: "center"
     });
 
-    // Save selected role for registration
     box.dataset.role = role;
 }
 
@@ -193,12 +192,14 @@ if (registrationForm) {
                     .select();
 
 
+            // SHOW THE REAL SUPABASE ERROR
             if (error) {
 
-                console.error(error);
+                console.error("SUPABASE ERROR:", error);
 
                 message.innerText =
-                    "❌ Registration failed. Please check your Supabase table.";
+                    "❌ Registration failed: " +
+                    error.message;
 
                 return;
             }
@@ -214,10 +215,11 @@ if (registrationForm) {
 
         } catch (error) {
 
-            console.error(error);
+            console.error("REGISTRATION ERROR:", error);
 
             message.innerText =
-                "❌ Something went wrong. Please try again.";
+                "❌ Something went wrong: " +
+                error.message;
         }
 
     });
