@@ -14,6 +14,10 @@
     font-family:Arial,sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:#f5faf6;
     color:#18351f;
@@ -41,7 +45,8 @@ header p{
     padding:0 20px;
 }
 
-.card{
+.card,
+.section{
     background:white;
     border-radius:15px;
     padding:25px;
@@ -49,7 +54,8 @@ header p{
     box-shadow:0 5px 20px rgba(0,0,0,0.08);
 }
 
-.card h2{
+.card h2,
+.section h2{
     color:#126b2f;
     margin-bottom:12px;
 }
@@ -67,24 +73,53 @@ header p{
     border-radius:8px;
     text-decoration:none;
     font-weight:bold;
-    margin-top:5px;
+    border:none;
+    cursor:pointer;
 }
 
 .button:hover{
     background:#0c5425;
 }
 
-.weather-section{
-    background:white;
-    border-radius:15px;
-    padding:25px;
-    margin-top:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+.form-group{
+    margin-bottom:15px;
 }
 
-.weather-section h2{
-    color:#126b2f;
-    margin-bottom:20px;
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.produce-list{
+    margin-top:25px;
+}
+
+.produce-item{
+    background:#f5faf6;
+    border-left:5px solid #126b2f;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:12px;
+}
+
+.delete-button{
+    background:#b3261e;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    margin-top:10px;
+    cursor:pointer;
 }
 
 .weather-info{
@@ -124,33 +159,47 @@ footer{
 
 <main class="dashboard">
 
+    <!-- WEATHER CARD -->
     <div class="card">
         <h2>🌤️ Weather</h2>
         <p>Check current weather conditions for your farm.</p>
-        <a href="#weather" class="button">View Weather</a>
+
+        <a href="#weather" class="button">
+            View Weather
+        </a>
     </div>
 
+    <!-- MY PRODUCE CARD -->
     <div class="card">
         <h2>🌾 My Produce</h2>
-        <p>Manage your crops and farm produce.</p>
+        <p>Add and manage the crops or produce from your farm.</p>
+
+        <a href="#produce" class="button">
+            Manage My Produce
+        </a>
     </div>
 
+    <!-- MARKETPLACE -->
     <div class="card">
         <h2>🛒 Marketplace</h2>
         <p>Connect with buyers and explore agricultural markets.</p>
     </div>
 
+    <!-- AI ASSISTANT -->
     <div class="card">
         <h2>🤖 AI Assistant</h2>
         <p>Get AI-powered farming assistance and recommendations.</p>
     </div>
 
+    <!-- FARM INSIGHTS -->
     <div class="card">
         <h2>📊 Farm Insights</h2>
         <p>View useful information about your farming activities.</p>
     </div>
 
-    <section id="weather" class="weather-section">
+
+    <!-- WEATHER SECTION -->
+    <section id="weather" class="section">
 
         <h2>🌤️ Weather Information</h2>
 
@@ -170,7 +219,9 @@ footer{
 
     </section>
 
-    <section id="weather-info" class="weather-section">
+
+    <!-- CURRENT WEATHER -->
+    <section id="weather-info" class="section">
 
         <h2>🌤️ Current Weather</h2>
 
@@ -208,14 +259,109 @@ footer{
 
     </section>
 
+
+    <!-- MY PRODUCE SECTION -->
+    <section id="produce" class="section">
+
+        <h2>🌾 My Produce</h2>
+
+        <p>
+            Add the crops or produce currently available on your farm.
+        </p>
+
+        <div class="form-group">
+            <label for="produceName">
+                Crop / Produce
+            </label>
+
+            <input
+                type="text"
+                id="produceName"
+                placeholder="Example: Maize"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="produceQuantity">
+                Quantity
+            </label>
+
+            <input
+                type="number"
+                id="produceQuantity"
+                placeholder="Example: 50"
+                min="0"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="produceUnit">
+                Unit
+            </label>
+
+            <select id="produceUnit">
+                <option value="kg">Kilograms (kg)</option>
+                <option value="bags">Bags</option>
+                <option value="tonnes">Tonnes</option>
+                <option value="pieces">Pieces</option>
+                <option value="crates">Crates</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="produceLocation">
+                Farm Location
+            </label>
+
+            <input
+                type="text"
+                id="produceLocation"
+                placeholder="Example: Nairobi"
+            >
+        </div>
+
+        <button
+            class="button"
+            onclick="addProduce()"
+        >
+            ➕ Add Produce
+        </button>
+
+        <div id="produceList" class="produce-list">
+
+            <p>
+                No produce added yet.
+            </p>
+
+        </div>
+
+        <a href="#top" class="back">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
 </main>
 
+
 <footer>
-    <p>AgriLink AI 🌱🚀</p>
-    <p>One platform. Every farmer. A better future through AI.</p>
+
+    <p>
+        AgriLink AI 🌱🚀
+    </p>
+
+    <p>
+        One platform. Every farmer. A better future through AI.
+    </p>
+
 </footer>
 
+
 <script>
+
+/* =========================
+   WEATHER
+========================= */
 
 async function loadWeather(){
 
@@ -230,19 +376,27 @@ async function loadWeather(){
         "&daily=precipitation_probability_max" +
         "&timezone=Africa%2FNairobi";
 
-    const status = document.getElementById("weatherStatus");
+    const status =
+        document.getElementById("weatherStatus");
 
     try{
 
-        status.innerText = "⏳ Getting live weather...";
+        status.innerText =
+            "⏳ Getting live weather...";
 
-        const response = await fetch(url);
+        const response =
+            await fetch(url);
 
         if(!response.ok){
-            throw new Error("Weather service unavailable");
+
+            throw new Error(
+                "Weather service unavailable"
+            );
+
         }
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
         const temperature =
             data.current.temperature_2m;
@@ -256,78 +410,19 @@ async function loadWeather(){
         const weatherCode =
             data.current.weather_code;
 
-        document.getElementById("weatherLocation").innerText =
+        document.getElementById(
+            "weatherLocation"
+        ).innerText =
             "📍 Farm location: Nairobi, Kenya";
 
-        document.getElementById("weatherTemperature").innerText =
-            "🌡️ Temperature: " + temperature + "°C";
+        document.getElementById(
+            "weatherTemperature"
+        ).innerText =
+            "🌡️ Temperature: " +
+            temperature +
+            "°C";
 
-        document.getElementById("weatherRain").innerText =
-            "🌧️ Rain probability: " + rain + "%";
-
-        document.getElementById("weatherWind").innerText =
-            "💨 Wind: " + wind + " km/h";
-
-        document.getElementById("weatherForecast").innerText =
-            "☀️ Forecast: " + getWeatherDescription(weatherCode);
-
-        status.innerText =
-            "✅ Live weather loaded";
-
-    }catch(error){
-
-        console.error("WEATHER ERROR:",error);
-
-        status.innerText =
-            "❌ Unable to load live weather.";
-
-    }
-
-}
-
-
-function getWeatherDescription(code){
-
-    if(code === 0){
-        return "Clear sky";
-    }
-
-    if(code === 1 || code === 2){
-        return "Partly cloudy";
-    }
-
-    if(code === 3){
-        return "Cloudy";
-    }
-
-    if(code >= 51 && code <= 67){
-        return "Rain";
-    }
-
-    if(code >= 71 && code <= 77){
-        return "Snow";
-    }
-
-    if(code >= 80 && code <= 82){
-        return "Rain showers";
-    }
-
-    if(code >= 95 && code <= 99){
-        return "Thunderstorm";
-    }
-
-    return "Mixed weather";
-}
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-        loadWeather();
-    }
-);
-
-</script>
-
-</body>
-</html>
+        document.getElementById(
+            "weatherRain"
+        ).innerText =
+            "🌧️ Rain probability:
