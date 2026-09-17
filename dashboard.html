@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI - Farmer Dashboard</title>
+<title>AgriLink AI Dashboard</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -14,481 +15,209 @@
     font-family:Arial,sans-serif;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 body{
     background:#f5faf6;
     color:#18351f;
 }
 
-header{
+nav{
+    background:#126b2f;
+    color:white;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#b9f6c8;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.container{
+    max-width:1150px;
+    margin:auto;
+    padding:35px 7%;
+}
+
+.hero{
     background:linear-gradient(135deg,#0c5c29,#2e8b46);
     color:white;
-    padding:35px 20px;
-    text-align:center;
+    padding:55px 7%;
 }
 
-header h1{
-    font-size:32px;
-    margin-bottom:10px;
+.hero h1{
+    font-size:42px;
+    margin-bottom:12px;
 }
 
-header p{
-    font-size:16px;
+.hero p{
+    font-size:18px;
 }
 
-.dashboard{
-    max-width:1100px;
-    margin:30px auto;
-    padding:0 20px;
-}
-
-.card,
-.section{
+.card{
     background:white;
-    border-radius:15px;
+    margin-top:25px;
     padding:25px;
-    margin-bottom:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    border-radius:15px;
+    box-shadow:0 5px 18px rgba(0,0,0,0.08);
 }
 
-.card h2,
-.section h2{
+.card h2{
     color:#126b2f;
     margin-bottom:12px;
 }
 
-.card p{
-    line-height:1.6;
-    margin-bottom:15px;
-}
-
-.button{
-    display:inline-block;
+button{
     background:#126b2f;
     color:white;
-    padding:12px 20px;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:bold;
     border:none;
+    padding:13px 20px;
+    border-radius:8px;
     cursor:pointer;
-}
-
-.button:hover{
-    background:#0c5425;
-}
-
-.form-group{
-    margin-bottom:15px;
-}
-
-.form-group label{
-    display:block;
+    font-size:16px;
     font-weight:bold;
-    margin-bottom:7px;
 }
 
-.form-group input,
-.form-group select{
+button:hover{
+    background:#0c5223;
+}
+
+input,
+select{
     width:100%;
     padding:13px;
+    margin:8px 0 15px;
     border:1px solid #ccc;
     border-radius:8px;
     font-size:16px;
 }
 
-.produce-list{
-    margin-top:25px;
+label{
+    font-weight:bold;
+}
+
+.message{
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
 }
 
 .produce-item{
     background:#f5faf6;
-    border-left:5px solid #126b2f;
-    padding:15px;
-    border-radius:8px;
-    margin-bottom:12px;
+    border:1px solid #d8eadc;
+    padding:16px;
+    margin-top:12px;
+    border-radius:10px;
 }
 
-.delete-button{
-    background:#b3261e;
-    color:white;
-    border:none;
-    padding:8px 12px;
-    border-radius:6px;
-    margin-top:10px;
-    cursor:pointer;
-}
-
-.weather-info{
-    line-height:2;
-    font-size:17px;
-}
-
-.status{
-    margin-top:15px;
-    font-weight:bold;
-}
-
-.back{
-    display:inline-block;
-    margin-top:20px;
+.produce-item strong{
     color:#126b2f;
-    font-weight:bold;
-    text-decoration:none;
+}
+
+.delete-btn{
+    background:#b3261e;
+    margin-top:10px;
+    padding:9px 14px;
+    font-size:14px;
+}
+
+.delete-btn:hover{
+    background:#8c1d18;
+}
+
+.weather-box{
+    background:#f5faf6;
+    border:1px solid #d8eadc;
+    padding:18px;
+    border-radius:10px;
+    margin-top:15px;
+    line-height:1.8;
 }
 
 footer{
+    margin-top:40px;
     background:#18351f;
     color:white;
     text-align:center;
     padding:25px;
-    margin-top:40px;
 }
+
+.small{
+    color:#666;
+    font-size:14px;
+    margin-top:8px;
+}
+
 </style>
 </head>
 
-<body id="top">
+<body>
 
-<header>
-    <h1>🌱 AgriLink AI</h1>
-    <p>Farmer Dashboard</p>
-</header>
+<!-- NAVIGATION -->
 
-<main class="dashboard">
+<nav>
 
-    <div class="card">
-        <h2>🌤️ Weather</h2>
-        <p>Check current weather conditions for your farm.</p>
-        <a href="#weather" class="button">View Weather</a>
+    <div class="logo">
+        🌱 AgriLink <span>AI</span>
     </div>
 
-    <div class="card">
-        <h2>🌾 My Produce</h2>
-        <p>Add and manage the crops or produce from your farm.</p>
-        <a href="#produce" class="button">Manage My Produce</a>
-    </div>
+    <a href="index.html">Home</a>
 
-    <div class="card">
-        <h2>🛒 Marketplace</h2>
-        <p>Connect with buyers and explore agricultural markets.</p>
-    </div>
-
-    <div class="card">
-        <h2>🤖 AI Assistant</h2>
-        <p>Get AI-powered farming assistance and recommendations.</p>
-    </div>
-
-    <div class="card">
-        <h2>📊 Farm Insights</h2>
-        <p>View useful information about your farming activities.</p>
-    </div>
+</nav>
 
 
-    <!-- WEATHER -->
+<!-- HERO -->
 
-    <section id="weather" class="section">
+<section class="hero">
 
-        <h2>🌤️ Weather Information</h2>
-
-        <p>Get live weather information for the farm location.</p>
-
-        <a href="#weather-info" class="button">
-            Check Weather
-        </a>
-
-        <br>
-
-        <a href="#top" class="back">
-            ↑ Back to Dashboard
-        </a>
-
-    </section>
-
-
-    <section id="weather-info" class="section">
-
-        <h2>🌤️ Current Weather</h2>
-
-        <div class="weather-info">
-
-            <p id="weatherLocation">
-                📍 Farm location: Loading...
-            </p>
-
-            <p id="weatherTemperature">
-                🌡️ Temperature: Loading...
-            </p>
-
-            <p id="weatherRain">
-                🌧️ Rain probability: Loading...
-            </p>
-
-            <p id="weatherWind">
-                💨 Wind: Loading...
-            </p>
-
-            <p id="weatherForecast">
-                ☀️ Forecast: Loading...
-            </p>
-
-        </div>
-
-        <p id="weatherStatus" class="status">
-            ⏳ Getting live weather...
-        </p>
-
-        <a href="#top" class="back">
-            ↑ Back to Dashboard
-        </a>
-
-    </section>
-
-
-    <!-- MY PRODUCE -->
-
-    <section id="produce" class="section">
-
-        <h2>🌾 My Produce</h2>
-
-        <p>
-            Add crops or produce currently available on your farm.
-        </p>
-
-        <div class="form-group">
-            <label for="produceName">
-                Crop / Produce
-            </label>
-
-            <input
-                type="text"
-                id="produceName"
-                placeholder="Example: Maize"
-            >
-        </div>
-
-        <div class="form-group">
-            <label for="produceQuantity">
-                Quantity
-            </label>
-
-            <input
-                type="number"
-                id="produceQuantity"
-                placeholder="Example: 50"
-                min="0"
-            >
-        </div>
-
-        <div class="form-group">
-            <label for="produceUnit">
-                Unit
-            </label>
-
-            <select id="produceUnit">
-                <option value="kg">Kilograms (kg)</option>
-                <option value="bags">Bags</option>
-                <option value="tonnes">Tonnes</option>
-                <option value="pieces">Pieces</option>
-                <option value="crates">Crates</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="produceLocation">
-                Farm Location
-            </label>
-
-            <input
-                type="text"
-                id="produceLocation"
-                placeholder="Example: Nairobi"
-            >
-        </div>
-
-        <button
-            class="button"
-            onclick="addProduce()"
-        >
-            ➕ Add Produce
-        </button>
-
-        <p id="produceStatus" class="status"></p>
-
-        <div id="produceList" class="produce-list">
-            <p>⏳ Loading your produce...</p>
-        </div>
-
-        <a href="#top" class="back">
-            ↑ Back to Dashboard
-        </a>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    <p>AgriLink AI 🌱🚀</p>
+    <h1>Farmer Dashboard 🌱</h1>
 
     <p>
-        One platform. Every farmer. A better future through AI.
+        One platform. Every farmer. A better future through AI. 🚀
     </p>
 
-</footer>
+</section>
 
 
-<script>
-
-/* =====================================
-   SUPABASE
-===================================== */
-
-const SUPABASE_URL =
-    "https://cjgbeankvgtychqqgvlq.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+<div class="container">
 
 
-/* =====================================
-   WEATHER
-===================================== */
+<!-- WEATHER -->
 
-async function loadWeather(){
+<div class="card">
 
-    const latitude = -1.286389;
-    const longitude = 36.817223;
+    <h2>🌦️ Weather</h2>
 
-    const url =
-        "https://api.open-meteo.com/v1/forecast" +
-        "?latitude=" + latitude +
-        "&longitude=" + longitude +
-        "&current=temperature_2m,wind_speed_10m,weather_code" +
-        "&daily=precipitation_probability_max" +
-        "&timezone=Africa%2FNairobi";
+    <p>
+        Get current weather information for farming.
+    </p>
 
-    const status =
-        document.getElementById("weatherStatus");
+    <div id="weather-info" class="weather-box">
+        ⏳ Loading weather...
+    </div>
 
-    try{
-
-        status.innerText =
-            "⏳ Getting live weather...";
-
-        const response =
-            await fetch(url);
-
-        if(!response.ok){
-
-            throw new Error(
-                "Weather service unavailable"
-            );
-
-        }
-
-        const data =
-            await response.json();
-
-        const temperature =
-            data.current.temperature_2m;
-
-        const wind =
-            data.current.wind_speed_10m;
-
-        const rain =
-            data.daily.precipitation_probability_max[0];
-
-        const weatherCode =
-            data.current.weather_code;
-
-        document.getElementById(
-            "weatherLocation"
-        ).innerText =
-            "📍 Farm location: Nairobi, Kenya";
-
-        document.getElementById(
-            "weatherTemperature"
-        ).innerText =
-            "🌡️ Temperature: " +
-            temperature +
-            "°C";
-
-        document.getElementById(
-            "weatherRain"
-        ).innerText =
-            "🌧️ Rain probability: " +
-            rain +
-            "%";
-
-        document.getElementById(
-            "weatherWind"
-        ).innerText =
-            "💨 Wind: " +
-            wind +
-            " km/h";
-
-        document.getElementById(
-            "weatherForecast"
-        ).innerText =
-            "☀️ Forecast: " +
-            getWeatherDescription(
-                weatherCode
-            );
-
-        status.innerText =
-            "✅ Live weather loaded";
-
-    }catch(error){
-
-        console.error(
-            "WEATHER ERROR:",
-            error
-        );
-
-        status.innerText =
-            "❌ Unable to load live weather.";
-
-    }
-
-}
+</div>
 
 
-function getWeatherDescription(code){
+<!-- MY PRODUCE -->
 
-    if(code === 0){
-        return "Clear sky";
-    }
+<div class="card">
 
-    if(code === 1 || code === 2){
-        return "Partly cloudy";
-    }
+    <h2>🌽 My Produce</h2>
 
-    if(code === 3){
-        return "Cloudy";
-    }
-
-    if(code >= 51 && code <= 67){
-        return "Rain";
-    }
-
-    if(code >= 71 && code <= 77){
-        return "Snow";
-    }
-
-    if(code >= 80 && code <= 82){
-        return "Rain showers";
-    }
-
-    if(code >= 95 && code <= 99){
-        return "Thunderstorm";
-    }
-
-    return "Mixed weather";
-}
-
-
-/* =================================
+    <p>
+        Add the crops
