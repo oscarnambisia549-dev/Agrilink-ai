@@ -14,6 +14,10 @@
             font-family: Arial, sans-serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: #f5faf6;
             color: #18351f;
@@ -23,6 +27,9 @@
             background: #126b2f;
             color: white;
             padding: 22px 7%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         header h1 {
@@ -64,6 +71,7 @@
             padding: 25px;
             border-radius: 16px;
             box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            scroll-margin-top: 100px;
         }
 
         .icon {
@@ -101,6 +109,47 @@
             opacity: 0.9;
         }
 
+        .feature-section {
+            margin-top: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            scroll-margin-top: 100px;
+        }
+
+        .feature-section h2 {
+            color: #126b2f;
+            margin-bottom: 10px;
+        }
+
+        .feature-section p {
+            color: #55705c;
+            line-height: 1.6;
+        }
+
+        .feature-button {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 13px 20px;
+            background: #126b2f;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 16px;
+            background: #e8f5eb;
+            color: #126b2f;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
         footer {
             margin-top: 40px;
             background: #18351f;
@@ -129,27 +178,31 @@
 
     <section class="cards">
 
+        <!-- WEATHER -->
         <div class="card">
             <div class="icon">🌦️</div>
             <h3>Weather</h3>
             <p>Check weather information to help plan your farming activities.</p>
-            <a href="#" class="button">View Weather</a>
+            <a href="#weather" class="button">View Weather</a>
         </div>
 
+        <!-- PRODUCE -->
         <div class="card">
             <div class="icon">🌽</div>
             <h3>My Produce</h3>
             <p>Add your farm produce and prepare it for the AgriLink marketplace.</p>
-            <a href="#" class="button">My Produce</a>
+            <a href="#produce" class="button">My Produce</a>
         </div>
 
+        <!-- MARKETPLACE -->
         <div class="card">
             <div class="icon">🛒</div>
             <h3>Marketplace</h3>
             <p>Connect with potential buyers and explore agricultural products.</p>
-            <a href="#" class="button">Open Marketplace</a>
+            <a href="#marketplace" class="button">Open Marketplace</a>
         </div>
 
+        <!-- AI -->
         <div class="card">
             <div class="icon">🤖</div>
             <h3>AI Farming Assistant</h3>
@@ -159,31 +212,213 @@
 
     </section>
 
+
     <h2 class="section-title">Farm Insights</h2>
 
     <section class="cards">
 
+        <!-- FARM OVERVIEW -->
         <div class="card">
             <div class="icon">📊</div>
             <h3>Farm Overview</h3>
             <p>Track your farming activities and important information.</p>
+            <a href="#overview" class="button">View Overview</a>
         </div>
 
+        <!-- MARKET PRICES -->
         <div class="card">
             <div class="icon">💰</div>
             <h3>Market Prices</h3>
             <p>Keep an eye on produce prices and potential selling opportunities.</p>
+            <a href="#prices" class="button">View Prices</a>
         </div>
 
+        <!-- CROP HEALTH -->
         <div class="card">
             <div class="icon">🐛</div>
             <h3>Crop Health</h3>
             <p>Get help identifying common pest and disease problems.</p>
+            <a href="#health" class="button">Check Crop Health</a>
         </div>
 
     </section>
 
+
+    <!-- WEATHER SECTION -->
+
+    <section id="weather" class="feature-section">
+
+        <h2>🌦️ Weather</h2>
+
+        <p>
+            Weather information will help farmers plan planting,
+            irrigation, harvesting and other farm activities.
+        </p>
+
+        <p>
+            🌧️ Rain forecast<br>
+            🌡️ Temperature<br>
+            💨 Wind conditions<br>
+            ☀️ Weather outlook
+        </p>
+
+        <a href="#" class="feature-button">
+            Check Weather
+        </a>
+
+        <br>
+
+        <a href="#" class="back-button">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
+
+    <!-- PRODUCE SECTION -->
+
+    <section id="produce" class="feature-section">
+
+        <h2>🌽 My Produce</h2>
+
+        <p>
+            This area will allow farmers to add their crops,
+            quantities and available produce for sale.
+        </p>
+
+        <p>
+            🌽 Maize<br>
+            🍅 Tomatoes<br>
+            🥑 Avocados<br>
+            🥔 Potatoes
+        </p>
+
+        <a href="#" class="feature-button">
+            + Add Produce
+        </a>
+
+        <br>
+
+        <a href="#" class="back-button">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
+
+    <!-- MARKETPLACE SECTION -->
+
+    <section id="marketplace" class="feature-section">
+
+        <h2>🛒 AgriLink Marketplace</h2>
+
+        <p>
+            Farmers will be able to list their produce while
+            buyers can discover agricultural products.
+        </p>
+
+        <p>
+            👨‍🌾 Sell produce<br>
+            🛒 Find products<br>
+            🤝 Connect with buyers<br>
+            💰 Explore selling opportunities
+        </p>
+
+        <a href="#" class="feature-button">
+            Open Marketplace
+        </a>
+
+        <br>
+
+        <a href="#" class="back-button">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
+
+    <!-- FARM OVERVIEW -->
+
+    <section id="overview" class="feature-section">
+
+        <h2>📊 Farm Overview</h2>
+
+        <p>
+            Your farm overview will eventually display important
+            information about your farm and farming activities.
+        </p>
+
+        <p>
+            🌱 Crops: Coming soon<br>
+            📏 Farm size: Coming soon<br>
+            🌾 Production: Coming soon<br>
+            📈 Farm activity: Coming soon
+        </p>
+
+        <a href="#" class="back-button">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
+
+    <!-- MARKET PRICES -->
+
+    <section id="prices" class="feature-section">
+
+        <h2>💰 Market Prices</h2>
+
+        <p>
+            Farmers will be able to check agricultural market
+            prices and compare selling opportunities.
+        </p>
+
+        <p>
+            🌽 Maize — Coming soon<br>
+            🍅 Tomatoes — Coming soon<br>
+            🥑 Avocados — Coming soon<br>
+            🥔 Potatoes — Coming soon
+        </p>
+
+        <a href="#" class="back-button">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
+
+    <!-- CROP HEALTH -->
+
+    <section id="health" class="feature-section">
+
+        <h2>🐛 Crop Health</h2>
+
+        <p>
+            Use AgriLink AI to learn about common crop pests,
+            diseases and plant health problems.
+        </p>
+
+        <p>
+            🐛 Pest identification<br>
+            🌱 Disease guidance<br>
+            🍃 Plant health advice<br>
+            🤖 AI farming assistance
+        </p>
+
+        <a href="index.html#assistant" class="feature-button">
+            Ask AI About My Crop
+        </a>
+
+        <br>
+
+        <a href="#" class="back-button">
+            ↑ Back to Dashboard
+        </a>
+
+    </section>
+
 </main>
+
 
 <footer>
     🌱 AgriLink AI<br>
@@ -191,4 +426,4 @@
 </footer>
 
 </body>
-          </html>
+</html>
