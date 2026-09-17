@@ -159,53 +159,41 @@ footer{
 
 <main class="dashboard">
 
-    <!-- WEATHER CARD -->
     <div class="card">
         <h2>🌤️ Weather</h2>
         <p>Check current weather conditions for your farm.</p>
-
-        <a href="#weather" class="button">
-            View Weather
-        </a>
+        <a href="#weather" class="button">View Weather</a>
     </div>
 
-    <!-- MY PRODUCE CARD -->
     <div class="card">
         <h2>🌾 My Produce</h2>
         <p>Add and manage the crops or produce from your farm.</p>
-
-        <a href="#produce" class="button">
-            Manage My Produce
-        </a>
+        <a href="#produce" class="button">Manage My Produce</a>
     </div>
 
-    <!-- MARKETPLACE -->
     <div class="card">
         <h2>🛒 Marketplace</h2>
         <p>Connect with buyers and explore agricultural markets.</p>
     </div>
 
-    <!-- AI ASSISTANT -->
     <div class="card">
         <h2>🤖 AI Assistant</h2>
         <p>Get AI-powered farming assistance and recommendations.</p>
     </div>
 
-    <!-- FARM INSIGHTS -->
     <div class="card">
         <h2>📊 Farm Insights</h2>
         <p>View useful information about your farming activities.</p>
     </div>
 
 
-    <!-- WEATHER SECTION -->
+    <!-- WEATHER -->
+
     <section id="weather" class="section">
 
         <h2>🌤️ Weather Information</h2>
 
-        <p>
-            Get live weather information for the farm location.
-        </p>
+        <p>Get live weather information for the farm location.</p>
 
         <a href="#weather-info" class="button">
             Check Weather
@@ -220,7 +208,6 @@ footer{
     </section>
 
 
-    <!-- CURRENT WEATHER -->
     <section id="weather-info" class="section">
 
         <h2>🌤️ Current Weather</h2>
@@ -260,13 +247,14 @@ footer{
     </section>
 
 
-    <!-- MY PRODUCE SECTION -->
+    <!-- MY PRODUCE -->
+
     <section id="produce" class="section">
 
         <h2>🌾 My Produce</h2>
 
         <p>
-            Add the crops or produce currently available on your farm.
+            Add crops or produce currently available on your farm.
         </p>
 
         <div class="form-group">
@@ -327,12 +315,10 @@ footer{
             ➕ Add Produce
         </button>
 
+        <p id="produceStatus" class="status"></p>
+
         <div id="produceList" class="produce-list">
-
-            <p>
-                No produce added yet.
-            </p>
-
+            <p>⏳ Loading your produce...</p>
         </div>
 
         <a href="#top" class="back">
@@ -346,9 +332,7 @@ footer{
 
 <footer>
 
-    <p>
-        AgriLink AI 🌱🚀
-    </p>
+    <p>AgriLink AI 🌱🚀</p>
 
     <p>
         One platform. Every farmer. A better future through AI.
@@ -359,9 +343,20 @@ footer{
 
 <script>
 
-/* =========================
+/* =====================================
+   SUPABASE
+===================================== */
+
+const SUPABASE_URL =
+    "https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
+
+/* =====================================
    WEATHER
-========================= */
+===================================== */
 
 async function loadWeather(){
 
@@ -425,4 +420,75 @@ async function loadWeather(){
         document.getElementById(
             "weatherRain"
         ).innerText =
-            "🌧️ Rain probability:
+            "🌧️ Rain probability: " +
+            rain +
+            "%";
+
+        document.getElementById(
+            "weatherWind"
+        ).innerText =
+            "💨 Wind: " +
+            wind +
+            " km/h";
+
+        document.getElementById(
+            "weatherForecast"
+        ).innerText =
+            "☀️ Forecast: " +
+            getWeatherDescription(
+                weatherCode
+            );
+
+        status.innerText =
+            "✅ Live weather loaded";
+
+    }catch(error){
+
+        console.error(
+            "WEATHER ERROR:",
+            error
+        );
+
+        status.innerText =
+            "❌ Unable to load live weather.";
+
+    }
+
+}
+
+
+function getWeatherDescription(code){
+
+    if(code === 0){
+        return "Clear sky";
+    }
+
+    if(code === 1 || code === 2){
+        return "Partly cloudy";
+    }
+
+    if(code === 3){
+        return "Cloudy";
+    }
+
+    if(code >= 51 && code <= 67){
+        return "Rain";
+    }
+
+    if(code >= 71 && code <= 77){
+        return "Snow";
+    }
+
+    if(code >= 80 && code <= 82){
+        return "Rain showers";
+    }
+
+    if(code >= 95 && code <= 99){
+        return "Thunderstorm";
+    }
+
+    return "Mixed weather";
+}
+
+
+/* =================================
