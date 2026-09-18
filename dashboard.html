@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AgriLink AI Dashboard</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -32,6 +34,10 @@ header h1{
     margin-bottom:8px;
 }
 
+header p{
+    font-size:16px;
+}
+
 nav{
     background:#0d5426;
     padding:14px 20px;
@@ -45,6 +51,10 @@ nav a{
     color:white;
     text-decoration:none;
     font-weight:bold;
+}
+
+nav a:hover{
+    color:#b9f6c8;
 }
 
 main{
@@ -67,10 +77,14 @@ main{
     margin-bottom:15px;
 }
 
+.card h3{
+    color:#126b2f;
+}
+
 button{
     background:#126b2f;
     color:white;
-    border:0;
+    border:none;
     padding:12px 18px;
     border-radius:8px;
     font-weight:bold;
@@ -79,144 +93,4 @@ button{
 }
 
 button:hover{
-    background:#0d5426;
-}
-
-input,select{
-    width:100%;
-    padding:12px;
-    margin:7px 0;
-    border:1px solid #b8cdbd;
-    border-radius:8px;
-    font-size:16px;
-    background:white;
-    color:#18351f;
-}
-
-label{
-    font-weight:bold;
-    display:block;
-    margin-top:10px;
-}
-
-.weather-box,
-.search-box{
-    background:#eef8f0;
-    border-radius:12px;
-    padding:18px;
-    margin-top:15px;
-}
-
-.weather-item{
-    padding:7px 0;
-}
-
-.produce-item,
-.market-item{
-    background:#f7fbf8;
-    border:1px solid #d7e8db;
-    border-radius:10px;
-    padding:15px;
-    margin-top:12px;
-}
-
-.produce-item strong,
-.market-item strong{
-    color:#126b2f;
-    font-size:18px;
-}
-
-.price{
-    font-weight:bold;
-    color:#7b3f00;
-}
-
-.status{
-    margin-top:12px;
-    font-weight:bold;
-}
-
-.success{
-    color:#16733a;
-}
-
-.error{
-    color:#c62828;
-}
-
-.coming-soon{
-    text-align:center;
-    padding:25px;
-    background:#f3f3f3;
-    border-radius:10px;
-    color:#555;
-}
-
-footer{
-    background:#18351f;
-    color:white;
-    text-align:center;
-    padding:25px 15px;
-}
-
-@media(max-width:600px){
-    header h1{
-        font-size:28px;
-    }
-
-    main{
-        padding:20px 12px;
-    }
-
-    .card{
-        padding:18px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>🌱 AgriLink AI</h1>
-    <p>One platform. Every farmer. A better future through AI. 🚀</p>
-</header>
-
-<nav>
-    <a href="#weather">🌦️ Weather</a>
-    <a href="#produce">🌾 My Produce</a>
-    <a href="#marketplace">🛒 Marketplace</a>
-    <a href="#ai">🤖 AI Assistant</a>
-    <a href="#insights">📊 Farm Insights</a>
-</nav>
-
-<main>
-
-<section class="card" id="weather">
-    <h2>🌦️ Current Weather</h2>
-
-    <div id="weather-info" class="weather-box">
-        <p>Loading weather...</p>
-    </div>
-
-    <button type="button" onclick="loadWeather()">
-        🔄 Check Weather
-    </button>
-</section>
-
-
-<section class="card" id="produce">
-
-    <h2>🌾 My Produce</h2>
-
-    <label>Crop / Produce</label>
-    <input id="produce-name" type="text" placeholder="e.g. Maize">
-
-    <label>Quantity</label>
-    <input id="produce-quantity" type="number" placeholder="e.g. 50">
-
-    <label>Unit</label>
-    <select id="produce-unit">
-        <option value="kg">kg</option>
-        <option value="bags">bags</option>
-        <option value="tonnes">tonnes</
+    background:#0d542
