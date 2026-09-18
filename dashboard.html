@@ -115,7 +115,8 @@ button:disabled{
     line-height:1.8;
 }
 
-.produce-item{
+.produce-item,
+.market-item{
     background:#f5faf6;
     border:1px solid #d8eadc;
     padding:16px;
@@ -127,6 +128,13 @@ button:disabled{
     background:#b3261e;
     margin-top:10px;
     font-size:14px;
+}
+
+.market-price{
+    font-size:20px;
+    font-weight:bold;
+    color:#126b2f;
+    margin-top:8px;
 }
 
 footer{
@@ -146,22 +154,29 @@ footer{
 <body>
 
 <nav>
+
     <div class="logo">
         🌱 AgriLink <span>AI</span>
     </div>
 
     <a href="index.html">Home</a>
+
 </nav>
 
+
 <section class="hero">
+
     <h1>Farmer Dashboard 🌱</h1>
 
     <p>
         One platform. Every farmer. A better future through AI. 🚀
     </p>
+
 </section>
 
+
 <div class="container">
+
 
 <!-- WEATHER -->
 
@@ -256,17 +271,92 @@ footer{
 
 <div class="card">
 
-    <h2>🛒 Marketplace</h2>
+    <h2>🛒 AgriLink Marketplace</h2>
 
     <p>
-        Connect farmers with buyers and agricultural markets.
+        List your produce for buyers and discover
+        available agricultural products.
     </p>
 
     <br>
 
-    <button id="marketplace-btn" type="button">
-        Open Marketplace
+    <label for="market-produce">
+        Produce
+    </label>
+
+    <input
+        type="text"
+        id="market-produce"
+        placeholder="e.g. Maize"
+    >
+
+    <label for="market-quantity">
+        Quantity
+    </label>
+
+    <input
+        type="number"
+        id="market-quantity"
+        placeholder="e.g. 100"
+        min="0"
+    >
+
+    <label for="market-unit">
+        Unit
+    </label>
+
+    <select id="market-unit">
+        <option value="kg">kg</option>
+        <option value="bags">bags</option>
+        <option value="tonnes">tonnes</option>
+        <option value="pieces">pieces</option>
+        <option value="crates">crates</option>
+    </select>
+
+    <label for="market-price">
+        Price (KES)
+    </label>
+
+    <input
+        type="number"
+        id="market-price"
+        placeholder="e.g. 5000"
+        min="0"
+    >
+
+    <label for="market-location">
+        Location
+    </label>
+
+    <input
+        type="text"
+        id="market-location"
+        placeholder="e.g. Nairobi"
+    >
+
+    <label for="seller-name">
+        Seller Name
+    </label>
+
+    <input
+        type="text"
+        id="seller-name"
+        placeholder="Your name"
+    >
+
+    <button id="list-market-btn" type="button">
+        🛒 List Produce for Sale
     </button>
+
+    <div id="market-message" class="message"></div>
+
+    <h3 style="margin-top:30px;">
+        Available Produce
+    </h3>
+
+    <div id="market-list">
+        ⏳ Loading marketplace...
+    </div>
 
 </div>
 
@@ -284,7 +374,10 @@ footer{
 
     <br>
 
-    <button id="ai-btn" type="button">
+    <button
+        id="ai-btn"
+        type="button"
+    >
         Ask AgriLink AI
     </button>
 
@@ -304,13 +397,18 @@ footer{
 
     <br>
 
-    <button id="insights-btn" type="button">
+    <button
+        id="insights-btn"
+        type="button"
+    >
         View Farm Insights
     </button>
 
 </div>
 
+
 </div>
+
 
 <footer>
 
@@ -365,34 +463,24 @@ async function loadWeather(){
         const data =
             await response.json();
 
-        const temperature =
-            data.current.temperature_2m;
-
-        const wind =
-            data.current.wind_speed_10m;
-
-        const code =
-            data.current.weather_code;
-
-        const rain =
-            data.daily.precipitation_probability_max[0];
-
         box.innerHTML = `
             <strong>Current Weather</strong><br>
             📍 Farm location: Nairobi, Kenya<br>
-            🌡️ Temperature: ${temperature}°C<br>
-            🌧️ Rain probability: ${rain}%<br>
-            💨 Wind: ${wind} km/h<br>
-            ☀️ Forecast: ${weatherDescription(code)}<br>
+            🌡️ Temperature:
+            ${data.current.temperature_2m}°C<br>
+            🌧️ Rain probability:
+            ${data.daily.precipitation_probability_max[0]}%<br>
+            💨 Wind:
+            ${data.current.wind_speed_10m} km/h<br>
+            ☀️ Forecast:
+            ${weatherDescription(data.current.weather_code)}<br>
             ✅ Live weather
         `;
 
     }catch(error){
 
-        console.error(error);
-
         box.innerHTML =
-        "❌ Weather could not be loaded.";
+            "❌ Weather could not be loaded.";
 
     }
 }
@@ -426,7 +514,7 @@ function weatherDescription(code){
 
 
 /* =========================
-   LOAD PRODUCE
+   MY PRODUCE
 ========================= */
 
 async function loadProduce(){
@@ -444,8 +532,6 @@ async function loadProduce(){
             SUPABASE_URL +
             "/rest/v1/produce?select=*&order=created_at.desc",
             {
-                method:"GET",
-
                 headers:{
                     "apikey":
                         SUPABASE_PUBLISHABLE_KEY,
@@ -460,22 +546,14 @@ async function loadProduce(){
         const text =
             await response.text();
 
-        let data;
-
-        try{
-            data = JSON.parse(text);
-        }catch{
-            data = text;
-        }
+        const data =
+            JSON.parse(text);
 
         if(!response.ok){
 
             throw new Error(
-                typeof data === "string"
-                ? data
-                : JSON.stringify(data)
+                JSON.stringify(data)
             );
-
         }
 
         list.innerHTML = "";
@@ -488,28 +566,17 @@ async function loadProduce(){
             return;
         }
 
-        data.forEach(
-            displayProduce
-        );
+        data.forEach(displayProduce);
 
     }catch(error){
 
-        console.error(
-            "LOAD PRODUCE ERROR:",
-            error
-        );
-
         list.innerHTML =
-        "❌ Produce loading error:<br>" +
-        error.message;
+            "❌ Produce loading error:<br>" +
+            error.message;
 
     }
 }
 
-
-/* =========================
-   DISPLAY PRODUCE
-========================= */
 
 function displayProduce(item){
 
@@ -533,41 +600,22 @@ function displayProduce(item){
         <br>
         📍 Location:
         ${escapeHTML(item.location)}
-        <br><br>
-        <button
-            class="delete-btn"
-            type="button"
-            data-id="${item.id}">
-            🗑️ Remove
-        </button>
     `;
-
-    const deleteButton =
-        div.querySelector(".delete-btn");
-
-    deleteButton.addEventListener(
-        "click",
-        function(){
-            deleteProduce(
-                item.id,
-                deleteButton
-            );
-        }
-    );
 
     list.appendChild(div);
 }
 
-
-/* =========================
-   ADD PRODUCE
-========================= */
 
 async function addProduce(){
 
     const button =
         document.getElementById(
             "add-produce-btn"
+        );
+
+    const message =
+        document.getElementById(
+            "produce-message"
         );
 
     const name =
@@ -590,11 +638,6 @@ async function addProduce(){
             "location"
         ).value.trim();
 
-    const message =
-        document.getElementById(
-            "produce-message"
-        );
-
 
     if(
         name === "" ||
@@ -603,7 +646,7 @@ async function addProduce(){
     ){
 
         message.innerHTML =
-        "⚠️ Please fill in all fields.";
+            "⚠️ Please fill in all fields.";
 
         return;
     }
@@ -615,7 +658,7 @@ async function addProduce(){
         "⏳ Saving...";
 
     message.innerHTML =
-        "⏳ Connecting to AgriLink AI...";
+        "⏳ Saving produce...";
 
 
     try{
@@ -655,27 +698,20 @@ async function addProduce(){
         const text =
             await response.text();
 
-        let data;
-
-        try{
-            data = JSON.parse(text);
-        }catch{
-            data = text;
-        }
+        const data =
+            JSON.parse(text);
 
 
         if(!response.ok){
 
             throw new Error(
-                typeof data === "string"
-                ? data
-                : JSON.stringify(data)
+                JSON.stringify(data)
             );
         }
 
 
         message.innerHTML =
-        "✅ Produce saved successfully!";
+            "✅ Produce saved successfully!";
 
 
         document.getElementById(
@@ -696,14 +732,9 @@ async function addProduce(){
 
     }catch(error){
 
-        console.error(
-            "ADD PRODUCE ERROR:",
-            error
-        );
-
         message.innerHTML =
-        "❌ Failed to save:<br>" +
-        error.message;
+            "❌ Failed to save:<br>" +
+            error.message;
 
     }finally{
 
@@ -711,32 +742,31 @@ async function addProduce(){
 
         button.innerText =
             "➕ Add Produce";
-
     }
 }
 
 
 /* =========================
-   DELETE PRODUCE
+   MARKETPLACE
 ========================= */
 
-async function deleteProduce(
-    id,
-    button
-){
+async function loadMarketplace(){
 
-    button.disabled = true;
+    const list =
+        document.getElementById(
+            "market-list"
+        );
+
+    list.innerHTML =
+        "⏳ Loading marketplace...";
 
     try{
 
         const response =
         await fetch(
             SUPABASE_URL +
-            "/rest/v1/produce?id=eq." +
-            id,
+            "/rest/v1/marketplace?select=*&order=created_at.desc",
             {
-                method:"DELETE",
-
                 headers:{
                     "apikey":
                         SUPABASE_PUBLISHABLE_KEY,
@@ -749,26 +779,261 @@ async function deleteProduce(
         );
 
 
+        const text =
+            await response.text();
+
+        const data =
+            JSON.parse(text);
+
+
         if(!response.ok){
 
-            const text =
-                await response.text();
-
-            throw new Error(text);
+            throw new Error(
+                JSON.stringify(data)
+            );
         }
 
 
-        await loadProduce();
+        list.innerHTML = "";
+
+
+        if(data.length === 0){
+
+            list.innerHTML =
+                "🛒 No produce listed for sale yet.";
+
+            return;
+        }
+
+
+        data.forEach(
+            displayMarketItem
+        );
+
 
     }catch(error){
 
-        alert(
-            "❌ Could not remove produce: " +
-            error.message
+        list.innerHTML =
+            "❌ Marketplace loading error:<br>" +
+            error.message;
+    }
+}
+
+
+function displayMarketItem(item){
+
+    const list =
+        document.getElementById(
+            "market-list"
         );
 
-        button.disabled = false;
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "market-item";
+
+    div.innerHTML = `
+
+        <strong>
+            🌽 ${escapeHTML(item.produce_name)}
+        </strong>
+
+        <br>
+
+        📦 Quantity:
+        ${escapeHTML(String(item.quantity))}
+        ${escapeHTML(item.unit)}
+
+        <div class="market-price">
+            💰 KES ${escapeHTML(String(item.price))}
+        </div>
+
+        📍 Location:
+        ${escapeHTML(item.location)}
+
+        <br>
+
+        👨‍🌾 Seller:
+        ${escapeHTML(item.seller_name || "Farmer")}
+
+    `;
+
+    list.appendChild(div);
+}
+
+
+async function listForSale(){
+
+    const button =
+        document.getElementById(
+            "list-market-btn"
+        );
+
+    const message =
+        document.getElementById(
+            "market-message"
+        );
+
+
+    const produce =
+        document.getElementById(
+            "market-produce"
+        ).value.trim();
+
+    const quantity =
+        document.getElementById(
+            "market-quantity"
+        ).value;
+
+    const unit =
+        document.getElementById(
+            "market-unit"
+        ).value;
+
+    const price =
+        document.getElementById(
+            "market-price"
+        ).value;
+
+    const location =
+        document.getElementById(
+            "market-location"
+        ).value.trim();
+
+    const seller =
+        document.getElementById(
+            "seller-name"
+        ).value.trim();
+
+
+    if(
+        produce === "" ||
+        quantity === "" ||
+        price === "" ||
+        location === ""
+    ){
+
+        message.innerHTML =
+            "⚠️ Please fill in all required fields.";
+
+        return;
     }
+
+
+    button.disabled = true;
+
+    button.innerText =
+        "⏳ Listing...";
+
+    message.innerHTML =
+        "⏳ Adding your produce to the marketplace...";
+
+
+    try{
+
+        const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/marketplace",
+            {
+                method:"POST",
+
+                headers:{
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Content-Type":
+                        "application/json",
+
+                    "Prefer":
+                        "return=representation"
+                },
+
+                body:JSON.stringify({
+                    produce_name:produce,
+                    quantity:Number(quantity),
+                    unit:unit,
+                    price:Number(price),
+                    location:location,
+                    seller_name:seller
+                })
+            }
+        );
+
+
+        const text =
+            await response.text();
+
+        const data =
+            JSON.parse(text);
+
+
+        if(!response.ok){
+
+            throw new Error(
+                JSON.stringify(data)
+            );
+        }
+
+
+        message.innerHTML =
+            "✅ Your produce is now listed in the marketplace!";
+
+
+        document.getElementById(
+            "market-produce"
+        ).value = "";
+
+        document.getElementById(
+            "market-quantity"
+        ).value = "";
+
+        document.getElementById(
+            "market-price"
+        ).value = "";
+
+        document.getElementById(
+            "market-location"
+        ).value = "";
+
+        document.getElementById(
+            "seller-name"
+        ).value = "";
+
+
+        await loadMarketplace();
+
+
+    }catch(error){
+
+        message.innerHTML =
+            "❌ Marketplace error:<br>" +
+            error.message;
+
+    }finally{
+
+        button.disabled = false;
+
+        button.innerText =
+            "🛒 List Produce for Sale";
+    }
+}
+
+
+/* =========================
+   OTHER BUTTONS
+========================= */
+
+function comingSoon(){
+
+    alert(
+        "🚀 This AgriLink AI feature is coming soon!"
+    );
 }
 
 
@@ -778,25 +1043,13 @@ async function deleteProduce(
 
 function escapeHTML(text){
 
-    const element =
+    const div =
         document.createElement("div");
 
-    element.textContent =
+    div.textContent =
         text;
 
-    return element.innerHTML;
-}
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-function showComingSoon(){
-
-    alert(
-        "🚀 This AgriLink AI feature is coming soon!"
-    );
+    return div.innerHTML;
 }
 
 
@@ -808,44 +1061,43 @@ document.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        const addButton =
-            document.getElementById(
-                "add-produce-btn"
+        document
+            .getElementById("add-produce-btn")
+            .addEventListener(
+                "click",
+                addProduce
             );
 
-        addButton.addEventListener(
-            "click",
-            addProduce
-        );
+
+        document
+            .getElementById("list-market-btn")
+            .addEventListener(
+                "click",
+                listForSale
+            );
 
 
-        document.getElementById(
-            "marketplace-btn"
-        ).addEventListener(
-            "click",
-            showComingSoon
-        );
+        document
+            .getElementById("ai-btn")
+            .addEventListener(
+                "click",
+                comingSoon
+            );
 
 
-        document.getElementById(
-            "ai-btn"
-        ).addEventListener(
-            "click",
-            showComingSoon
-        );
-
-
-        document.getElementById(
-            "insights-btn"
-        ).addEventListener(
-            "click",
-            showComingSoon
-        );
+        document
+            .getElementById("insights-btn")
+            .addEventListener(
+                "click",
+                comingSoon
+            );
 
 
         loadWeather();
 
         loadProduce();
+
+        loadMarketplace();
 
     }
 );
