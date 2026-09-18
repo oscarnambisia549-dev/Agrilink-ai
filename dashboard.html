@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI - Farmer Dashboard</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AgriLink AI Dashboard</title>
 
 <style>
+
 *{
 box-sizing:border-box;
 margin:0;
@@ -17,24 +21,36 @@ font-family:Arial,sans-serif;
 body{
 background:#f5faf6;
 color:#18351f;
+line-height:1.6;
 }
+
+/* HEADER */
+
+header{
+background:linear-gradient(135deg,#126b2f,#2e8b46);
+color:white;
+padding:35px 20px;
+text-align:center;
+}
+
+header h1{
+font-size:36px;
+margin-bottom:8px;
+}
+
+header p{
+font-size:16px;
+}
+
+/* NAVIGATION */
 
 nav{
-background:#126b2f;
-color:white;
-padding:18px 7%;
+background:#0d5426;
+padding:14px 20px;
 display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.logo{
-font-size:24px;
-font-weight:bold;
-}
-
-.logo span{
-color:#b9f6c8;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
 }
 
 nav a{
@@ -43,69 +59,368 @@ text-decoration:none;
 font-weight:bold;
 }
 
-.hero{
-background:linear-gradient(135deg,#0c5c29,#2e8b46);
-color:white;
-padding:70px 7%;
-text-align:center;
+nav a:hover{
+color:#b9f6c8;
 }
 
-.hero h1{
-font-size:42px;
-margin-bottom:15px;
-}
+/* MAIN */
 
-.hero p{
-font-size:18px;
-}
-
-.container{
+main{
 max-width:1100px;
-margin:40px auto;
-padding:0 20px;
+margin:auto;
+padding:30px 20px;
 }
+
+/* CARDS */
 
 .card{
 background:white;
+border-radius:15px;
 padding:25px;
 margin-bottom:25px;
-border-radius:15px;
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
+box-shadow:0 5px 18px rgba(0,0,0,0.10);
+border-left:5px solid #2e8b46;
 }
 
 .card h2{
 color:#126b2f;
-margin-bottom:12px;
+margin-bottom:15px;
 }
 
-input,select{
-width:100%;
-padding:13px;
-margin:7px 0;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
+.card p{
+margin-bottom:10px;
 }
+
+/* BUTTONS */
 
 button{
 background:#126b2f;
 color:white;
 border:none;
-padding:13px 20px;
+padding:12px 18px;
 border-radius:8px;
-cursor:pointer;
-font-size:16px;
 font-weight:bold;
+cursor:pointer;
 margin-top:8px;
-width:100%;
 }
 
-.message{
+button:hover{
+background:#0d5426;
+}
+
+/* INPUTS */
+
+input,
+select{
+width:100%;
+padding:12px;
+margin:7px 0;
+border:1px solid #b8cdbd;
+border-radius:8px;
+font-size:16px;
+background:white;
+color:#18351f;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-top:10px;
+}
+
+/* WEATHER */
+
+.weather-box{
+background:#eef8f0;
+border-radius:12px;
+padding:18px;
+margin-top:15px;
+}
+
+.weather-item{
+padding:7px 0;
+}
+
+/* PRODUCE */
+
+.produce-item,
+.market-item{
+background:#f7fbf8;
+border:1px solid #d7e8db;
+border-radius:10px;
+padding:15px;
+margin-top:12px;
+}
+
+.produce-item strong,
+.market-item strong{
+color:#126b2f;
+font-size:18px;
+}
+
+/* STATUS */
+
+.status{
 margin-top:12px;
 font-weight:bold;
 }
 
-.weather-box{
-background:#f1faf3;
+.success{
+color:#16733a;
+}
+
+.error{
+color:#c62828;
+}
+
+/* MARKETPLACE */
+
+.search-box{
+background:#eef8f0;
+padding:15px;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.price{
+font-weight:bold;
+color:#7b3f00;
+}
+
+/* COMING SOON */
+
+.coming-soon{
+text-align:center;
+padding:25px;
+background:#f3f3f3;
+border-radius:10px;
+color:#555;
+}
+
+/* FOOTER */
+
+footer{
+background:#18351f;
+color:white;
+text-align:center;
+padding:25px 15px;
+margin-top:30px;
+}
+
+footer strong{
+color:#b9f6c8;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+header h1{
+font-size:28px;
+}
+
+main{
+padding:20px 12px;
+}
+
+.card{
 padding:18px;
-border-radius:10
+}
+
+nav{
+gap:12px;
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>🌱 AgriLink AI</h1>
+
+<p>
+One platform. Every farmer. A better future through AI. 🚀
+</p>
+
+</header>
+
+
+<nav>
+
+<a href="#weather">🌦️ Weather</a>
+
+<a href="#produce">🌾 My Produce</a>
+
+<a href="#marketplace">🛒 Marketplace</a>
+
+<a href="#ai">🤖 AI Assistant</a>
+
+<a href="#insights">📊 Farm Insights</a>
+
+</nav>
+
+
+<main>
+
+
+<!-- WEATHER -->
+
+<section class="card" id="weather">
+
+<h2>🌦️ Current Weather</h2>
+
+<div id="weather-info"
+class="weather-box">
+
+<p>Loading weather...</p>
+
+</div>
+
+<button
+type="button"
+onclick="loadWeather()">
+
+🔄 Check Weather
+
+</button>
+
+</section>
+
+
+<!-- MY PRODUCE -->
+
+<section class="card" id="produce">
+
+<h2>🌾 My Produce</h2>
+
+<label>Crop / Produce</label>
+
+<input
+type="text"
+id="produce-name"
+placeholder="e.g. Maize">
+
+<label>Quantity</label>
+
+<input
+type="number"
+id="produce-quantity"
+placeholder="e.g. 50">
+
+<label>Unit</label>
+
+<select id="produce-unit">
+
+<option value="kg">kg</option>
+
+<option value="bags">bags</option>
+
+<option value="tonnes">tonnes</option>
+
+<option value="pieces">pieces</option>
+
+<option value="crates">crates</option>
+
+</select>
+
+<label>Farm Location</label>
+
+<input
+type="text"
+id="produce-location"
+placeholder="e.g. Nairobi">
+
+<button
+type="button"
+onclick="addProduce()">
+
+➕ Add Produce
+
+</button>
+
+<div id="produce-status"
+class="status">
+
+</div>
+
+<div id="produce-list">
+
+<p>Loading produce...</p>
+
+</div>
+
+</section>
+
+
+<!-- MARKETPLACE -->
+
+<section class="card" id="marketplace">
+
+<h2>🛒 Marketplace</h2>
+
+<p>
+Find agricultural produce from farmers.
+</p>
+
+
+<div class="search-box">
+
+<input
+type="text"
+id="market-search"
+placeholder="Type maize, beans, tomatoes...">
+
+<button
+type="button"
+onclick="searchMarketplace()">
+
+🔍 Search Marketplace
+
+</button>
+
+<button
+type="button"
+onclick="showAllMarketplace()">
+
+🌾 Show All Produce
+
+</button>
+
+</div>
+
+
+<div id="market-status"
+class="status">
+
+Connecting to marketplace...
+
+</div>
+
+
+<div id="marketplace-list">
+
+<p>Loading marketplace...</p>
+
+</div>
+
+
+<hr style="margin:25px 0;border:0;border-top:1px solid #ddd;">
+
+
+<h3 style="color:#126b2f;margin-bottom:10px;">
+📦 List Produce for Sale
+</h3>
+
+
+<label>Produce</label>
+
+<input
+type="text"
+id="
