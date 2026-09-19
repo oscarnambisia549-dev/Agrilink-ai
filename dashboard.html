@@ -1,216 +1,990 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AgriLink AI - Login</title>
+<title>AgriLink AI Dashboard</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+body{
+    background:#f5faf6;
+    color:#18351f;
+    line-height:1.6;
+}
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0c5c29, #2e8b46);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+header{
+    background:linear-gradient(135deg,#126b2f,#2e8b46);
+    color:white;
+    padding:35px 20px;
+    text-align:center;
+}
 
-        .login-box {
-            width: 100%;
-            max-width: 420px;
-            background: white;
-            padding: 35px 25px;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+header h1{
+    font-size:36px;
+    margin-bottom:8px;
+}
 
-        .logo {
-            text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-            color: #126b2f;
-            margin-bottom: 10px;
-        }
+nav{
+    background:#0d5426;
+    padding:14px 20px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
 
-        .logo span {
-            color: #7b2cbf;
-        }
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
 
-        h2 {
-            text-align: center;
-            color: #18351f;
-            margin-bottom: 25px;
-        }
+main{
+    max-width:1100px;
+    margin:auto;
+    padding:30px 20px;
+}
 
-        label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
-            color: #18351f;
-        }
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 5px 18px rgba(0,0,0,.10);
+    border-left:5px solid #2e8b46;
+}
 
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+.card h2{
+    color:#126b2f;
+    margin-bottom:15px;
+}
 
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background: #126b2f;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+button{
+    background:#126b2f;
+    color:white;
+    border:0;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:8px;
+}
 
-        button:hover {
-            background: #0c5c29;
-        }
+button:hover{
+    background:#0d5426;
+}
 
-        #message {
-            margin-top: 18px;
-            text-align: center;
-            font-weight: bold;
-        }
+input,select{
+    width:100%;
+    padding:12px;
+    margin:7px 0;
+    border:1px solid #b8cdbd;
+    border-radius:8px;
+    font-size:16px;
+    background:white;
+    color:#18351f;
+}
 
-        .register {
-            text-align: center;
-            margin-top: 20px;
-        }
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:10px;
+}
 
-        .register a {
-            color: #126b2f;
-            font-weight: bold;
-            text-decoration: none;
-        }
-    </style>
+.weather-box,
+.search-box{
+    background:#eef8f0;
+    border-radius:12px;
+    padding:18px;
+    margin-top:15px;
+}
+
+.weather-item{
+    padding:7px 0;
+}
+
+.produce-item,
+.market-item{
+    background:#f7fbf8;
+    border:1px solid #d7e8db;
+    border-radius:10px;
+    padding:15px;
+    margin-top:12px;
+}
+
+.produce-item strong,
+.market-item strong{
+    color:#126b2f;
+    font-size:18px;
+}
+
+.price{
+    font-weight:bold;
+    color:#7b3f00;
+}
+
+.status{
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.success{
+    color:#16733a;
+}
+
+.error{
+    color:#c62828;
+}
+
+.coming-soon{
+    text-align:center;
+    padding:25px;
+    background:#f3f3f3;
+    border-radius:10px;
+    color:#555;
+}
+
+footer{
+    background:#18351f;
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+@media(max-width:600px){
+    header h1{
+        font-size:28px;
+    }
+
+    main{
+        padding:20px 12px;
+    }
+
+    .card{
+        padding:18px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="login-box">
+<header>
+    <h1>🌱 AgriLink AI</h1>
+    <p>One platform. Every farmer. A better future through AI. 🚀</p>
+</header>
 
-    <div class="logo">
-        🌱 AgriLink <span>AI</span>
+<nav>
+    <a href="#weather">🌦️ Weather</a>
+    <a href="#produce">🌾 My Produce</a>
+    <a href="#marketplace">🛒 Marketplace</a>
+    <a href="#ai">🤖 AI Assistant</a>
+    <a href="#insights">📊 Farm Insights</a>
+</nav>
+
+<main>
+
+<section class="card" id="weather">
+    <h2>🌦️ Current Weather</h2>
+
+    <div id="weather-info" class="weather-box">
+        <p>Loading weather...</p>
     </div>
 
-    <h2>Farmer Login</h2>
+    <button type="button" onclick="loadWeather()">
+        🔄 Check Weather
+    </button>
+</section>
 
-    <label for="email">Email</label>
-    <input
-        type="email"
-        id="email"
-        placeholder="Enter your email"
-        required
-    >
 
-    <label for="password">Password</label>
-    <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-    >
+<section class="card" id="produce">
 
-    <button onclick="login()">
-        🔐 Login
+    <h2>🌾 My Produce</h2>
+
+    <label>Crop / Produce</label>
+    <input id="produce-name" type="text" placeholder="e.g. Maize">
+
+    <label>Quantity</label>
+    <input id="produce-quantity" type="number" placeholder="e.g. 50">
+
+    <label>Unit</label>
+    <select id="produce-unit">
+        <option value="kg">kg</option>
+        <option value="bags">bags</option>
+        <option value="tonnes">tonnes</option>
+        <option value="pieces">pieces</option>
+        <option value="crates">crates</option>
+    </select>
+
+    <label>Farm Location</label>
+    <input id="produce-location" type="text" placeholder="e.g. Nairobi">
+
+    <button type="button" onclick="addProduce()">
+        ➕ Add Produce
     </button>
 
-    <div id="message"></div>
+    <div id="produce-status" class="status"></div>
 
-    <div class="register">
-        Don't have an account?
-        <a href="index.html">Register</a>
+    <div id="produce-list">
+        <p>Loading produce...</p>
     </div>
 
-</div>
+</section>
+
+
+<section class="card" id="marketplace">
+
+    <h2>🛒 Marketplace</h2>
+
+    <p>Find agricultural produce from farmers.</p>
+
+    <div class="search-box">
+
+        <input
+            id="market-search"
+            type="text"
+            placeholder="Type maize, beans, tomatoes..."
+        >
+
+        <button type="button" onclick="searchMarketplace()">
+            🔍 Search Marketplace
+        </button>
+
+        <button type="button" onclick="showAllMarketplace()">
+            🌾 Show All Produce
+        </button>
+
+    </div>
+
+    <div id="market-status" class="status">
+        Connecting to marketplace...
+    </div>
+
+    <div id="marketplace-list">
+        <p>Loading marketplace...</p>
+    </div>
+
+
+    <hr style="margin:25px 0;border:0;border-top:1px solid #ddd;">
+
+    <h3 style="color:#126b2f;margin-bottom:10px;">
+        📦 List Produce for Sale
+    </h3>
+
+    <label>Produce</label>
+    <input id="market-produce" type="text" placeholder="e.g. Maize">
+
+    <label>Quantity</label>
+    <input id="market-quantity" type="number" placeholder="e.g. 50">
+
+    <label>Unit</label>
+    <select id="market-unit">
+        <option value="kg">kg</option>
+        <option value="bags">bags</option>
+        <option value="tonnes">tonnes</option>
+        <option value="pieces">pieces</option>
+        <option value="crates">crates</option>
+    </select>
+
+    <label>Price</label>
+    <input id="market-price" type="number" placeholder="e.g. 5000">
+
+    <label>Location</label>
+    <input id="market-location" type="text" placeholder="e.g. Nairobi">
+
+    <label>Seller Name</label>
+    <input id="seller-name" type="text" placeholder="e.g. Farmer">
+
+    <button type="button" onclick="addMarketplaceListing()">
+        📦 List Produce
+    </button>
+
+    <div id="market-add-status" class="status"></div>
+
+</section>
+
+
+<section class="card" id="ai">
+
+    <h2>🤖 AI Farming Assistant</h2>
+
+    <div class="coming-soon">
+        <p>🌱 Crop recommendations</p>
+        <p>🐛 Pest and disease detection</p>
+        <p>💧 Irrigation advice</p>
+        <p>🌾 Farming guidance</p>
+        <p>📈 Market insights</p>
+
+        <br>
+
+        <strong>🚀 AI Assistant coming next!</strong>
+    </div>
+
+</section>
+
+
+<section class="card" id="insights">
+
+    <h2>📊 Farm Insights</h2>
+
+    <div class="coming-soon">
+        <p>📈 Crop performance</p>
+        <p>🌦️ Weather trends</p>
+        <p>💰 Market prices</p>
+        <p>🌱 Farm productivity</p>
+
+        <br>
+
+        <strong>More powerful insights coming soon!</strong>
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    <p><strong>AgriLink AI</strong></p>
+    <p>Growing Agriculture Through Innovation 🌱</p>
+    <p>© 2026 AgriLink AI</p>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 const SUPABASE_URL =
-    "https://cjgbeankvgtychqqgvlq.supabase.co";
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+/*
+ IMPORTANT:
+ Keep your existing sb_publishable_ key here.
+ DO NOT use an sb_secret_ key.
+*/
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
 
 const db = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
 
-async function login() {
 
-    const email =
-        document.getElementById("email").value.trim();
+let marketplaceData = [];
 
-    const password =
-        document.getElementById("password").value;
 
-    const message =
-        document.getElementById("message");
+/* WEATHER */
 
-    if (!email || !password) {
+async function loadWeather(){
 
-        message.style.color = "red";
+    const box =
+    document.getElementById("weather-info");
 
-        message.textContent =
-            "❌ Please enter your email and password.";
+    box.innerHTML =
+    "<p>Loading weather...</p>";
 
-        return;
+    try{
+
+        const url =
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=-1.286389" +
+        "&longitude=36.817223" +
+        "&current=temperature_2m,wind_speed_10m,weather_code" +
+        "&daily=precipitation_probability_max" +
+        "&timezone=Africa%2FNairobi";
+
+        const response =
+        await fetch(url);
+
+        if(!response.ok){
+            throw new Error("Weather request failed");
+        }
+
+        const data =
+        await response.json();
+
+        const temperature =
+        data.current.temperature_2m;
+
+        const wind =
+        data.current.wind_speed_10m;
+
+        const rain =
+        data.daily.precipitation_probability_max[0];
+
+        const code =
+        data.current.weather_code;
+
+        let forecast = "Cloudy ☁️";
+
+        if(code === 0){
+            forecast = "Clear ☀️";
+        }
+        else if(code >= 1 && code <= 3){
+            forecast = "Partly cloudy ⛅";
+        }
+        else if(code >= 51 && code <= 67){
+            forecast = "Rainy 🌧️";
+        }
+        else if(code >= 80 && code <= 99){
+            forecast = "Rain showers 🌦️";
+        }
+
+        box.innerHTML = `
+            <div class="weather-item">
+                📍 <strong>Farm location:</strong> Nairobi, Kenya
+            </div>
+
+            <div class="weather-item">
+                🌡️ <strong>Temperature:</strong> ${temperature}°C
+            </div>
+
+            <div class="weather-item">
+                🌧️ <strong>Rain probability:</strong> ${rain}%
+            </div>
+
+            <div class="weather-item">
+                💨 <strong>Wind:</strong> ${wind} km/h
+            </div>
+
+            <div class="weather-item">
+                ☀️ <strong>Forecast:</strong> ${forecast}
+            </div>
+
+            <div class="weather-item success">
+                ✅ Live weather
+            </div>
+        `;
+
+    }catch(error){
+
+        console.error(error);
+
+        box.innerHTML =
+        "<p class='error'>❌ Unable to load weather.</p>";
     }
-
-    message.style.color = "#126b2f";
-
-    message.textContent =
-        "🔄 Logging in...";
-
-    const { data, error } =
-        await db.auth.signInWithPassword({
-            email: email,
-            password: password
-        });
-
-    if (error) {
-
-        message.style.color = "red";
-
-        message.textContent =
-            "❌ " + error.message;
-
-        return;
-    }
-
-    message.style.color = "#126b2f";
-
-    message.textContent =
-        "✅ Login successful!";
-
-    setTimeout(() => {
-
-        window.location.href =
-            "dashboard.html";
-
-    }, 1000);
 }
+
+
+/* PRODUCE */
+
+async function loadProduce(){
+
+    const list =
+    document.getElementById("produce-list");
+
+    list.innerHTML =
+    "<p>Loading produce...</p>";
+
+    try{
+
+        const { data, error } =
+        await db
+        .from("produce")
+        .select("*")
+        .order("created_at",{ascending:false});
+
+        if(error){
+            throw error;
+        }
+
+        if(!data || data.length === 0){
+
+            list.innerHTML =
+            "<p>No produce added yet.</p>";
+
+            return;
+        }
+
+        list.innerHTML =
+        data.map(item => `
+
+            <div class="produce-item">
+
+                <strong>
+                    🌾 ${escapeHTML(item.produce_name)}
+                </strong>
+
+                <p>
+                    Quantity:
+                    ${escapeHTML(item.quantity)}
+                    ${escapeHTML(item.unit)}
+                </p>
+
+                <p>
+                    📍 ${escapeHTML(item.location)}
+                </p>
+
+            </div>
+
+        `).join("");
+
+    }catch(error){
+
+        console.error("Produce error:",error);
+
+        list.innerHTML =
+        "<p class='error'>❌ Unable to load produce.</p>";
+    }
+}
+
+
+/* ADD PRODUCE */
+
+async function addProduce(){
+
+    const name =
+    document.getElementById("produce-name")
+    .value.trim();
+
+    const quantity =
+    document.getElementById("produce-quantity")
+    .value;
+
+    const unit =
+    document.getElementById("produce-unit")
+    .value;
+
+    const location =
+    document.getElementById("produce-location")
+    .value.trim();
+
+    const status =
+    document.getElementById("produce-status");
+
+
+    if(!name || !quantity || !location){
+
+        status.className =
+        "status error";
+
+        status.textContent =
+        "❌ Please fill in all fields.";
+
+        return;
+    }
+
+
+    status.className = "status";
+
+    status.textContent =
+    "Saving produce...";
+
+
+    try{
+
+        const { error } =
+        await db
+        .from("produce")
+        .insert([{
+            produce_name:name,
+            quantity:Number(quantity),
+            unit:unit,
+            location:location
+        }]);
+
+
+        if(error){
+            throw error;
+        }
+
+
+        status.className =
+        "status success";
+
+        status.textContent =
+        "✅ Produce saved successfully!";
+
+
+        document.getElementById("produce-name").value="";
+        document.getElementById("produce-quantity").value="";
+        document.getElementById("produce-location").value="";
+
+
+        loadProduce();
+
+    }catch(error){
+
+        console.error("Add produce error:",error);
+
+        status.className =
+        "status error";
+
+        status.textContent =
+        "❌ Failed to save produce.";
+    }
+}
+
+
+/* MARKETPLACE */
+
+async function loadMarketplace(){
+
+    const status =
+    document.getElementById("market-status");
+
+    const list =
+    document.getElementById("marketplace-list");
+
+
+    status.className = "status";
+
+    status.textContent =
+    "Connecting to marketplace...";
+
+
+    list.innerHTML =
+    "<p>Loading marketplace...</p>";
+
+
+    try{
+
+        const { data, error } =
+        await db
+        .from("marketplace")
+        .select("*")
+        .order("created_at",{ascending:false});
+
+
+        if(error){
+            throw error;
+        }
+
+
+        marketplaceData =
+        data || [];
+
+
+        status.className =
+        "status success";
+
+        status.textContent =
+        "✅ Marketplace connected";
+
+
+        displayMarketplace(
+            marketplaceData
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Marketplace error:",
+            error
+        );
+
+
+        status.className =
+        "status error";
+
+        status.textContent =
+        "❌ Marketplace connection failed";
+
+
+        list.innerHTML = `
+            <p class="error">
+                ❌ ${escapeHTML(error.message || "Unable to load marketplace.")}
+            </p>
+        `;
+    }
+}
+
+
+/* DISPLAY MARKETPLACE */
+
+function displayMarketplace(items){
+
+    const list =
+    document.getElementById(
+        "marketplace-list"
+    );
+
+
+    if(!items || items.length === 0){
+
+        list.innerHTML =
+        "<p>No matching produce found.</p>";
+
+        return;
+    }
+
+
+    list.innerHTML =
+    items.map(item => `
+
+        <div class="market-item">
+
+            <strong>
+                🌾 ${escapeHTML(item.produce_name)}
+            </strong>
+
+            <p>
+                Quantity:
+                ${escapeHTML(item.quantity)}
+                ${escapeHTML(item.unit)}
+            </p>
+
+            <p class="price">
+                💰 Price:
+                KSh ${Number(item.price || 0).toLocaleString()}
+            </p>
+
+            <p>
+                📍 ${escapeHTML(item.location)}
+            </p>
+
+            <p>
+                👨‍🌾 Seller:
+                ${escapeHTML(item.seller_name || "Farmer")}
+            </p>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* SEARCH MARKETPLACE */
+
+function searchMarketplace(){
+
+    const search =
+    document.getElementById(
+        "market-search"
+    ).value
+    .toLowerCase()
+    .trim();
+
+
+    if(search === ""){
+
+        showAllMarketplace();
+
+        return;
+    }
+
+
+    const results =
+    marketplaceData.filter(item => {
+
+        const produce =
+        String(item.produce_name || "")
+        .toLowerCase();
+
+        const location =
+        String(item.location || "")
+        .toLowerCase();
+
+        const seller =
+        String(item.seller_name || "")
+        .toLowerCase();
+
+
+        return (
+            produce.includes(search) ||
+            location.includes(search) ||
+            seller.includes(search)
+        );
+
+    });
+
+
+    displayMarketplace(results);
+}
+
+
+/* SHOW ALL */
+
+function showAllMarketplace(){
+
+    displayMarketplace(
+        marketplaceData
+    );
+}
+
+
+/* ADD MARKETPLACE LISTING */
+
+async function addMarketplaceListing(){
+
+    const produce =
+    document.getElementById(
+        "market-produce"
+    ).value.trim();
+
+    const quantity =
+    document.getElementById(
+        "market-quantity"
+    ).value;
+
+    const unit =
+    document.getElementById(
+        "market-unit"
+    ).value;
+
+    const price =
+    document.getElementById(
+        "market-price"
+    ).value;
+
+    const location =
+    document.getElementById(
+        "market-location"
+    ).value.trim();
+
+    const seller =
+    document.getElementById(
+        "seller-name"
+    ).value.trim();
+
+    const status =
+    document.getElementById(
+        "market-add-status"
+    );
+
+
+    if(
+        !produce ||
+        !quantity ||
+        !price ||
+        !location ||
+        !seller
+    ){
+
+        status.className =
+        "status error";
+
+        status.textContent =
+        "❌ Please fill in all fields.";
+
+        return;
+    }
+
+
+    status.className = "status";
+
+    status.textContent =
+    "Saving listing...";
+
+
+    try{
+
+        const { error } =
+        await db
+        .from("marketplace")
+        .insert([{
+
+            produce_name:produce,
+
+            quantity:Number(quantity),
+
+            unit:unit,
+
+            price:Number(price),
+
+            location:location,
+
+            seller_name:seller
+
+        }]);
+
+
+        if(error){
+            throw error;
+        }
+
+
+        status.className =
+        "status success";
+
+        status.textContent =
+        "✅ Produce successfully listed!";
+
+
+        document.getElementById(
+            "market-produce"
+        ).value="";
+
+        document.getElementById(
+            "market-quantity"
+        ).value="";
+
+        document.getElementById(
+            "market-price"
+        ).value="";
+
+        document.getElementById(
+            "market-location"
+        ).value="";
+
+        document.getElementById(
+            "seller-name"
+        ).value="";
+
+
+        loadMarketplace();
+
+
+    }catch(error){
+
+        console.error(
+            "Marketplace insert error:",
+            error
+        );
+
+
+        status.className =
+        "status error";
+
+        status.textContent =
+        "❌ " +
+        (error.message ||
+        "Failed to list produce.");
+    }
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* START */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        loadWeather();
+
+        loadProduce();
+
+        loadMarketplace();
+
+    }
+);
 
 </script>
 
 </body>
-</html>
+    </html>
