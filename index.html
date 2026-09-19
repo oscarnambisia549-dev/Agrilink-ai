@@ -3,13 +3,9 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AgriLink AI - Register</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -22,20 +18,19 @@
 
 body{
     min-height:100vh;
-    background:linear-gradient(135deg,#0c5c29,#2e8b46);
+    background:#126b2f;
     display:flex;
     justify-content:center;
     align-items:center;
     padding:20px;
 }
 
-.register-box{
+.box{
     width:100%;
     max-width:450px;
     background:white;
     padding:30px 25px;
     border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 .logo{
@@ -43,4 +38,181 @@ body{
     font-size:30px;
     font-weight:bold;
     color:#126b2f;
-    margin-bottom:8
+    margin-bottom:10px;
+}
+
+.logo span{
+    color:#7b2cbf;
+}
+
+h2{
+    text-align:center;
+    color:#18351f;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+input,select{
+    width:100%;
+    padding:13px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:8px;
+    background:#126b2f;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+}
+
+#message{
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.login{
+    text-align:center;
+    margin-top:20px;
+}
+
+.login a{
+    color:#126b2f;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<div class="logo">
+🌱 AgriLink <span>AI</span>
+</div>
+
+<h2>Create Farmer Account</h2>
+
+<form id="registerForm">
+
+<label>Full Name</label>
+<input
+type="text"
+id="fullName"
+placeholder="Enter your full name"
+required
+>
+
+<label>Email</label>
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+required
+>
+
+<label>Phone</label>
+<input
+type="tel"
+id="phone"
+placeholder="Enter your phone number"
+required
+>
+
+<label>Farm Location</label>
+<input
+type="text"
+id="location"
+placeholder="e.g. Nairobi, Kenya"
+required
+>
+
+<label>Role</label>
+
+<select id="role" required>
+
+<option value="">Select your role</option>
+<option value="farmer">Farmer</option>
+<option value="buyer">Buyer</option>
+
+</select>
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+placeholder="Create a password"
+required
+>
+
+<label>Confirm Password</label>
+
+<input
+type="password"
+id="confirmPassword"
+placeholder="Confirm password"
+required
+>
+
+<button type="submit">
+🌱 Create Account
+</button>
+
+</form>
+
+<div id="message"></div>
+
+<div class="login">
+Already have an account?
+<a href="login.html">Login</a>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
+
+document
+.getElementById("registerForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const message =
+document.getElementById("message");
+
+const fullName =
+document.getElementById("fullName").value.trim();
+
+const email =
+document.getElementById("email").value.trim();
+
+const phone =
