@@ -1,709 +1,387 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>AgriLink AI - Farmer Dashboard</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    background:#f5faf6;
-    color:#18351f;
-    line-height:1.6;
-}
-
-/* NAVIGATION */
-
-nav{
-    background:#126b2f;
-    color:white;
-    padding:15px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.logo{
-    font-size:22px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#b9f6c8;
-}
-
-.logout-button{
-    background:white;
-    color:#126b2f;
-    border:none;
-    padding:9px 14px;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* MAIN */
-
-.container{
-    width:92%;
-    max-width:1150px;
-    margin:25px auto;
-}
-
-/* HEADER */
-
-.dashboard-header{
-    background:linear-gradient(135deg,#0c5c29,#2e8b46);
-    color:white;
-    padding:30px 20px;
-    border-radius:15px;
-    margin-bottom:25px;
-}
-
-.dashboard-header h1{
-    margin-bottom:8px;
-}
-
-.dashboard-header p{
-    opacity:.95;
-}
-
-/* PROFILE */
-
-.profile-card{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:25px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-
-.profile-card h2{
-    color:#126b2f;
-    margin-bottom:10px;
-}
-
-/* SECTIONS */
-
-.section{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    margin-bottom:25px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-
-.section h2{
-    color:#126b2f;
-    margin-bottom:15px;
-}
-
-/* WEATHER */
-
-.weather-box{
-    background:#eef8f0;
-    padding:20px;
-    border-radius:12px;
-}
-
-.weather-item{
-    margin:8px 0;
-    font-size:17px;
-}
-
-/* FORMS */
-
-.form-group{
-    margin-bottom:14px;
-}
-
-.form-group label{
-    display:block;
-    margin-bottom:5px;
-    font-weight:bold;
-}
-
-input,
-select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
-}
-
-button{
-    border:none;
-    padding:12px 18px;
-    border-radius:8px;
-    background:#126b2f;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:.9;
-}
-
-.secondary-button{
-    background:#555;
-}
-
-/* PRODUCE */
-
-.produce-card{
-    border:1px solid #ddd;
-    padding:15px;
-    border-radius:10px;
-    margin-top:12px;
-    background:#fafafa;
-}
-
-.produce-card h3{
-    color:#126b2f;
-    margin-bottom:7px;
-}
-
-/* MARKETPLACE */
-
-.search-row{
-    display:flex;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.search-row input{
-    flex:1;
-}
-
-.market-card{
-    border:1px solid #ddd;
-    padding:17px;
-    border-radius:12px;
-    margin-top:12px;
-    background:#fafafa;
-}
-
-.market-card h3{
-    color:#126b2f;
-    margin-bottom:8px;
-}
-
-.contact-button{
-    width:100%;
-    background:#126b2f;
-    margin-top:12px;
-}
-
-.disabled-contact{
-    width:100%;
-    background:#aaa;
-    cursor:not-allowed;
-    margin-top:12px;
-}
-
-/* AI */
-
-.ai-box{
-    background:#eef8f0;
-    padding:20px;
-    border-radius:12px;
-}
-
-.ai-box textarea{
-    width:100%;
-    min-height:100px;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:16px;
-    resize:vertical;
-}
-
-.ai-answer{
-    margin-top:15px;
-    padding:15px;
-    background:white;
-    border-radius:10px;
-    border-left:5px solid #126b2f;
-}
-
-/* FOOTER */
-
-footer{
-    text-align:center;
-    padding:25px;
-    margin-top:30px;
-    background:#126b2f;
-    color:white;
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-    nav{
-        padding:12px;
-    }
-
-    .logo{
-        font-size:18px;
-    }
-
-    .container{
-        width:94%;
-    }
-
-    .search-row{
-        flex-direction:column;
-    }
-
-    button{
-        width:100%;
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<!-- NAVIGATION -->
-
-<nav>
-
-<div class="logo">
-🌱 AgriLink <span>AI</span>
-</div>
-
-<button
-class="logout-button"
+<!DOCTYPE html>  <html lang="en">  <head>  <meta charset="UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>AgriLink AI - Farmer Dashboard</title>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <style>  
+  
+*{  
+    box-sizing:border-box;  
+    margin:0;  
+    padding:0;  
+    font-family:Arial,sans-serif;  
+}  
+  
+body{  
+    background:#f5faf6;  
+    color:#18351f;  
+    line-height:1.6;  
+}  
+  
+nav{  
+    background:#126b2f;  
+    color:white;  
+    padding:15px 20px;  
+    display:flex;  
+    justify-content:space-between;  
+    align-items:center;  
+    position:sticky;  
+    top:0;  
+    z-index:1000;  
+}  
+  
+.logo{  
+    font-size:22px;  
+    font-weight:bold;  
+}  
+  
+.logo span{  
+    color:#b9f6c8;  
+}  
+  
+.logout-button{  
+    background:white;  
+    color:#126b2f;  
+    border:none;  
+    padding:9px 14px;  
+    border-radius:8px;  
+    font-weight:bold;  
+    cursor:pointer;  
+}  
+  
+.container{  
+    width:92%;  
+    max-width:1150px;  
+    margin:25px auto;  
+}  
+  
+.dashboard-header{  
+    background:linear-gradient(135deg,#0c5c29,#2e8b46);  
+    color:white;  
+    padding:30px 20px;  
+    border-radius:15px;  
+    margin-bottom:25px;  
+}  
+  
+.dashboard-header h1{  
+    margin-bottom:8px;  
+}  
+  
+.dashboard-header p{  
+    opacity:.95;  
+}  
+  
+.profile-card{  
+    background:white;  
+    padding:20px;  
+    border-radius:15px;  
+    margin-bottom:25px;  
+    box-shadow:0 4px 12px rgba(0,0,0,.08);  
+}  
+  
+.profile-card h2{  
+    color:#126b2f;  
+    margin-bottom:10px;  
+}  
+  
+.section{  
+    background:white;  
+    padding:20px;  
+    border-radius:15px;  
+    margin-bottom:25px;  
+    box-shadow:0 4px 12px rgba(0,0,0,.08);  
+}  
+  
+.section h2{  
+    color:#126b2f;  
+    margin-bottom:15px;  
+}  
+  
+.weather-box{  
+    background:#eef8f0;  
+    padding:20px;  
+    border-radius:12px;  
+}  
+  
+.weather-item{  
+    margin:8px 0;  
+    font-size:17px;  
+}  
+  
+.form-group{  
+    margin-bottom:14px;  
+}  
+  
+.form-group label{  
+    display:block;  
+    margin-bottom:5px;  
+    font-weight:bold;  
+}  
+  
+input,  
+select{  
+    width:100%;  
+    padding:12px;  
+    border:1px solid #ccc;  
+    border-radius:8px;  
+    font-size:16px;  
+}  
+  
+button{  
+    border:none;  
+    padding:12px 18px;  
+    border-radius:8px;  
+    background:#126b2f;  
+    color:white;  
+    font-weight:bold;  
+    cursor:pointer;  
+}  
+  
+button:hover{  
+    opacity:.9;  
+}  
+  
+.secondary-button{  
+    background:#555;  
+}  
+  
+.produce-card{  
+    border:1px solid #ddd;  
+    padding:15px;  
+    border-radius:10px;  
+    margin-top:12px;  
+    background:#fafafa;  
+}  
+  
+.produce-card h3{  
+    color:#126b2f;  
+    margin-bottom:7px;  
+}  
+  
+.search-row{  
+    display:flex;  
+    gap:10px;  
+    margin-bottom:15px;  
+}  
+  
+.search-row input{  
+    flex:1;  
+}  
+  
+.market-card{  
+    border:1px solid #ddd;  
+    padding:17px;  
+    border-radius:12px;  
+    margin-top:12px;  
+    background:#fafafa;  
+}  
+  
+.market-card h3{  
+    color:#126b2f;  
+    margin-bottom:8px;  
+}  
+  
+.contact-button{  
+    width:100%;  
+    background:#126b2f;  
+    margin-top:12px;  
+}  
+  
+.disabled-contact{  
+    width:100%;  
+    background:#aaa;  
+    cursor:not-allowed;  
+    margin-top:12px;  
+}  
+  
+.ai-box{  
+    background:#eef8f0;  
+    padding:20px;  
+    border-radius:12px;  
+}  
+  
+.ai-box textarea{  
+    width:100%;  
+    min-height:100px;  
+    padding:12px;  
+    border:1px solid #ccc;  
+    border-radius:8px;  
+    font-size:16px;  
+    resize:vertical;  
+}  
+  
+.ai-answer{  
+    margin-top:15px;  
+    padding:15px;  
+    background:white;  
+    border-radius:10px;  
+    border-left:5px solid #126b2f;  
+}  
+  
+footer{  
+    text-align:center;  
+    padding:25px;  
+    margin-top:30px;  
+    background:#126b2f;  
+    color:white;  
+}  
+  
+@media(max-width:600px){  
+  
+    nav{  
+        padding:12px;  
+    }  
+  
+    .logo{  
+        font-size:18px;  
+    }  
+  
+    .container{  
+        width:94%;  
+    }  
+  
+    .search-row{  
+        flex-direction:column;  
+    }  
+  
+    button{  
+        width:100%;  
+    }  
+  
+}  
+  
+</style>  </head>  <body>  <nav>  <div class="logo">  
+🌱 AgriLink <span>AI</span>  
+</div>  <button  
+class="logout-button"  
 onclick="logoutUser()">
 Logout
 </button>
 
-</nav>
+</nav>  <div class="container">  <div class="dashboard-header">  <h1>🌱 Farmer Dashboard</h1>  <p>  
+One platform. Every farmer. A better future through AI. 🚀  
+</p>  </div>  <div class="profile-card">  <h2>👨‍🌾 My Profile</h2>  <p id="profile-name">  
+👋 Loading profile...  
+</p>  <p id="profile-email">  
+📧 Loading email...  
+</p>  </div>  <!-- WEATHER -->  <div class="section">  <h2>🌦️ Weather Insights</h2>  <div class="weather-box">  <div class="weather-item">  
+📍 Location: Nairobi, Kenya  
+</div>  <div class="weather-item">  
+🌡️ Temperature:  
+<span id="temperature">Loading...</span>  
+</div>  <div class="weather-item">  
+🌧️ Rain probability:  
+<span id="rain">Loading...</span>  
+</div>  <div class="weather-item">  
+💨 Wind:  
+<span id="wind">Loading...</span>  
+</div>  <div class="weather-item">  
+☁️ Forecast:  
+<span id="forecast">Loading...</span>  
+</div>  <div class="weather-item">  
+<span id="weather-status">  
+⏳ Loading weather...  
+</span>  
+</div>  </div>  </div>  <!-- MY PRODUCE -->  <div class="section">  <h2>🌽 My Produce</h2>  <div class="form-group">  <label>Produce / Crop</label>
 
-
-<div class="container">
-
-
-<!-- DASHBOARD HEADER -->
-
-<div class="dashboard-header">
-
-<h1>🌱 Farmer Dashboard</h1>
-
-<p>
-One platform. Every farmer. A better future through AI. 🚀
-</p>
-
-</div>
-
-
-<!-- PROFILE -->
-
-<div class="profile-card">
-
-<h2>👨‍🌾 My Profile</h2>
-
-<p id="profile-name">
-👋 Loading profile...
-</p>
-
-<p id="profile-email">
-📧 Loading email...
-</p>
-
-</div>
-
-
-<!-- WEATHER -->
-
-<div class="section">
-
-<h2>🌦️ Weather Insights</h2>
-
-<div class="weather-box">
-
-<div class="weather-item">
-📍 Location: Nairobi, Kenya
-</div>
-
-<div class="weather-item">
-🌡️ Temperature:
-<span id="temperature">
-Loading...
-</span>
-</div>
-
-<div class="weather-item">
-🌧️ Rain probability:
-<span id="rain">
-Loading...
-</span>
-</div>
-
-<div class="weather-item">
-💨 Wind:
-<span id="wind">
-Loading...
-</span>
-</div>
-
-<div class="weather-item">
-☁️ Forecast:
-<span id="forecast">
-Loading...
-</span>
-</div>
-
-<div class="weather-item">
-<span id="weather-status">
-⏳ Loading weather...
-</span>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- MY PRODUCE -->
-
-<div class="section">
-
-<h2>🌽 My Produce</h2>
-
-<div class="form-group">
-
-<label>
-Produce / Crop
-</label>
-
-<input
-type="text"
-id="produce-name"
+<input  
+type="text"  
+id="produce-name"  
 placeholder="Example: Maize">
 
-</div>
+</div>  <div class="form-group">  <label>Quantity</label>
 
-
-<div class="form-group">
-
-<label>
-Quantity
-</label>
-
-<input
-type="number"
-id="produce-quantity"
+<input  
+type="number"  
+id="produce-quantity"  
 placeholder="Example: 100">
 
-</div>
+</div>  <div class="form-group">  <label>Unit</label>
 
+<select id="produce-unit">  <option value="kg">Kilograms</option>  <option value="bags">Bags</option>  <option value="tons">Tons</option>  <option value="pieces">Pieces</option>  </select>  </div>  <div class="form-group">  <label>Farm Location</label>
 
-<div class="form-group">
-
-<label>
-Unit
-</label>
-
-<select id="produce-unit">
-
-<option value="kg">
-Kilograms
-</option>
-
-<option value="bags">
-Bags
-</option>
-
-<option value="tons">
-Tons
-</option>
-
-<option value="pieces">
-Pieces
-</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Farm Location
-</label>
-
-<input
-type="text"
-id="produce-location"
+<input  
+type="text"  
+id="produce-location"  
 placeholder="Example: Nairobi">
 
-</div>
+</div>  <button onclick="addProduce()">  
+➕ Add Produce  
+</button>  <div id="produce-list">  <p style="margin-top:15px;">  
+Loading produce...  
+</p>  </div>  </div>  <!-- SELL PRODUCE -->  <div class="section">  <h2>💰 Sell This Produce</h2>  <div class="form-group">  <label>Produce / Crop</label>
 
-
-<button onclick="addProduce()">
-➕ Add Produce
-</button>
-
-
-<div id="produce-list">
-
-<p style="margin-top:15px;">
-Loading produce...
-</p>
-
-</div>
-
-</div>
-
-
-<!-- SELL PRODUCE -->
-
-<div class="section">
-
-<h2>💰 Sell This Produce</h2>
-
-<div class="form-group">
-
-<label>
-Produce / Crop
-</label>
-
-<input
-type="text"
-id="sell-name"
+<input  
+type="text"  
+id="sell-name"  
 placeholder="Example: Maize">
 
-</div>
+</div>  <div class="form-group">  <label>Quantity</label>
 
-
-<div class="form-group">
-
-<label>
-Quantity
-</label>
-
-<input
-type="number"
-id="sell-quantity"
+<input  
+type="number"  
+id="sell-quantity"  
 placeholder="Example: 100">
 
-</div>
+</div>  <div class="form-group">  <label>Unit</label>
 
+<select id="sell-unit">  <option value="kg">Kilograms</option>  <option value="bags">Bags</option>  <option value="tons">Tons</option>  <option value="pieces">Pieces</option>  </select>  </div>  <div class="form-group">  <label>Price (KSh)</label>
 
-<div class="form-group">
-
-<label>
-Unit
-</label>
-
-<select id="sell-unit">
-
-<option value="kg">
-Kilograms
-</option>
-
-<option value="bags">
-Bags
-</option>
-
-<option value="tons">
-Tons
-</option>
-
-<option value="pieces">
-Pieces
-</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Price (KSh)
-</label>
-
-<input
-type="number"
-id="sell-price"
+<input  
+type="number"  
+id="sell-price"  
 placeholder="Example: 5000">
 
-</div>
+</div>  <div class="form-group">  <label>Location</label>
 
-
-<div class="form-group">
-
-<label>
-Location
-</label>
-
-<input
-type="text"
-id="sell-location"
+<input  
+type="text"  
+id="sell-location"  
 placeholder="Example: Nairobi">
 
-</div>
-
-
-<button onclick="postToMarketplace()">
-📢 Post to Marketplace
-</button>
-
-</div>
-
-
-<!-- MARKETPLACE -->
-
-<div class="section">
-
-<h2>🛒 Marketplace</h2>
-
-<p>
-Connect farmers with buyers and agricultural markets.
-</p>
-
-
-<div class="search-row">
-
-<input
-type="text"
-id="marketplace-search"
+</div>  <button onclick="postToMarketplace()">  
+📢 Post to Marketplace  
+</button>  </div>  <!-- MARKETPLACE -->  <div class="section">  <h2>🛒 Marketplace</h2>  <p>  
+Connect farmers with buyers and agricultural markets.  
+</p>  <div class="search-row">  <input  
+type="text"  
+id="marketplace-search"  
 placeholder="Search maize, tomatoes, Nairobi...">
 
-<button onclick="searchMarketplace()">
-🔎 Search Marketplace
-</button>
-
-<button
-class="secondary-button"
+<button onclick="searchMarketplace()">  
+🔎 Search Marketplace  
+</button>  <button  
+class="secondary-button"  
 onclick="clearMarketplaceSearch()">
 ✖ Clear Search
 </button>
 
-</div>
+</div>  <div id="marketplace-list">  <p>  
+Loading marketplace...  
+</p>  </div>  </div>  <!-- AI ASSISTANT -->  <div class="section">  <h2>🤖 AI Farming Assistant</h2>  <div class="ai-box">  <p>  
+Ask AgriLink AI a farming question.  
+</p>  <br>  <textarea  
+id="question"  
+placeholder="Example: Why are my maize leaves turning yellow?"></textarea>  <br><br>
 
+<button onclick="askAI()">  
+🤖 Ask AgriLink AI  
+</button>  <div  
+class="ai-answer"  
+id="answer">  🌱 Your farming advice will appear here.
 
-<div id="marketplace-list">
-
-<p>
-Loading marketplace...
-</p>
-
-</div>
-
-</div>
-
-
-<!-- AI FARMING ASSISTANT -->
-
-<div class="section">
-
-<h2>🤖 AI Farming Assistant</h2>
-
-<div class="ai-box">
-
-<p>
-Ask AgriLink AI a farming question.
-</p>
-
-<br>
-
-<textarea
-id="question"
-placeholder="Example: Why are my maize leaves turning yellow?"></textarea>
-
-<br><br>
-
-<button onclick="askAI()">
-🤖 Ask AgriLink AI
-</button>
-
-
-<div
-class="ai-answer"
-id="answer">
-
-🌱 Your farming advice will appear here.
-
-</div>
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-<p>
-🌱 AgriLink AI
-</p>
-
-<p>
-Growing Agriculture Through Innovation
-</p>
-
-<p>
-© 2026 AgriLink AI
-</p>
-
-</footer>
-
-
-
-<script>
-
-/* =========================
-SUPABASE
-========================= */
-
-const SUPABASE_URL =
-"https://cjgbeankvgtychqqgvlq.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
-
+</div>  </div>  </div>  </div>  <footer>  <p>🌱 AgriLink AI</p>  <p>Growing Agriculture Through Innovation</p>  <p>© 2026 AgriLink AI</p>  </footer>  <script>  
+  
+/* =========================  
+SUPABASE  
+========================= */  
+  
+const SUPABASE_URL =  
+"https://cjgbeankvgtychqqgvlq.supabase.co";  
+  
+const SUPABASE_KEY =  
+"sb_publishable_4Xv8  
+  
 const supabaseClient =
 window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
-
 
 
 /* =========================
@@ -726,7 +404,6 @@ async function checkUser(){
 }
 
 
-
 /* =========================
 LOGOUT
 ========================= */
@@ -741,7 +418,6 @@ async function logoutUser(){
 }
 
 
-
 /* =========================
 PROFILE
 ========================= */
@@ -754,10 +430,8 @@ async function loadProfile(user){
     const emailElement =
     document.getElementById("profile-email");
 
-
     emailElement.innerHTML =
     "📧 " + user.email;
-
 
     try{
 
@@ -768,7 +442,6 @@ async function loadProfile(user){
         .eq("auth_id",user.id)
         .maybeSingle();
 
-
         if(error){
 
             nameElement.innerHTML =
@@ -777,13 +450,11 @@ async function loadProfile(user){
             return;
         }
 
-
         if(data){
 
             nameElement.innerHTML =
             "👋 Welcome, " +
             (data.full_name || "Farmer");
-
 
             if(data.email){
 
@@ -804,7 +475,6 @@ async function loadProfile(user){
 }
 
 
-
 /* =========================
 WEATHER
 ========================= */
@@ -821,42 +491,33 @@ async function loadWeather(){
         "&daily=precipitation_probability_max" +
         "&timezone=Africa%2FNairobi";
 
-
         const response =
         await fetch(url);
-
 
         const data =
         await response.json();
 
-
         const temperature =
         data.current.temperature_2m;
 
-
         const wind =
         data.current.wind_speed_10m;
-
 
         const rain =
         data.daily
         .precipitation_probability_max[0];
 
-
         document.getElementById("temperature")
         .innerHTML =
         temperature + "°C";
-
 
         document.getElementById("rain")
         .innerHTML =
         rain + "%";
 
-
         document.getElementById("wind")
         .innerHTML =
         wind + " km/h";
-
 
         if(rain >= 70){
 
@@ -878,7 +539,6 @@ async function loadWeather(){
 
         }
 
-
         document.getElementById("weather-status")
         .innerHTML =
         "✅ Live weather";
@@ -894,7 +554,6 @@ async function loadWeather(){
 }
 
 
-
 /* =========================
 ADD PRODUCE
 ========================= */
@@ -905,21 +564,17 @@ async function addProduce(){
     document.getElementById("produce-name")
     .value.trim();
 
-
     const quantity =
     document.getElementById("produce-quantity")
     .value;
-
 
     const unit =
     document.getElementById("produce-unit")
     .value;
 
-
     const location =
     document.getElementById("produce-location")
     .value.trim();
-
 
     if(!name || !quantity || !location){
 
@@ -930,22 +585,17 @@ async function addProduce(){
         return;
     }
 
-
     const result =
     await supabaseClient
     .from("produce")
     .insert({
 
         produce_name:name,
-
         quantity:Number(quantity),
-
         unit:unit,
-
         location:location
 
     });
-
 
     if(result.error){
 
@@ -957,32 +607,26 @@ async function addProduce(){
         return;
     }
 
-
     alert(
     "✅ Produce added successfully!"
     );
 
-
     document.getElementById("produce-name")
     .value="";
-
 
     document.getElementById("produce-quantity")
     .value="";
 
-
     document.getElementById("produce-location")
     .value="";
-
 
     loadMyProduce();
 
 }
 
 
-
 /* =========================
-LOAD MY PRODUCE
+LOAD PRODUCE
 ========================= */
 
 async function loadMyProduce(){
@@ -990,13 +634,11 @@ async function loadMyProduce(){
     const list =
     document.getElementById("produce-list");
 
-
     const {data,error} =
     await supabaseClient
     .from("produce")
     .select("*")
     .order("created_at",{ascending:false});
-
 
     if(error){
 
@@ -1006,7 +648,6 @@ async function loadMyProduce(){
         return;
     }
 
-
     if(!data || data.length === 0){
 
         list.innerHTML =
@@ -1015,19 +656,15 @@ async function loadMyProduce(){
         return;
     }
 
-
     list.innerHTML = "";
-
 
     data.forEach(item => {
 
         const card =
         document.createElement("div");
 
-
         card.className =
         "produce-card";
-
 
         card.innerHTML = `
 
@@ -1046,13 +683,11 @@ async function loadMyProduce(){
 
         `;
 
-
         list.appendChild(card);
 
     });
 
 }
-
 
 
 /* =========================
@@ -1065,26 +700,21 @@ async function postToMarketplace(){
     document.getElementById("sell-name")
     .value.trim();
 
-
     const quantity =
     document.getElementById("sell-quantity")
     .value;
-
 
     const unit =
     document.getElementById("sell-unit")
     .value;
 
-
     const price =
     document.getElementById("sell-price")
     .value;
 
-
     const location =
     document.getElementById("sell-location")
     .value.trim();
-
 
     if(
         !name ||
@@ -1100,13 +730,11 @@ async function postToMarketplace(){
         return;
     }
 
-
     const {
         data:userData,
         error:userError
     } =
     await supabaseClient.auth.getUser();
-
 
     if(userError || !userData.user){
 
@@ -1119,18 +747,14 @@ async function postToMarketplace(){
         return;
     }
 
-
     const user =
     userData.user;
-
 
     let sellerName =
     "Farmer";
 
-
     let sellerPhone =
     "";
-
 
     try{
 
@@ -1141,7 +765,6 @@ async function postToMarketplace(){
         .eq("auth_id",user.id)
         .maybeSingle();
 
-
         if(
             profile.data &&
             profile.data.full_name
@@ -1151,7 +774,6 @@ async function postToMarketplace(){
             profile.data.full_name;
 
         }
-
 
         if(
             profile.data &&
@@ -1172,28 +794,20 @@ async function postToMarketplace(){
 
     }
 
-
     const result =
     await supabaseClient
     .from("marketplace")
     .insert({
 
         produce_name:name,
-
         quantity:Number(quantity),
-
         unit:unit,
-
         price:Number(price),
-
         location:location,
-
         seller_name:sellerName,
-
         seller_phone:sellerPhone
 
     });
-
 
     if(result.error){
 
@@ -1205,32 +819,25 @@ async function postToMarketplace(){
         return;
     }
 
-
     alert(
     "✅ Your produce is now listed on the marketplace!"
     );
 
-
     document.getElementById("sell-name")
     .value="";
-
 
     document.getElementById("sell-quantity")
     .value="";
 
-
     document.getElementById("sell-price")
     .value="";
-
 
     document.getElementById("sell-location")
     .value="";
 
-
     loadMarketplace();
 
 }
-
 
 
 /* =========================
@@ -1242,13 +849,11 @@ async function loadMarketplace(searchTerm=""){
     const list =
     document.getElementById("marketplace-list");
 
-
     let query =
     supabaseClient
     .from("marketplace")
     .select("*")
     .order("created_at",{ascending:false});
-
 
     if(searchTerm){
 
@@ -1267,10 +872,8 @@ async function loadMarketplace(searchTerm=""){
 
     }
 
-
     const {data,error} =
     await query;
-
 
     if(error){
 
@@ -1280,7 +883,6 @@ async function loadMarketplace(searchTerm=""){
         return;
     }
 
-
     if(!data || data.length === 0){
 
         list.innerHTML =
@@ -1289,14 +891,11 @@ async function loadMarketplace(searchTerm=""){
         return;
     }
 
-
     list.innerHTML = "";
-
 
     data.forEach(item => {
 
         let contactButton;
-
 
         if(item.seller_phone){
 
@@ -1304,10 +903,8 @@ async function loadMarketplace(searchTerm=""){
             String(item.seller_phone)
             .replace(/[^0-9+]/g,"");
 
-
             let whatsappPhone =
             phone;
-
 
             if(
                 whatsappPhone.startsWith("0")
@@ -1318,7 +915,6 @@ async function loadMarketplace(searchTerm=""){
                 whatsappPhone.substring(1);
 
             }
-
 
             contactButton =
             '<button type="button" ' +
@@ -1344,14 +940,11 @@ async function loadMarketplace(searchTerm=""){
 
         }
 
-
         const card =
         document.createElement("div");
 
-
         card.className =
         "market-card";
-
 
         card.innerHTML = `
 
@@ -1384,13 +977,11 @@ async function loadMarketplace(searchTerm=""){
 
         `;
 
-
         list.appendChild(card);
 
     });
 
 }
-
 
 
 /* =========================
@@ -1404,15 +995,13 @@ function searchMarketplace(){
         "marketplace-search"
     ).value.trim();
 
-
     loadMarketplace(searchTerm);
 
 }
 
 
-
 /* =========================
-CLEAR MARKETPLACE SEARCH
+CLEAR SEARCH
 ========================= */
 
 function clearMarketplaceSearch(){
@@ -1421,11 +1010,9 @@ function clearMarketplaceSearch(){
         "marketplace-search"
     ).value="";
 
-
     loadMarketplace();
 
 }
-
 
 
 /* =========================
@@ -1440,21 +1027,16 @@ function contactSeller(phone,produce){
     " listing on AgriLink AI Marketplace. " +
     "I would like to know more about it.";
 
-
     const whatsappURL =
     "https://wa.me/" +
     phone +
     "?text=" +
     encodeURIComponent(message);
 
-
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
+    window.location.href =
+    whatsappURL;
 
 }
-
 
 
 /* =========================
@@ -1469,12 +1051,11 @@ function askAI(){
     .trim()
     .toLowerCase();
 
-
     const answer =
     document.getElementById("answer");
 
-
     if(!question){
+
         answer.innerHTML =
         "🌱 Please enter a farming question.";
 
@@ -1528,7 +1109,7 @@ function askAI(){
     }
 
 
-    /* WATER / IRRIGATION */
+    /* WATER */
 
     if(
         question.includes("water") ||
@@ -1583,7 +1164,7 @@ function askAI(){
     }
 
 
-    /* TOMATOES */
+    /* TOMATO */
 
     if(
         question.includes("tomato") ||
@@ -1628,7 +1209,7 @@ function askAI(){
     }
 
 
-    /* GENERAL FARMING */
+    /* GENERAL */
 
     answer.innerHTML =
 
@@ -1637,27 +1218,19 @@ function askAI(){
     "I can currently help with questions about:<br><br>" +
 
     "🌽 Maize<br>" +
-
     "🍅 Tomatoes<br>" +
-
     "💧 Water and irrigation<br>" +
-
     "🐛 Pests and insects<br>" +
-
     "🌦️ Weather and rain<br><br>" +
 
     "Try asking:<br>" +
 
     "👉 Why are my maize leaves turning yellow?<br>" +
-
     "👉 How often should I water my crops?<br>" +
-
     "👉 How can I control pests?<br>" +
-
     "👉 How do I grow healthy tomatoes?";
 
 }
-
 
 
 /* =========================
@@ -1669,21 +1242,17 @@ async function startDashboard(){
     const user =
     await checkUser();
 
-
     if(!user){
 
         return;
     }
-
 
     localStorage.setItem(
         "agrilink_user",
         user.id
     );
 
-
     await loadProfile(user);
-
 
     loadWeather();
 
@@ -1692,7 +1261,6 @@ async function startDashboard(){
     loadMarketplace();
 
 }
-
 
 
 /* =========================
@@ -1706,4 +1274,4 @@ startDashboard();
 
 </body>
 
-</html>    
+</html>
