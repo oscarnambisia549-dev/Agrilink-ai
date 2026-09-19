@@ -2,201 +2,107 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>AgriLink AI Login</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>AgriLink AI - Supabase Test</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
 body{
-margin:0;
-min-height:100vh;
-background:#126b2f;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
+    margin:0;
+    min-height:100vh;
+    background:#126b2f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Arial,sans-serif;
+    padding:20px;
 }
 
 .box{
-width:100%;
-max-width:430px;
-background:white;
-padding:30px 25px;
-border-radius:16px;
+    width:100%;
+    max-width:430px;
+    background:white;
+    padding:30px;
+    border-radius:16px;
+    text-align:center;
 }
 
-.logo{
-text-align:center;
-font-size:28px;
-font-weight:bold;
-color:#126b2f;
-margin-bottom:25px;
-}
-
-.logo span{
-color:#7b2cbf;
-}
-
-h2{
-text-align:center;
-color:#18351f;
-margin-bottom:20px;
-}
-
-label{
-display:block;
-font-weight:bold;
-margin:14px 0 6px;
-}
-
-input{
-width:100%;
-padding:14px;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
+h1{
+    color:#126b2f;
 }
 
 button{
-width:100%;
-margin-top:22px;
-padding:14px;
-border:0;
-border-radius:8px;
-background:#126b2f;
-color:white;
-font-size:17px;
-font-weight:bold;
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+    border:0;
+    border-radius:8px;
+    background:#126b2f;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
 }
 
-#message{
-text-align:center;
-margin-top:18px;
-font-weight:bold;
-line-height:1.5;
+#result{
+    margin-top:20px;
+    font-weight:bold;
+    line-height:1.5;
 }
-
-.register{
-text-align:center;
-margin-top:20px;
-}
-
-.register a{
-color:#126b2f;
-font-weight:bold;
-}
-
 </style>
 
 </head>
-
 
 <body>
 
 <div class="box">
 
-<div class="logo">
-🌱 AgriLink <span>AI</span>
-</div>
+<h1>🌱 AgriLink AI</h1>
 
-<h2>Farmer Login</h2>
+<h2>Supabase Connection Test</h2>
 
-
-<label>Email</label>
-
-<input
-id="email"
-type="email"
-placeholder="Enter your email"
->
-
-
-<label>Password</label>
-
-<input
-id="password"
-type="password"
-placeholder="Enter your password"
->
-
-
-<button
-type="button"
-onclick="loginUser()"
->
-
-🔐 Login
-
+<button onclick="testSupabase()">
+🔐 TEST SUPABASE
 </button>
 
-
-<div id="message"></div>
-
-
-<div class="register">
-
-Don't have an account?
-
-<a href="index.html">
-Register
-</a>
-
-</div>
+<div id="result"></div>
 
 </div>
 
 
 <script>
 
-/* SUPABASE */
+function testSupabase(){
 
-const SUPABASE_URL =
-"https://cjgbeankvgtychqqgvlq.supabase.co";
+    const result =
+        document.getElementById("result");
 
-const SUPABASE_KEY =
-"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+    result.innerHTML =
+        "🔄 Checking Supabase library...";
 
+    if(
+        typeof window.supabase === "undefined"
+    ){
 
-const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+        result.style.color = "#c62828";
 
+        result.innerHTML =
+            "❌ Supabase library is NOT loading.";
 
-/* LOGIN */
+        return;
+    }
 
-async function loginUser(){
+    result.style.color = "#126b2f";
 
-const message =
-document.getElementById("message");
+    result.innerHTML =
+        "✅ Supabase library is loading correctly.";
 
-const email =
-document.getElementById("email").value.trim();
+}
 
-const password =
-document.getElementById("password").value;
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-/* EMPTY FIELDS */
+</body>
 
-if(email === "" || password === ""){
-
-message.style.color="#c62828";
-
-message.innerHTML=
-"❌ Please enter your email and password.";
-
-return;
+</html>
