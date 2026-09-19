@@ -1,88 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AgriLink AI - Login</title>
+<title>AgriLink AI Login</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+body{
+    min-height:100vh;
+    background:#126b2f;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0c5c29, #2e8b46);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+.login-box{
+    width:100%;
+    max-width:400px;
+    background:white;
+    padding:30px 25px;
+    border-radius:15px;
+}
 
-        .login-box {
-            width: 100%;
-            max-width: 420px;
-            background: white;
-            padding: 35px 25px;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
+.logo{
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    color:#126b2f;
+    margin-bottom:10px;
+}
 
-        .logo {
-            text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-            color: #126b2f;
-            margin-bottom: 10px;
-        }
+.logo span{
+    color:#7b2cbf;
+}
 
-        .logo span {
-            color: #7b2cbf;
-        }
+h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#18351f;
+}
 
-        h2 {
-            text-align: center;
-            color: #18351f;
-            margin-bottom: 25px;
-        }
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
 
-        label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
-            color: #18351f;
-        }
+input{
+    width:100%;
+    padding:14px;
+    margin-bottom:18px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
 
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+button{
+    width:100%;
+    padding:14px;
+    background:#126b2f;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:bold;
+}
 
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background: #126b2f;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+#message{
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
 
-        button:active {
-            transform: scale(0.98);
-        }
+.register{
+    text-align:center;
+    margin-top:20px;
+}
 
-        #message {
-            margin-top
+.register a{
+    color:#126b2f;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+<div class="logo">
+🌱 AgriLink <span>AI</span>
+</div>
+
+<h2>Farmer Login</h2>
+
+<label>Email</label>
+
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+>
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+placeholder="Enter your password"
+>
+
+<button onclick="login()">
+🔐 Login
+</button>
+
+<div id="message"></div>
+
+<div class="register">
+Don't have an account?
+<a href="index.html">Register</a>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
+const db =
+window.supabase.createClient(
+SUPAB
