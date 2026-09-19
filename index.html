@@ -57,7 +57,8 @@ label{
     font-weight:bold;
 }
 
-input,select{
+input,
+select{
     width:100%;
     padding:13px;
     margin-bottom:15px;
@@ -81,6 +82,7 @@ button{
     text-align:center;
     margin-top:15px;
     font-weight:bold;
+    line-height:1.5;
 }
 
 .login{
@@ -107,47 +109,53 @@ button{
 
 <h2>Create Farmer Account</h2>
 
-<form id="registerForm">
-
 <label>Full Name</label>
+
 <input
 type="text"
 id="fullName"
 placeholder="Enter your full name"
-required
 >
 
 <label>Email</label>
+
 <input
 type="email"
 id="email"
 placeholder="Enter your email"
-required
 >
 
 <label>Phone</label>
+
 <input
 type="tel"
 id="phone"
 placeholder="Enter your phone number"
-required
 >
 
 <label>Farm Location</label>
+
 <input
 type="text"
 id="location"
 placeholder="e.g. Nairobi, Kenya"
-required
 >
 
 <label>Role</label>
 
-<select id="role" required>
+<select id="role">
 
-<option value="">Select your role</option>
-<option value="farmer">Farmer</option>
-<option value="buyer">Buyer</option>
+<option value="">
+Select your role
+</option>
+
+<option value="farmer">
+Farmer
+</option>
+
+<option value="buyer">
+Buyer
+</option>
 
 </select>
 
@@ -157,7 +165,6 @@ required
 type="password"
 id="password"
 placeholder="Create a password"
-required
 >
 
 <label>Confirm Password</label>
@@ -165,21 +172,26 @@ required
 <input
 type="password"
 id="confirmPassword"
-placeholder="Confirm password"
-required
+placeholder="Confirm your password"
 >
 
-<button type="submit">
+<button
+type="button"
+onclick="registerUser()"
+>
 🌱 Create Account
 </button>
-
-</form>
 
 <div id="message"></div>
 
 <div class="login">
+
 Already have an account?
-<a href="login.html">Login</a>
+
+<a href="login.html">
+Login
+</a>
+
 </div>
 
 </div>
@@ -200,11 +212,8 @@ SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
 );
 
-document
-.getElementById("registerForm")
-.addEventListener("submit", async function(e){
 
-e.preventDefault();
+async function registerUser(){
 
 const message =
 document.getElementById("message");
@@ -216,3 +225,109 @@ const email =
 document.getElementById("email").value.trim();
 
 const phone =
+document.getElementById("phone").value.trim();
+
+const location =
+document.getElementById("location").value.trim();
+
+const role =
+document.getElementById("role").value;
+
+const password =
+document.getElementById("password").value;
+
+const confirmPassword =
+document.getElementById("confirmPassword").value;
+
+
+if(
+!fullName ||
+!email ||
+!phone ||
+!location ||
+!role ||
+!password ||
+!confirmPassword
+){
+
+message.style.color="red";
+
+message.textContent=
+"❌ Please fill in every field.";
+
+return;
+
+}
+
+
+if(password !== confirmPassword){
+
+message.style.color="red";
+
+message.textContent=
+"❌ Passwords do not match.";
+
+return;
+
+}
+
+
+if(password.length < 6){
+
+message.style.color="red";
+
+message.textContent=
+"❌ Password must be at least 6 characters.";
+
+return;
+
+}
+
+
+message.style.color="#126b2f";
+
+message.textContent=
+"🔄 Creating your account...";
+
+
+try{
+
+const {data,error} =
+await db.auth.signUp({
+
+email:email,
+
+password:password,
+
+options:{
+data:{
+full_name:fullName,
+phone:phone,
+location:location,
+role:role
+}
+}
+
+});
+
+
+if(error){
+
+message.style.color="red";
+
+message.textContent=
+"❌ "+error.message;
+
+return;
+
+}
+
+
+if(!data.user){
+
+message.style.color="red";
+
+message.textContent=
+"❌ Account was not created.";
+
+return;
