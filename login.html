@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI - Supabase Test</title>
+<title>AgriLink AI - Auth Test</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 body{
@@ -47,10 +48,9 @@ button{
 #result{
     margin-top:20px;
     font-weight:bold;
-    line-height:1.5;
+    line-height:1.6;
 }
 </style>
-
 </head>
 
 <body>
@@ -59,50 +59,71 @@ button{
 
 <h1>🌱 AgriLink AI</h1>
 
-<h2>Supabase Connection Test</h2>
+<h2>Supabase Auth Test</h2>
 
-<button onclick="testSupabase()">
-🔐 TEST SUPABASE
+<button onclick="testConnection()">
+🔐 TEST CONNECTION
 </button>
 
 <div id="result"></div>
 
 </div>
 
-
 <script>
 
-function testSupabase(){
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+async function testConnection(){
 
     const result =
-        document.getElementById("result");
+    document.getElementById("result");
 
-    result.innerHTML =
-        "🔄 Checking Supabase library...";
+    result.style.color="#126b2f";
+    result.innerHTML="🔄 Connecting to Supabase...";
 
-    if(
-        typeof window.supabase === "undefined"
-    ){
+    try{
 
-        result.style.color = "#c62828";
+        const { data, error } =
+        await supabaseClient.auth.getSession();
+
+        if(error){
+
+            result.style.color="#c62828";
+
+            result.innerHTML =
+            "❌ Supabase connection failed.<br><br>" +
+            error.message;
+
+            return;
+        }
+
+        result.style.color="#126b2f";
 
         result.innerHTML =
-            "❌ Supabase library is NOT loading.";
+        "✅ SUPABASE CONNECTION SUCCESSFUL!<br><br>" +
+        "🌱 Authentication service is responding.";
 
-        return;
+    }catch(error){
+
+        result.style.color="#c62828";
+
+        result.innerHTML =
+        "❌ ERROR<br><br>" +
+        error.message;
     }
-
-    result.style.color = "#126b2f";
-
-    result.innerHTML =
-        "✅ Supabase library is loading correctly.";
-
 }
 
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 </body>
-
 </html>
