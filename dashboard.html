@@ -47,3 +47,513 @@ nav{
 .logo span{
     color:#b9f6c8;
 }
+
+.logout{
+    background:white;
+    color:#126b2f;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#0c5c29,#2e8b46);
+    color:white;
+    padding:60px 7%;
+}
+
+.hero-content{
+    max-width:1150px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:clamp(38px,6vw,65px);
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+/* PROFILE */
+
+.profile{
+    background:white;
+    color:#18351f;
+    padding:20px;
+    border-radius:15px;
+    max-width:500px;
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+}
+
+/* CONTAINER */
+
+.container{
+    max-width:1150px;
+    margin:auto;
+    padding:45px 7%;
+}
+
+/* CARDS */
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:30px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.card h2{
+    color:#126b2f;
+    margin-bottom:20px;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+button{
+    background:#126b2f;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.sell-button{
+    background:#6a1b9a;
+    margin-left:8px;
+}
+
+.cancel-button{
+    background:#777;
+    margin-left:8px;
+}
+
+/* PRODUCE */
+
+.produce-item,
+.market-item{
+    border:1px solid #ddd;
+    padding:16px;
+    border-radius:10px;
+    margin-top:12px;
+    background:#fafafa;
+}
+
+.produce-item strong,
+.market-item strong{
+    color:#126b2f;
+    font-size:18px;
+}
+
+/* SELL FORM */
+
+#sellForm{
+    display:none;
+    background:#f8f1ff;
+    border:2px solid #6a1b9a;
+    padding:20px;
+    border-radius:12px;
+    margin-top:25px;
+}
+
+#sellForm h3{
+    color:#6a1b9a;
+    margin-bottom:10px;
+}
+
+/* MARKETPLACE */
+
+.search-box{
+    margin-bottom:20px;
+}
+
+/* AI */
+
+.ai-box{
+    background:#f0fff4;
+    border-left:5px solid #126b2f;
+    padding:20px;
+    border-radius:10px;
+}
+
+.ai-response{
+    margin-top:15px;
+    background:white;
+    padding:15px;
+    border-radius:8px;
+    min-height:50px;
+}
+
+.success{
+    color:#126b2f;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+.error{
+    color:#b00020;
+    font-weight:bold;
+    margin-top:12px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#18351f;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    nav{
+        padding:15px 5%;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .hero{
+        padding:45px 5%;
+    }
+
+    .container{
+        padding:30px 5%;
+    }
+
+    .sell-button{
+        margin-left:0;
+        display:block;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <div class="logo">
+        🌱 AgriLink <span>AI</span>
+    </div>
+
+    <button
+        class="logout"
+        onclick="logoutUser()"
+    >
+        Logout
+    </button>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Farmer Dashboard 🌱
+        </h1>
+
+        <p>
+            Manage your farm, sell your produce
+            and connect with buyers.
+        </p>
+
+        <div class="profile">
+
+            <h3 id="profile-name">
+                👋 Welcome, Farmer
+            </h3>
+
+            <p id="profile-email">
+                📧 Loading account...
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="container">
+
+
+<!-- WEATHER -->
+
+<section class="card">
+
+    <h2>
+        🌦️ Farm Weather
+    </h2>
+
+    <p id="weather">
+        Loading weather...
+    </p>
+
+</section>
+
+
+<!-- MY PRODUCE -->
+
+<section class="card">
+
+    <h2>
+        🌾 My Produce
+    </h2>
+
+    <form id="produceForm">
+
+        <div class="form-group">
+
+            <label>
+                Produce Name
+            </label>
+
+            <input
+                type="text"
+                id="produceName"
+                placeholder="e.g. Maize"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Quantity
+            </label>
+
+            <input
+                type="number"
+                id="produceQuantity"
+                placeholder="e.g. 100"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Unit
+            </label>
+
+            <select
+                id="produceUnit"
+                required
+            >
+
+                <option value="">
+                    Select unit
+                </option>
+
+                <option value="kg">
+                    Kilograms
+                </option>
+
+                <option value="bags">
+                    Bags
+                </option>
+
+                <option value="tons">
+                    Tons
+                </option>
+
+                <option value="crates">
+                    Crates
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Location
+            </label>
+
+            <input
+                type="text"
+                id="produceLocation"
+                placeholder="e.g. Nairobi"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            🌾 List Produce
+        </button>
+
+
+        <!-- DIRECT OPEN BUTTON -->
+
+        <button
+            type="button"
+            class="sell-button"
+            onclick="document.getElementById('sellForm').style.display='block'; document.getElementById('sellForm').scrollIntoView({behavior:'smooth'});"
+        >
+            🛒 Sell This Produce
+        </button>
+
+    </form>
+
+
+    <div id="produceMessage"></div>
+
+    <div id="produceList"></div>
+
+
+    <!-- SELL FORM -->
+
+    <div id="sellForm">
+
+        <h3>
+            🛒 Sell Your Produce
+        </h3>
+
+        <p>
+            Create a marketplace listing
+            so buyers can find your produce.
+        </p>
+
+        <br>
+
+
+        <div class="form-group">
+
+            <label>
+                Produce Name
+            </label>
+
+            <input
+                type="text"
+                id="sellProduceName"
+                placeholder="e.g. Maize"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Quantity
+            </label>
+
+            <input
+                type="number"
+                id="sellQuantity"
+                placeholder="e.g. 100"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Unit
+            </label>
+
+            <select id="sellUnit">
+
+                <option value="">
+                    Select unit
+                </option>
+
+                <option value="kg">
+                    Kilograms
+                </option>
+
+                <option value="bags">
+                    Bags
+                </option>
+
+                <option value="tons">
+                    Tons
+                </option>
+
+                <option value="crates">
+                    Crates
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Price (KSh)
+            </label>
+
+            <input
+                type="number"
+                id="sellPrice"
+                placeholder="e.g. 5000"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Location
