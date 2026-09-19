@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI - Login</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>AgriLink AI - Register</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -20,23 +24,23 @@ body{
     min-height:100vh;
     background:linear-gradient(135deg,#0c5c29,#2e8b46);
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     padding:20px;
 }
 
-.container{
+.register-box{
     width:100%;
-    max-width:430px;
+    max-width:450px;
     background:white;
-    padding:35px 25px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    padding:30px 25px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 .logo{
     text-align:center;
-    font-size:29px;
+    font-size:30px;
     font-weight:bold;
     color:#126b2f;
     margin-bottom:8px;
@@ -46,123 +50,194 @@ body{
     color:#7b2cbf;
 }
 
-.tagline{
+.subtitle{
     text-align:center;
     color:#666;
-    font-size:14px;
-    margin-bottom:28px;
+    margin-bottom:25px;
 }
 
 h2{
     text-align:center;
     color:#18351f;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 label{
     display:block;
-    margin:14px 0 6px;
+    margin-bottom:6px;
     font-weight:bold;
     color:#18351f;
 }
 
-input{
+input,
+select{
     width:100%;
-    padding:14px;
+    padding:13px;
+    margin-bottom:16px;
     border:1px solid #ccc;
     border-radius:8px;
     font-size:16px;
-    outline:none;
-}
-
-input:focus{
-    border-color:#126b2f;
+    background:white;
 }
 
 button{
     width:100%;
-    margin-top:24px;
     padding:14px;
-    border:none;
-    border-radius:8px;
     background:#126b2f;
     color:white;
+    border:none;
+    border-radius:8px;
     font-size:17px;
     font-weight:bold;
     cursor:pointer;
 }
 
-button:disabled{
-    background:#777;
+button:active{
+    transform:scale(0.98);
 }
 
 #message{
-    margin-top:16px;
     text-align:center;
+    margin-top:16px;
     font-weight:bold;
     line-height:1.5;
 }
 
-.register{
+.login{
     text-align:center;
-    margin-top:22px;
+    margin-top:20px;
     color:#555;
 }
 
-.register a{
+.login a{
     color:#126b2f;
     font-weight:bold;
     text-decoration:none;
 }
+
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="register-box">
 
-    <div class="logo">
-        🌱 AgriLink <span>AI</span>
-    </div>
+<div class="logo">
+🌱 AgriLink <span>AI</span>
+</div>
 
-    <div class="tagline">
-        One platform. Every farmer. A better future through AI. 🌱🚀
-    </div>
+<p class="subtitle">
+One platform. Every farmer. A better future through AI. 🌱🚀
+</p>
 
-    <h2>Farmer Login</h2>
+<h2>Create Farmer Account</h2>
 
-    <form id="loginForm">
+<form id="register-form">
 
-        <label for="email">Email</label>
+<label for="full_name">
+Full Name
+</label>
 
-        <input
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            required
-        >
+<input
+type="text"
+id="full_name"
+placeholder="Enter your full name"
+required
+>
 
-        <label for="password">Password</label>
+<label for="email">
+Email
+</label>
 
-        <input
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            required
-        >
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+required
+>
 
-        <button id="loginButton" type="submit">
-            🔐 Login
-        </button>
+<label for="phone">
+Phone Number
+</label>
 
-    </form>
+<input
+type="tel"
+id="phone"
+placeholder="Enter your phone number"
+required
+>
 
-    <div id="message"></div>
+<label for="location">
+Farm Location
+</label>
 
-    <div class="register">
-        Don't have an account?
-        <a href="index.html">Register</a>
-    </div>
+<input
+type="text"
+id="location"
+placeholder="e.g. Nairobi, Kenya"
+required
+>
+
+<label for="role">
+I am a
+</label>
+
+<select id="role" required>
+
+<option value="">
+Select your role
+</option>
+
+<option value="farmer">
+Farmer
+</option>
+
+<option value="buyer">
+Buyer
+</option>
+
+</select>
+
+<label for="password">
+Password
+</label>
+
+<input
+type="password"
+id="password"
+placeholder="Create a password"
+required
+>
+
+<label for="confirm-password">
+Confirm Password
+</label>
+
+<input
+type="password"
+id="confirm-password"
+placeholder="Confirm your password"
+required
+>
+
+<button type="submit">
+🌱 Create Account
+</button>
+
+</form>
+
+<div id="message"></div>
+
+<div class="login">
+
+Already have an account?
+
+<a href="login.html">
+Login
+</a>
+
+</div>
 
 </div>
 
@@ -174,93 +249,187 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
 
-const db = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
 );
 
-const form =
-    document.getElementById("loginForm");
+document
+.getElementById("register-form")
+.addEventListener("submit", registerUser);
 
-const button =
-    document.getElementById("loginButton");
+async function registerUser(event){
+
+event.preventDefault();
 
 const message =
-    document.getElementById("message");
+document.getElementById("message");
 
+const fullName =
+document.getElementById("full_name")
+.value.trim();
 
-form.addEventListener("submit", async function(event){
+const email =
+document.getElementById("email")
+.value.trim();
 
-    event.preventDefault();
+const phone =
+document.getElementById("phone")
+.value.trim();
 
-    const email =
-        document.getElementById("email").value.trim();
+const location =
+document.getElementById("location")
+.value.trim();
 
-    const password =
-        document.getElementById("password").value;
+const role =
+document.getElementById("role")
+.value;
 
-    message.style.color = "#126b2f";
-    message.innerHTML =
-        "🔄 Logging you in...";
+const password =
+document.getElementById("password")
+.value;
 
-    button.disabled = true;
-    button.innerText = "Logging in...";
+const confirmPassword =
+document.getElementById("confirm-password")
+.value;
 
+if(password !== confirmPassword){
 
-    try {
+message.style.color="red";
 
-        const { data, error } =
-            await db.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
+message.textContent=
+"❌ Passwords do not match.";
 
+return;
 
-        if(error){
-            throw error;
-        }
+}
 
+if(password.length < 6){
 
-        if(!data.user){
-            throw new Error(
-                "Login could not be completed."
-            );
-        }
+message.style.color="red";
 
+message.textContent=
+"❌ Password must be at least 6 characters.";
 
-        message.style.color = "#126b2f";
+return;
 
-        message.innerHTML =
-            "✅ Login successful!<br>" +
-            "Welcome back to AgriLink AI 🌱🚀";
+}
 
+message.style.color="#126b2f";
 
-        setTimeout(function(){
+message.textContent=
+"🔄 Creating your account...";
 
-            window.location.href =
-                "dashboard.html";
+try{
 
-        },1000);
+/*
+Create Supabase Auth account
+*/
 
+const {data,error} =
+await db.auth.signUp({
 
-    } catch(error){
+email:email,
 
-        console.error(
-            "Login error:",
-            error
-        );
+password:password,
 
-        message.style.color = "#c62828";
-
-        message.innerHTML =
-            "❌ Login failed.<br><br>" +
-            error.message;
-
-        button.disabled = false;
-        button.innerText = "🔐 Login";
-    }
+options:{
+data:{
+full_name:fullName,
+phone:phone,
+location:location,
+role:role
+}
+}
 
 });
+
+if(error){
+
+message.style.color="red";
+
+message.textContent=
+"❌ "+error.message;
+
+return;
+
+}
+
+if(!data.user){
+
+message.style.color="red";
+
+message.textContent=
+"❌ Account could not be created.";
+
+return;
+
+}
+
+/*
+Save farmer profile
+*/
+
+const {error:profileError} =
+await db
+.from("users")
+.insert([{
+
+id:data.user.id,
+full_name:fullName,
+email:email,
+phone:phone,
+location:location,
+role:role
+
+}]);
+
+/*
+If the profile insert fails because the
+existing users table still uses a bigint ID,
+we will fix the table structure next.
+*/
+
+if(profileError){
+
+console.log(profileError);
+
+message.style.color="#126b2f";
+
+message.innerHTML=
+"✅ Auth account created!<br>" +
+"Your profile needs one database update.";
+
+return;
+
+}
+
+message.style.color="#126b2f";
+
+message.innerHTML=
+"✅ Account created successfully!<br>" +
+"Redirecting to your dashboard...";
+
+setTimeout(function(){
+
+window.location.href=
+"dashboard.html";
+
+},1500);
+
+}catch(error){
+
+console.error(error);
+
+message.style.color="red";
+
+message.textContent=
+"❌ Something went wrong. Please try again.";
+
+}
+
+}
 
 </script>
 
