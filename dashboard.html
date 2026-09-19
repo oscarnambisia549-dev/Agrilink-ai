@@ -101,4 +101,1179 @@ button{
     border-radius:8px;
     padding:13px 18px;
     margin-top:15px;
-    background:#
+    background:#126b2f;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.sell-button{
+    background:#7b1fa2;
+    margin-left:8px;
+}
+
+.cancel-button{
+    background:#777;
+    margin-left:8px;
+}
+
+#sellForm{
+    display:none;
+    margin-top:20px;
+    padding:20px;
+    background:#f4f8f5;
+    border:1px solid #d7e6da;
+    border-radius:12px;
+}
+
+.success{
+    color:#08752b;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.error{
+    color:#c62828;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.item{
+    background:#f5faf6;
+    padding:18px;
+    margin-top:15px;
+    border-radius:10px;
+    border-left:5px solid #126b2f;
+}
+
+.market-item{
+    border-left-color:#7b1fa2;
+}
+
+footer{
+    background:#18351f;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+}
+
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .sell-button,
+    .cancel-button{
+        margin-left:0;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<nav>
+
+<div class="logo">
+🌱 AgriLink <span>AI</span>
+</div>
+
+<button
+class="logout"
+type="button"
+onclick="logoutUser()">
+Logout
+</button>
+
+</nav>
+
+
+<section class="hero">
+
+<h1>Farmer Dashboard 🌱</h1>
+
+<p>
+Manage your farm, sell your produce and connect with buyers.
+</p>
+
+</section>
+
+
+<div class="container">
+
+
+<!-- PROFILE -->
+
+<div class="card">
+
+<h2>👋 Farmer Profile</h2>
+
+<h3 id="profile-name">
+👋 Welcome, Farmer
+</h3>
+
+<p id="profile-email">
+📧 Loading account...
+</p>
+
+</div>
+
+
+<!-- WEATHER -->
+
+<div class="card">
+
+<h2>🌦️ Farm Weather</h2>
+
+<div id="weather">
+Loading weather...
+</div>
+
+</div>
+
+
+<!-- MY PRODUCE -->
+
+<div class="card">
+
+<h2>🌾 My Produce</h2>
+
+<label>Produce Name</label>
+
+<input
+id="produceName"
+type="text"
+placeholder="e.g. Maize"
+>
+
+
+<label>Quantity</label>
+
+<input
+id="produceQuantity"
+type="number"
+placeholder="e.g. 100"
+>
+
+
+<label>Unit</label>
+
+<select id="produceUnit">
+
+<option value="">
+Select unit
+</option>
+
+<option value="Kilograms">
+Kilograms
+</option>
+
+<option value="Bags">
+Bags
+</option>
+
+<option value="Crates">
+Crates
+</option>
+
+<option value="Tonnes">
+Tonnes
+</option>
+
+<option value="Litres">
+Litres
+</option>
+
+</select>
+
+
+<label>Location</label>
+
+<input
+id="produceLocation"
+type="text"
+placeholder="e.g. Nairobi"
+>
+
+
+<button
+type="button"
+onclick="addProduce()">
+
+🌾 List Produce
+
+</button>
+
+
+<button
+type="button"
+class="sell-button"
+onclick="openSellForm()">
+
+🛒 Sell This Produce
+
+</button>
+
+
+<div id="produceMessage"></div>
+
+<div id="produceList"></div>
+
+
+<!-- SELL FORM -->
+
+<div id="sellForm">
+
+<h3>🛒 Sell Your Produce</h3>
+
+<p style="margin-top:8px;">
+Create a marketplace listing so buyers can find your produce.
+</p>
+
+
+<label>Produce Name</label>
+
+<input
+id="sellProduceName"
+type="text"
+placeholder="e.g. Maize"
+>
+
+
+<label>Quantity</label>
+
+<input
+id="sellQuantity"
+type="number"
+placeholder="e.g. 100"
+>
+
+
+<label>Unit</label>
+
+<select id="sellUnit">
+
+<option value="">
+Select unit
+</option>
+
+<option value="Kilograms">
+Kilograms
+</option>
+
+<option value="Bags">
+Bags
+</option>
+
+<option value="Crates">
+Crates
+</option>
+
+<option value="Tonnes">
+Tonnes
+</option>
+
+<option value="Litres">
+Litres
+</option>
+
+</select>
+
+
+<label>Price (KSh)</label>
+
+<input
+id="sellPrice"
+type="number"
+placeholder="e.g. 5000"
+>
+
+
+<label>Location</label>
+
+<input
+id="sellLocation"
+type="text"
+placeholder="e.g. Nairobi"
+>
+
+
+<button
+type="button"
+onclick="postToMarketplace()">
+
+🚀 Post to Marketplace
+
+</button>
+
+
+<button
+type="button"
+class="cancel-button"
+onclick="closeSellForm()">
+
+Cancel
+
+</button>
+
+
+<div id="sellMessage"></div>
+
+</div>
+
+</div>
+
+
+<!-- MARKETPLACE -->
+
+<div class="card">
+
+<h2>🛒 AgriLink Marketplace</h2>
+
+<p>
+Find fresh produce from farmers.
+</p>
+
+
+<label>🔎 Search Produce</label>
+
+<input
+id="marketSearch"
+type="text"
+placeholder="Search maize, tomatoes, beans..."
+oninput="loadMarketplace()"
+>
+
+
+<div id="marketplaceList">
+Loading marketplace...
+</div>
+
+</div>
+
+
+<!-- AI -->
+
+<div class="card">
+
+<h2>🤖 AgriLink AI Assistant</h2>
+
+<p>
+Ask AgriLink AI about farming, crops, pests, irrigation or weather.
+</p>
+
+
+<input
+id="aiQuestion"
+type="text"
+placeholder="e.g. My maize leaves are turning yellow"
+>
+
+
+<button
+type="button"
+onclick="askAI()">
+
+🤖 Ask AgriLink AI
+
+</button>
+
+
+<div
+id="aiAnswer"
+style="margin-top:15px;">
+</div>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+<p>🌱 AgriLink AI</p>
+
+<p>
+One platform. Every farmer.
+A better future through AI. 🚀
+</p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =========================
+AUTH
+========================= */
+
+async function checkUser(){
+
+    const result =
+    await supabaseClient.auth.getSession();
+
+    if(
+        result.error ||
+        !result.data.session
+    ){
+
+        window.location.href =
+        "login.html";
+
+        return null;
+    }
+
+    return result.data.session.user;
+}
+
+
+/* =========================
+LOGOUT
+========================= */
+
+async function logoutUser(){
+
+    await supabaseClient.auth.signOut();
+
+    localStorage.removeItem(
+        "agrilink_user"
+    );
+
+    window.location.href =
+    "login.html";
+}
+
+
+/* =========================
+SELL FORM
+========================= */
+
+function openSellForm(){
+
+    const form =
+    document.getElementById(
+        "sellForm"
+    );
+
+    form.style.display =
+    "block";
+
+    form.scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+
+function closeSellForm(){
+
+    document.getElementById(
+        "sellForm"
+    ).style.display =
+    "none";
+}
+
+
+/* =========================
+PROFILE
+========================= */
+
+async function loadProfile(user){
+
+    const name =
+    document.getElementById(
+        "profile-name"
+    );
+
+    const email =
+    document.getElementById(
+        "profile-email"
+    );
+
+    email.innerHTML =
+    "📧 " + user.email;
+
+    try{
+
+        const result =
+        await supabaseClient
+        .from("users")
+        .select(
+            "full_name,email,role,location"
+        )
+        .eq(
+            "auth_id",
+            user.id
+        )
+        .maybeSingle();
+
+        if(
+            result.data &&
+            result.data.full_name
+        ){
+
+            name.innerHTML =
+            "👋 Welcome, " +
+            result.data.full_name;
+        }
+
+        if(
+            result.data &&
+            result.data.email
+        ){
+
+            email.innerHTML =
+            "📧 " +
+            result.data.email;
+        }
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+}
+
+
+/* =========================
+WEATHER
+========================= */
+
+async function loadWeather(){
+
+    const weather =
+    document.getElementById(
+        "weather"
+    );
+
+    try{
+
+        const response =
+        await fetch(
+            "https://api.open-meteo.com/v1/forecast" +
+            "?latitude=-1.286389" +
+            "&longitude=36.817223" +
+            "&current=temperature_2m,wind_speed_10m" +
+            "&daily=precipitation_probability_max" +
+            "&timezone=Africa%2FNairobi"
+        );
+
+        const data =
+        await response.json();
+
+        weather.innerHTML =
+        "🌡️ Temperature: " +
+        data.current.temperature_2m +
+        "°C<br>" +
+
+        "💨 Wind: " +
+        data.current.wind_speed_10m +
+        " km/h<br>" +
+
+        "🌧️ Rain probability: " +
+        data.daily.precipitation_probability_max[0] +
+        "%";
+
+    }catch(error){
+
+        console.log(error);
+
+        weather.innerHTML =
+        "⚠️ Weather unavailable.";
+
+    }
+}
+
+
+/* =========================
+ADD PRODUCE
+========================= */
+
+async function addProduce(){
+
+    const name =
+    document.getElementById(
+        "produceName"
+    ).value.trim();
+
+    const quantity =
+    document.getElementById(
+        "produceQuantity"
+    ).value;
+
+    const unit =
+    document.getElementById(
+        "produceUnit"
+    ).value;
+
+    const location =
+    document.getElementById(
+        "produceLocation"
+    ).value.trim();
+
+    const message =
+    document.getElementById(
+        "produceMessage"
+    );
+
+    if(
+        !name ||
+        !quantity ||
+        !unit ||
+        !location
+    ){
+
+        message.innerHTML =
+        '<p class="error">❌ Please fill in all fields.</p>';
+
+        return;
+    }
+
+    const user =
+    await checkUser();
+
+    if(!user){
+        return;
+    }
+
+    const result =
+    await supabaseClient
+    .from("produce")
+    .insert({
+
+        produce_name:name,
+        quantity:Number(quantity),
+        unit:unit,
+        location:location
+
+    });
+
+    if(result.error){
+
+        message.innerHTML =
+        '<p class="error">❌ ' +
+        result.error.message +
+        '</p>';
+
+        return;
+    }
+
+    message.innerHTML =
+    '<p class="success">✅ Produce listed successfully!</p>';
+
+    document.getElementById(
+        "produceName"
+    ).value = "";
+
+    document.getElementById(
+        "produceQuantity"
+    ).value = "";
+
+    document.getElementById(
+        "produceUnit"
+    ).value = "";
+
+    document.getElementById(
+        "produceLocation"
+    ).value = "";
+
+    loadMyProduce();
+}
+
+
+/* =========================
+LOAD PRODUCE
+========================= */
+
+async function loadMyProduce(){
+
+    const list =
+    document.getElementById(
+        "produceList"
+    );
+
+    const result =
+    await supabaseClient
+    .from("produce")
+    .select("*")
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
+
+    if(result.error){
+
+        list.innerHTML =
+        '<p class="error">❌ ' +
+        result.error.message +
+        '</p>';
+
+        return;
+    }
+
+    if(
+        !result.data ||
+        result.data.length === 0
+    ){
+
+        list.innerHTML =
+        "<p>No produce listed yet.</p>";
+
+        return;
+    }
+
+    list.innerHTML = "";
+
+    result.data.forEach(
+        function(item){
+
+            const div =
+            document.createElement(
+                "div"
+            );
+
+            div.className =
+            "item";
+
+            div.innerHTML =
+            "<strong>🌾 " +
+            item.produce_name +
+            "</strong><br>" +
+
+            "Quantity: " +
+            item.quantity +
+            " " +
+            item.unit +
+            "<br>" +
+
+            "📍 " +
+            item.location;
+
+            list.appendChild(div);
+
+        }
+    );
+}
+
+
+/* =========================
+POST MARKETPLACE
+========================= */
+
+async function postToMarketplace(){
+
+    const name =
+    document.getElementById(
+        "sellProduceName"
+    ).value.trim();
+
+    const quantity =
+    document.getElementById(
+        "sellQuantity"
+    ).value;
+
+    const unit =
+    document.getElementById(
+        "sellUnit"
+    ).value;
+
+    const price =
+    document.getElementById(
+        "sellPrice"
+    ).value;
+
+    const location =
+    document.getElementById(
+        "sellLocation"
+    ).value.trim();
+
+    const message =
+    document.getElementById(
+        "sellMessage"
+    );
+
+
+    if(
+        !name ||
+        !quantity ||
+        !unit ||
+        !price ||
+        !location
+    ){
+
+        message.innerHTML =
+        '<p class="error">❌ Please fill in all fields.</p>';
+
+        return;
+    }
+
+
+    message.innerHTML =
+    "Posting your produce...";
+
+
+    const userResult =
+    await supabaseClient.auth.getUser();
+
+    const user =
+    userResult.data.user;
+
+
+    if(!user){
+
+        message.innerHTML =
+        '<p class="error">❌ Please log in again.</p>';
+
+        return;
+    }
+
+
+    let sellerName =
+    "AgriLink Farmer";
+
+
+    const profile =
+    await supabaseClient
+    .from("users")
+    .select("full_name")
+    .eq("auth_id",user.id)
+    .maybeSingle();
+
+
+    if(
+        profile.data &&
+        profile.data.full_name
+    ){
+
+        sellerName =
+        profile.data.full_name;
+    }
+
+
+    const result =
+    await supabaseClient
+    .from("marketplace")
+    .insert({
+
+        produce_name:name,
+
+        quantity:Number(
+            quantity
+        ),
+
+        unit:unit,
+
+        price:Number(
+            price
+        ),
+
+        location:location,
+
+        seller_name:sellerName
+
+    });
+
+
+    if(result.error){
+
+        message.innerHTML =
+        '<p class="error">❌ ' +
+        result.error.message +
+        '</p>';
+
+        return;
+    }
+
+
+    message.innerHTML =
+    '<p class="success">' +
+    '✅ Your produce is now on the marketplace!' +
+    '</p>';
+
+
+    document.getElementById(
+        "sellPrice"
+    ).value = "";
+
+
+    loadMarketplace();
+}
+
+
+/* =========================
+MARKETPLACE
+========================= */
+
+async function loadMarketplace(){
+
+    const list =
+    document.getElementById(
+        "marketplaceList"
+    );
+
+    const search =
+    document.getElementById(
+        "marketSearch"
+    ).value
+    .trim()
+    .toLowerCase();
+
+
+    const result =
+    await supabaseClient
+    .from("marketplace")
+    .select("*")
+    .order(
+        "created_at",
+        {
+            ascending:false
+        }
+    );
+
+
+    if(result.error){
+
+        list.innerHTML =
+        '<p class="error">❌ ' +
+        result.error.message +
+        '</p>';
+
+        return;
+    }
+
+
+    let items =
+    result.data || [];
+
+
+    if(search){
+
+        items =
+        items.filter(
+            function(item){
+
+                return item.produce_name
+                .toLowerCase()
+                .includes(search);
+
+            }
+        );
+    }
+
+
+    if(items.length === 0){
+
+        list.innerHTML =
+        "<p>No marketplace listings found.</p>";
+
+        return;
+    }
+
+
+    list.innerHTML = "";
+
+
+    items.forEach(
+        function(item){
+
+            const div =
+            document.createElement(
+                "div"
+            );
+
+            div.className =
+            "item market-item";
+
+
+            div.innerHTML =
+            "<strong>🌾 " +
+            item.produce_name +
+            "</strong><br>" +
+
+            "📦 Quantity: " +
+            item.quantity +
+            " " +
+            item.unit +
+            "<br>" +
+
+            "💰 Price: KSh " +
+            Number(item.price)
+            .toLocaleString() +
+            "<br>" +
+
+            "📍 Location: " +
+            item.location +
+            "<br>" +
+
+            "👨‍🌾 Seller: " +
+            (
+                item.seller_name ||
+                "AgriLink Farmer"
+            );
+
+
+            list.appendChild(div);
+
+        }
+    );
+}
+
+
+/* =========================
+AI ASSISTANT
+========================= */
+
+function askAI(){
+
+    const question =
+    document.getElementById(
+        "aiQuestion"
+    ).value
+    .trim()
+    .toLowerCase();
+
+    const answer =
+    document.getElementById(
+        "aiAnswer"
+    );
+
+
+    if(!question){
+
+        answer.innerHTML =
+        "Please enter a farming question.";
+
+        return;
+    }
+
+
+    let response;
+
+
+    if(
+        question.includes("maize") &&
+        (
+            question.includes("yellow") ||
+            question.includes("yellowing")
+        )
+    ){
+
+        response =
+        "🌽 Yellow maize leaves can be caused by nutrient deficiency, water stress or pests. Check soil moisture and inspect the leaves.";
+
+    }
+
+    else if(
+        question.includes("water") ||
+        question.includes("irrigation")
+    ){
+
+        response =
+        "💧 Check soil moisture before irrigating. Avoid both drought stress and waterlogging.";
+
+    }
+
+    else if(
+        question.includes("pest") ||
+        question.includes("insect")
+    ){
+
+        response =
+        "🐛 Inspect the crop carefully and identify the pest before choosing a treatment.";
+
+    }
+
+    else if(
+        question.includes("tomato") ||
+        question.includes("tomatoes")
+    ){
+
+        response =
+        "🍅 Tomatoes need consistent watering, sunlight and well-drained soil. Monitor them for pests and disease.";
+
+    }
+
+    else if(
+        question.includes("weather") ||
+        question.includes("rain")
+    ){
+
+        response =
+        "🌦️ Check the Farm Weather section before planning irrigation, spraying or harvesting.";
+
+    }
+
+    else{
+
+        response =
+        "🤖 I can currently help with maize, tomatoes, pests, irrigation and weather.";
+
+    }
+
+
+    answer.innerHTML =
+    "<p>" +
+    response +
+    "</p>";
+}
+
+
+/* =========================
+START
+========================= */
+
+async function startDashboard(){
+
+    const user =
+    await checkUser();
+
+    if(!user){
+        return;
+    }
+
+    localStorage.setItem(
+        "agrilink_user",
+        user.id
+    );
+
+    await loadProfile(user);
+
+    loadWeather();
+
+    loadMyProduce();
+
+    loadMarketplace();
+}
+
+
+startDashboard();
+
+</script>
+
+</body>
+    </html>
