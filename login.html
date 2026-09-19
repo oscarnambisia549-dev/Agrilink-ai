@@ -1,102 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI Login Test</title>
+<title>AgriLink AI - Login</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-body{
+
+*{
+    box-sizing:border-box;
     margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
     min-height:100vh;
-    background:#126b2f;
+    background:linear-gradient(135deg,#0c5c29,#2e8b46);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-family:Arial,sans-serif;
     padding:20px;
 }
 
-.box{
+.login-box{
     width:100%;
     max-width:430px;
     background:white;
-    padding:30px;
-    border-radius:16px;
+    padding:35px 28px;
+    border-radius:18px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.25);
 }
 
-h1{
+.logo{
     text-align:center;
+    font-size:28px;
+    font-weight:bold;
     color:#126b2f;
+    margin-bottom:10px;
+}
+
+.logo span{
+    color:#7b2cbf;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:28px;
+}
+
+h2{
+    text-align:center;
+    color:#18351f;
+    margin-bottom:22px;
 }
 
 label{
     display:block;
     font-weight:bold;
-    margin-top:18px;
-    margin-bottom:6px;
+    color:#18351f;
+    margin:15px 0 7px;
 }
 
 input{
     width:100%;
     padding:14px;
-    box-sizing:border-box;
     border:1px solid #ccc;
-    border-radius:8px;
+    border-radius:9px;
     font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#126b2f;
 }
 
 button{
     width:100%;
+    margin-top:24px;
     padding:15px;
-    margin-top:22px;
-    border:0;
-    border-radius:8px;
+    border:none;
+    border-radius:9px;
     background:#126b2f;
     color:white;
     font-size:17px;
     font-weight:bold;
+    cursor:pointer;
 }
 
-#result{
-    margin-top:20px;
+button:disabled{
+    background:#777;
+}
+
+#message{
     text-align:center;
+    margin-top:18px;
     font-weight:bold;
     line-height:1.5;
 }
+
+.register{
+    text-align:center;
+    margin-top:22px;
+    color:#555;
+}
+
+.register a{
+    color:#126b2f;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.back{
+    text-align:center;
+    margin-top:15px;
+}
+
+.back a{
+    color:#7b2cbf;
+    text-decoration:none;
+    font-weight:bold;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div class="box">
+<div class="login-box">
 
-<h1>🌱 AgriLink AI</h1>
+    <div class="logo">
+        🌱 AgriLink <span>AI</span>
+    </div>
 
-<h2>Login Test</h2>
+    <div class="subtitle">
+        One platform. Every farmer. A better future through AI.
+    </div>
 
-<label>Email</label>
-<input
-    id="email"
-    type="email"
-    placeholder="Enter your email"
->
+    <h2>Welcome Back 👋</h2>
 
-<label>Password</label>
-<input
-    id="password"
-    type="password"
-    placeholder="Enter your password"
->
+    <label for="email">Email</label>
 
-<button onclick="testLogin()">
-🔐 TEST LOGIN
-</button>
+    <input
+        id="email"
+        type="email"
+        placeholder="Enter your email"
+        autocomplete="email"
+    >
 
-<div id="result"></div>
+    <label for="password">Password</label>
+
+    <input
+        id="password"
+        type="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+    >
+
+    <button id="loginButton" type="button" onclick="loginUser()">
+        🔐 Login
+    </button>
+
+    <div id="message"></div>
+
+    <div class="register">
+        Don't have an account?
+        <a href="index.html">Register</a>
+    </div>
+
+    <div class="back">
+        <a href="index.html">← Back to AgriLink AI</a>
+    </div>
 
 </div>
 
@@ -114,10 +194,8 @@ window.supabase.createClient(
     SUPABASE_KEY
 );
 
-async function testLogin(){
 
-    const result =
-    document.getElementById("result");
+async function loginUser(){
 
     const email =
     document.getElementById("email").value.trim();
@@ -125,53 +203,94 @@ async function testLogin(){
     const password =
     document.getElementById("password").value;
 
-    if(!email || !password){
+    const message =
+    document.getElementById("message");
 
-        result.style.color="#c62828";
+    const button =
+    document.getElementById("loginButton");
 
-        result.innerHTML =
-        "❌ Enter your email and password.";
+
+    if(email === "" || password === ""){
+
+        message.style.color="#c62828";
+
+        message.innerHTML =
+        "❌ Please enter your email and password.";
 
         return;
     }
 
-    result.style.color="#126b2f";
-    result.innerHTML="🔄 Checking login...";
+
+    button.disabled=true;
+
+    button.innerHTML="🔄 Logging in...";
+
+    message.style.color="#126b2f";
+
+    message.innerHTML="Connecting to AgriLink AI...";
+
 
     try{
 
         const { data, error } =
         await supabaseClient.auth.signInWithPassword({
+
             email:email,
+
             password:password
+
         });
+
 
         if(error){
 
-            result.style.color="#c62828";
+            message.style.color="#c62828";
 
-            result.innerHTML =
-            "❌ LOGIN FAILED<br><br>" +
+            message.innerHTML =
+            "❌ Login failed.<br><br>" +
             error.message;
+
+            button.disabled=false;
+
+            button.innerHTML="🔐 Login";
 
             return;
         }
 
-        result.style.color="#126b2f";
 
-        result.innerHTML =
-        "✅ LOGIN SUCCESSFUL!<br><br>" +
-        "🌱 User ID:<br>" +
-        data.user.id;
+        localStorage.setItem(
+            "agrilink_user",
+            data.user.id
+        );
+
+
+        message.style.color="#126b2f";
+
+        message.innerHTML =
+        "✅ Login successful!<br><br>" +
+        "🌱 Welcome back to AgriLink AI!";
+
+
+        setTimeout(function(){
+
+            window.location.href="dashboard.html";
+
+        },1000);
+
 
     }catch(error){
 
-        result.style.color="#c62828";
+        message.style.color="#c62828";
 
-        result.innerHTML =
-        "❌ ERROR<br><br>" +
+        message.innerHTML =
+        "❌ Something went wrong.<br><br>" +
         error.message;
+
+        button.disabled=false;
+
+        button.innerHTML="🔐 Login";
     }
+
 }
 
 </script>
