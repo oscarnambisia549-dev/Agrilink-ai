@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI Login</title>
+<title>AgriLink AI - Login</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
@@ -16,123 +18,153 @@
 
 body{
     min-height:100vh;
-    background:#126b2f;
+    background:linear-gradient(135deg,#0c5c29,#2e8b46);
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     padding:20px;
 }
 
-.login-box{
+.container{
     width:100%;
-    max-width:400px;
+    max-width:430px;
     background:white;
-    padding:30px 25px;
-    border-radius:15px;
+    padding:35px 25px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .logo{
     text-align:center;
-    font-size:28px;
+    font-size:29px;
     font-weight:bold;
     color:#126b2f;
-    margin-bottom:10px;
+    margin-bottom:8px;
 }
 
 .logo span{
     color:#7b2cbf;
 }
 
+.tagline{
+    text-align:center;
+    color:#666;
+    font-size:14px;
+    margin-bottom:28px;
+}
+
 h2{
     text-align:center;
-    margin-bottom:25px;
     color:#18351f;
+    margin-bottom:22px;
 }
 
 label{
     display:block;
-    margin-bottom:6px;
+    margin:14px 0 6px;
     font-weight:bold;
+    color:#18351f;
 }
 
 input{
     width:100%;
     padding:14px;
-    margin-bottom:18px;
     border:1px solid #ccc;
     border-radius:8px;
     font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#126b2f;
 }
 
 button{
     width:100%;
+    margin-top:24px;
     padding:14px;
-    background:#126b2f;
-    color:white;
     border:none;
     border-radius:8px;
+    background:#126b2f;
+    color:white;
     font-size:17px;
     font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    background:#777;
 }
 
 #message{
+    margin-top:16px;
     text-align:center;
-    margin-top:15px;
     font-weight:bold;
+    line-height:1.5;
 }
 
 .register{
     text-align:center;
-    margin-top:20px;
+    margin-top:22px;
+    color:#555;
 }
 
 .register a{
     color:#126b2f;
     font-weight:bold;
+    text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="container">
 
-<div class="logo">
-🌱 AgriLink <span>AI</span>
+    <div class="logo">
+        🌱 AgriLink <span>AI</span>
+    </div>
+
+    <div class="tagline">
+        One platform. Every farmer. A better future through AI. 🌱🚀
+    </div>
+
+    <h2>Farmer Login</h2>
+
+    <form id="loginForm">
+
+        <label for="email">Email</label>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+        >
+
+        <label for="password">Password</label>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <button id="loginButton" type="submit">
+            🔐 Login
+        </button>
+
+    </form>
+
+    <div id="message"></div>
+
+    <div class="register">
+        Don't have an account?
+        <a href="index.html">Register</a>
+    </div>
+
 </div>
-
-<h2>Farmer Login</h2>
-
-<label>Email</label>
-
-<input
-type="email"
-id="email"
-placeholder="Enter your email"
->
-
-<label>Password</label>
-
-<input
-type="password"
-id="password"
-placeholder="Enter your password"
->
-
-<button onclick="login()">
-🔐 Login
-</button>
-
-<div id="message"></div>
-
-<div class="register">
-Don't have an account?
-<a href="index.html">Register</a>
-</div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -142,6 +174,95 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
 
-const db =
-window.supabase.createClient(
-SUPAB
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+const form =
+    document.getElementById("loginForm");
+
+const button =
+    document.getElementById("loginButton");
+
+const message =
+    document.getElementById("message");
+
+
+form.addEventListener("submit", async function(event){
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    message.style.color = "#126b2f";
+    message.innerHTML =
+        "🔄 Logging you in...";
+
+    button.disabled = true;
+    button.innerText = "Logging in...";
+
+
+    try {
+
+        const { data, error } =
+            await db.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+
+        if(error){
+            throw error;
+        }
+
+
+        if(!data.user){
+            throw new Error(
+                "Login could not be completed."
+            );
+        }
+
+
+        message.style.color = "#126b2f";
+
+        message.innerHTML =
+            "✅ Login successful!<br>" +
+            "Welcome back to AgriLink AI 🌱🚀";
+
+
+        setTimeout(function(){
+
+            window.location.href =
+                "dashboard.html";
+
+        },1000);
+
+
+    } catch(error){
+
+        console.error(
+            "Login error:",
+            error
+        );
+
+        message.style.color = "#c62828";
+
+        message.innerHTML =
+            "❌ Login failed.<br><br>" +
+            error.message;
+
+        button.disabled = false;
+        button.innerText = "🔐 Login";
+    }
+
+});
+
+</script>
+
+</body>
+</html>
