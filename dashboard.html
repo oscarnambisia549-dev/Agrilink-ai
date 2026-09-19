@@ -127,6 +127,16 @@ button{
     border-radius:12px;
 }
 
+.search-button{
+    width:100%;
+    background:#7b1fa2;
+}
+
+.clear-button{
+    width:100%;
+    background:#777;
+}
+
 .success{
     color:#08752b;
     font-weight:bold;
@@ -145,10 +155,17 @@ button{
     margin-top:15px;
     border-radius:10px;
     border-left:5px solid #126b2f;
+    line-height:1.7;
 }
 
 .market-item{
     border-left-color:#7b1fa2;
+}
+
+.empty{
+    text-align:center;
+    padding:20px;
+    color:#666;
 }
 
 footer{
@@ -169,14 +186,13 @@ footer{
     .cancel-button{
         margin-left:0;
     }
+
 }
 
 </style>
 </head>
 
-
 <body>
-
 
 <nav>
 
@@ -252,7 +268,6 @@ type="text"
 placeholder="e.g. Maize"
 >
 
-
 <label>Quantity</label>
 
 <input
@@ -260,7 +275,6 @@ id="produceQuantity"
 type="number"
 placeholder="e.g. 100"
 >
-
 
 <label>Unit</label>
 
@@ -441,14 +455,35 @@ Find fresh produce from farmers.
 </p>
 
 
-<label>🔎 Search Produce</label>
+<label>
+🔎 Search Produce
+</label>
 
 <input
 id="marketSearch"
 type="text"
 placeholder="Search maize, tomatoes, beans..."
-oninput="loadMarketplace()"
 >
+
+
+<button
+type="button"
+class="search-button"
+onclick="loadMarketplace()">
+
+🔎 Search Marketplace
+
+</button>
+
+
+<button
+type="button"
+class="clear-button"
+onclick="clearMarketplaceSearch()">
+
+✖ Clear Search
+
+</button>
 
 
 <div id="marketplaceList">
@@ -865,13 +900,13 @@ async function loadMyProduce(){
             item.produce_name +
             "</strong><br>" +
 
-            "Quantity: " +
+            "📦 Quantity: " +
             item.quantity +
             " " +
             item.unit +
             "<br>" +
 
-            "📍 " +
+            "📍 Location: " +
             item.location;
 
             list.appendChild(div);
@@ -1026,7 +1061,7 @@ async function postToMarketplace(){
 
 
 /* =========================
-MARKETPLACE
+MARKETPLACE SEARCH
 ========================= */
 
 async function loadMarketplace(){
@@ -1036,12 +1071,19 @@ async function loadMarketplace(){
         "marketplaceList"
     );
 
-    const search =
+    const searchInput =
     document.getElementById(
         "marketSearch"
-    ).value
+    );
+
+    const search =
+    searchInput.value
     .trim()
     .toLowerCase();
+
+
+    list.innerHTML =
+    "🔄 Loading marketplace...";
 
 
     const result =
@@ -1071,15 +1113,34 @@ async function loadMarketplace(){
     result.data || [];
 
 
+    /* SEARCH PRODUCE, LOCATION OR SELLER */
+
     if(search){
 
         items =
         items.filter(
             function(item){
 
-                return item.produce_name
-                .toLowerCase()
-                .includes(search);
+                const produce =
+                String(
+                    item.produce_name || ""
+                ).toLowerCase();
+
+                const location =
+                String(
+                    item.location || ""
+                ).toLowerCase();
+
+                const seller =
+                String(
+                    item.seller_name || ""
+                ).toLowerCase();
+
+                return(
+                    produce.includes(search) ||
+                    location.includes(search) ||
+                    seller.includes(search)
+                );
 
             }
         );
@@ -1089,7 +1150,9 @@ async function loadMarketplace(){
     if(items.length === 0){
 
         list.innerHTML =
-        "<p>No marketplace listings found.</p>";
+        '<div class="empty">' +
+        '🔎 No matching produce found.' +
+        '</div>';
 
         return;
     }
@@ -1145,6 +1208,20 @@ async function loadMarketplace(){
 
 
 /* =========================
+CLEAR SEARCH
+========================= */
+
+function clearMarketplaceSearch(){
+
+    document.getElementById(
+        "marketSearch"
+    ).value = "";
+
+    loadMarketplace();
+}
+
+
+/* =========================
 AI ASSISTANT
 ========================= */
 
@@ -1166,7 +1243,7 @@ function askAI(){
     if(!question){
 
         answer.innerHTML =
-        "Please enter a farming question.";
+        "🌱 Please enter a farming question.";
 
         return;
     }
@@ -1244,7 +1321,7 @@ function askAI(){
 
 
 /* =========================
-START
+START DASHBOARD
 ========================= */
 
 async function startDashboard(){
@@ -1256,10 +1333,12 @@ async function startDashboard(){
         return;
     }
 
+
     localStorage.setItem(
         "agrilink_user",
         user.id
     );
+
 
     await loadProfile(user);
 
@@ -1276,4 +1355,4 @@ startDashboard();
 </script>
 
 </body>
-    </html>
+</html>
