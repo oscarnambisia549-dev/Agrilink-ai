@@ -137,6 +137,17 @@ button{
     background:#777;
 }
 
+.contact-button{
+    width:100%;
+    background:#126b2f;
+}
+
+.disabled-contact{
+    width:100%;
+    background:#aaa;
+    cursor:not-allowed;
+}
+
 .success{
     color:#08752b;
     font-weight:bold;
@@ -988,15 +999,25 @@ async function postToMarketplace(){
     }
 
 
+    /* GET FARMER PROFILE */
+
     let sellerName =
     "AgriLink Farmer";
+
+    let sellerPhone =
+    "";
 
 
     const profile =
     await supabaseClient
     .from("users")
-    .select("full_name")
-    .eq("auth_id",user.id)
+    .select(
+        "full_name,phone"
+    )
+    .eq(
+        "auth_id",
+        user.id
+    )
     .maybeSingle();
 
 
@@ -1009,6 +1030,18 @@ async function postToMarketplace(){
         profile.data.full_name;
     }
 
+
+    if(
+        profile.data &&
+        profile.data.phone
+    ){
+
+        sellerPhone =
+        profile.data.phone;
+    }
+
+
+    /* POST LISTING */
 
     const result =
     await supabaseClient
@@ -1029,7 +1062,9 @@ async function postToMarketplace(){
 
         location:location,
 
-        seller_name:sellerName
+        seller_name:sellerName,
+
+        seller_phone:sellerPhone
 
     });
 
@@ -1052,7 +1087,23 @@ async function postToMarketplace(){
 
 
     document.getElementById(
+        "sellProduceName"
+    ).value = "";
+
+    document.getElementById(
+        "sellQuantity"
+    ).value = "";
+
+    document.getElementById(
+        "sellUnit"
+    ).value = "";
+
+    document.getElementById(
         "sellPrice"
+    ).value = "";
+
+    document.getElementById(
+        "sellLocation"
     ).value = "";
 
 
@@ -1173,6 +1224,66 @@ async function loadMarketplace(){
             "item market-item";
 
 
+            let contactButton = "";
+
+
+            if(item.seller_phone){
+
+                let phone =
+                String(
+                    item.seller_phone
+                ).replace(
+                    /[^0-9+]/g,
+                    ""
+                );
+
+
+                let whatsappPhone =
+                phone;
+
+
+                /* Convert Kenyan 07... number
+                   to 2547... for WhatsApp */
+
+                if(
+                    whatsappPhone.startsWith(
+                        "0"
+                    )
+                ){
+
+                    whatsappPhone =
+                    "254" +
+                    whatsappPhone.substring(1);
+                }
+
+
+                contactButton =
+                '<button ' +
+                'type="button" ' +
+                'class="contact-button" ' +
+                'onclick="contactSeller(\'' +
+                whatsappPhone +
+                '\',\'' +
+                encodeURIComponent(
+                    item.produce_name
+                ) +
+                '\')">' +
+                '📞 Contact Seller' +
+                '</button>';
+
+            }else{
+
+                contactButton =
+                '<button ' +
+                'type="button" ' +
+                'class="disabled-contact" ' +
+                'disabled>' +
+                '📞 Seller contact unavailable' +
+                '</button>';
+
+            }
+
+
             div.innerHTML =
             "<strong>🌾 " +
             item.produce_name +
@@ -1197,12 +1308,47 @@ async function loadMarketplace(){
             (
                 item.seller_name ||
                 "AgriLink Farmer"
-            );
+            ) +
+
+            "<br>" +
+
+            contactButton;
 
 
             list.appendChild(div);
 
         }
+    );
+}
+
+
+/* =========================
+CONTACT SELLER
+========================= */
+
+function contactSeller(
+    phone,
+    produce
+){
+
+    const message =
+    "Hello! I found your " +
+    decodeURIComponent(produce) +
+    " listing on AgriLink AI Marketplace. " +
+    "I would like to know more about it.";
+
+    const whatsappURL =
+    "https://wa.me/" +
+    phone +
+    "?text=" +
+    encodeURIComponent(
+        message
+    );
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
     );
 }
 
@@ -1223,136 +1369,4 @@ function clearMarketplaceSearch(){
 
 /* =========================
 AI ASSISTANT
-========================= */
-
-function askAI(){
-
-    const question =
-    document.getElementById(
-        "aiQuestion"
-    ).value
-    .trim()
-    .toLowerCase();
-
-    const answer =
-    document.getElementById(
-        "aiAnswer"
-    );
-
-
-    if(!question){
-
-        answer.innerHTML =
-        "🌱 Please enter a farming question.";
-
-        return;
-    }
-
-
-    let response;
-
-
-    if(
-        question.includes("maize") &&
-        (
-            question.includes("yellow") ||
-            question.includes("yellowing")
-        )
-    ){
-
-        response =
-        "🌽 Yellow maize leaves can be caused by nutrient deficiency, water stress or pests. Check soil moisture and inspect the leaves.";
-
-    }
-
-    else if(
-        question.includes("water") ||
-        question.includes("irrigation")
-    ){
-
-        response =
-        "💧 Check soil moisture before irrigating. Avoid both drought stress and waterlogging.";
-
-    }
-
-    else if(
-        question.includes("pest") ||
-        question.includes("insect")
-    ){
-
-        response =
-        "🐛 Inspect the crop carefully and identify the pest before choosing a treatment.";
-
-    }
-
-    else if(
-        question.includes("tomato") ||
-        question.includes("tomatoes")
-    ){
-
-        response =
-        "🍅 Tomatoes need consistent watering, sunlight and well-drained soil. Monitor them for pests and disease.";
-
-    }
-
-    else if(
-        question.includes("weather") ||
-        question.includes("rain")
-    ){
-
-        response =
-        "🌦️ Check the Farm Weather section before planning irrigation, spraying or harvesting.";
-
-    }
-
-    else{
-
-        response =
-        "🤖 I can currently help with maize, tomatoes, pests, irrigation and weather.";
-
-    }
-
-
-    answer.innerHTML =
-    "<p>" +
-    response +
-    "</p>";
-}
-
-
-/* =========================
-START DASHBOARD
-========================= */
-
-async function startDashboard(){
-
-    const user =
-    await checkUser();
-
-    if(!user){
-        return;
-    }
-
-
-    localStorage.setItem(
-        "agrilink_user",
-        user.id
-    );
-
-
-    await loadProfile(user);
-
-    loadWeather();
-
-    loadMyProduce();
-
-    loadMarketplace();
-}
-
-
-startDashboard();
-
-</script>
-
-</body>
-</html>
+==========
