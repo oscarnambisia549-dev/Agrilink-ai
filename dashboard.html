@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI Dashboard</title>
+<title>AgriLink AI - Farmer Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -33,7 +32,6 @@ nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:20px;
     position:sticky;
     top:0;
     z-index:100;
@@ -48,11 +46,11 @@ nav{
     color:#b9f6c8;
 }
 
-nav button{
-    background:#7b2cbf;
-    color:white;
+.logout{
+    background:#ffffff;
+    color:#126b2f;
     border:none;
-    padding:10px 16px;
+    padding:10px 18px;
     border-radius:8px;
     font-weight:bold;
     cursor:pointer;
@@ -63,7 +61,7 @@ nav button{
 .hero{
     background:linear-gradient(135deg,#0c5c29,#2e8b46);
     color:white;
-    padding:55px 7%;
+    padding:60px 7%;
 }
 
 .hero-content{
@@ -72,201 +70,25 @@ nav button{
 }
 
 .hero h1{
-    font-size:clamp(35px,6vw,60px);
-    margin-bottom:12px;
+    font-size:clamp(38px,6vw,65px);
+    margin-bottom:15px;
 }
 
 .hero p{
     font-size:18px;
-    line-height:1.6;
+    margin-bottom:25px;
 }
 
 /* PROFILE */
 
 .profile{
-    margin-top:25px;
-    background:rgba(255,255,255,0.14);
-    padding:18px;
-    border-radius:12px;
-    max-width:600px;
-}
-
-.profile-name{
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-.profile-email{
-    opacity:0.9;
-}
-
-/* MAIN */
-
-.container{
-    max-width:1150px;
-    margin:auto;
-    padding:35px 7%;
-}
-
-.section-title{
-    margin-bottom:20px;
-    color:#126b2f;
-}
-
-/* CARDS */
-
-.card{
     background:white;
-    padding:24px;
-    border-radius:14px;
-    box-shadow:0 5px 18px rgba(0,0,0,0.08);
-    margin-bottom:25px;
+    color:#18351f;
+    padding:20px;
+    border-radius:15px;
+    max-width:500px;
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
 }
 
-.card h3{
-    color:#126b2f;
-    margin-bottom:12px;
-}
-
-.card p{
-    line-height:1.6;
-}
-
-/* WEATHER */
-
-.weather{
-    border-left:6px solid #126b2f;
-}
-
-.weather-info{
-    line-height:2;
-    font-size:16px;
-}
-
-/* FORMS */
-
-input,
-select{
-    width:100%;
-    padding:13px;
-    margin:7px 0 12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:15px;
-}
-
-button.primary{
-    width:100%;
-    padding:13px;
-    border:none;
-    border-radius:8px;
-    background:#126b2f;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* MARKETPLACE */
-
-.search-box{
-    display:flex;
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.search-box input{
-    margin:0;
-}
-
-.search-box button{
-    padding:0 18px;
-    border:none;
-    border-radius:8px;
-    background:#7b2cbf;
-    color:white;
-    font-weight:bold;
-}
-
-.market-item{
-    border:1px solid #ddd;
-    padding:16px;
-    border-radius:10px;
-    margin-bottom:12px;
-    background:#fafafa;
-}
-
-.market-item h4{
-    color:#126b2f;
-    margin-bottom:7px;
-}
-
-/* AI */
-
-.ai-box{
-    background:linear-gradient(135deg,#f0e6ff,#ffffff);
-    border-left:6px solid #7b2cbf;
-}
-
-#ai-response{
-    margin-top:15px;
-    line-height:1.7;
-}
-
-/* FOOTER */
-
-footer{
-    margin-top:40px;
-    background:#18351f;
-    color:white;
-    text-align:center;
-    padding:25px;
-    line-height:1.7;
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-    nav{
-        padding:15px 5%;
-    }
-
-    .logo{
-        font-size:20px;
-    }
-
-    nav button{
-        padding:8px 11px;
-        font-size:13px;
-    }
-
-    .hero{
-        padding:40px 5%;
-    }
-
-    .container{
-        padding:25px 5%;
-    }
-
-    .search-box{
-        flex-direction:column;
-    }
-
-    .search-box button{
-        padding:13px;
-    }
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<!-- NAVIGATION -->
-
-<nav>
-
-    <div class="logo
+.profile p{
+    margin:
