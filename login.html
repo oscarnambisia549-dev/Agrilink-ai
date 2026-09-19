@@ -1,53 +1,202 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgriLink AI Login Test</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AgriLink AI Login</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+*{
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-    font-family:Arial,sans-serif;
-    background:#126b2f;
-    color:white;
-    text-align:center;
-    padding:60px 20px;
+margin:0;
+min-height:100vh;
+background:#126b2f;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.box{
+width:100%;
+max-width:430px;
+background:white;
+padding:30px 25px;
+border-radius:16px;
+}
+
+.logo{
+text-align:center;
+font-size:28px;
+font-weight:bold;
+color:#126b2f;
+margin-bottom:25px;
+}
+
+.logo span{
+color:#7b2cbf;
+}
+
+h2{
+text-align:center;
+color:#18351f;
+margin-bottom:20px;
+}
+
+label{
+display:block;
+font-weight:bold;
+margin:14px 0 6px;
+}
+
+input{
+width:100%;
+padding:14px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
 }
 
 button{
-    padding:18px 30px;
-    font-size:20px;
-    border:0;
-    border-radius:10px;
-    background:white;
-    color:#126b2f;
-    font-weight:bold;
+width:100%;
+margin-top:22px;
+padding:14px;
+border:0;
+border-radius:8px;
+background:#126b2f;
+color:white;
+font-size:17px;
+font-weight:bold;
 }
+
+#message{
+text-align:center;
+margin-top:18px;
+font-weight:bold;
+line-height:1.5;
+}
+
+.register{
+text-align:center;
+margin-top:20px;
+}
+
+.register a{
+color:#126b2f;
+font-weight:bold;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<h1>🌱 AgriLink AI</h1>
+<div class="box">
 
-<h2>Login Test</h2>
+<div class="logo">
+🌱 AgriLink <span>AI</span>
+</div>
 
-<button type="button" onclick="testButton()">
-🔐 TEST LOGIN BUTTON
+<h2>Farmer Login</h2>
+
+
+<label>Email</label>
+
+<input
+id="email"
+type="email"
+placeholder="Enter your email"
+>
+
+
+<label>Password</label>
+
+<input
+id="password"
+type="password"
+placeholder="Enter your password"
+>
+
+
+<button
+type="button"
+onclick="loginUser()"
+>
+
+🔐 Login
+
 </button>
 
-<p id="result"></p>
+
+<div id="message"></div>
+
+
+<div class="register">
+
+Don't have an account?
+
+<a href="index.html">
+Register
+</a>
+
+</div>
+
+</div>
+
 
 <script>
 
-function testButton(){
+/* SUPABASE */
 
-    document.getElementById("result").innerHTML =
-        "✅ JAVASCRIPT IS WORKING!";
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
 
-}
+const SUPABASE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
 
-</script>
 
-</body>
-</html>
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* LOGIN */
+
+async function loginUser(){
+
+const message =
+document.getElementById("message");
+
+const email =
+document.getElementById("email").value.trim();
+
+const password =
+document.getElementById("password").value;
+
+
+/* EMPTY FIELDS */
+
+if(email === "" || password === ""){
+
+message.style.color="#c62828";
+
+message.innerHTML=
+"❌ Please enter your email and password.";
+
+return;
