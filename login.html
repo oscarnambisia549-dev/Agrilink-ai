@@ -1,182 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AgriLink AI - Login</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>AgriLink AI Login Test</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+body{
+    font-family:Arial,sans-serif;
+    background:#126b2f;
+    color:white;
+    text-align:center;
+    padding:60px 20px;
 }
 
-body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0c5c29, #2e8b46);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.container {
-    width: 100%;
-    max-width: 430px;
-    background: white;
-    padding: 32px 25px;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.logo {
-    text-align: center;
-    font-size: 29px;
-    font-weight: bold;
-    color: #126b2f;
-    margin-bottom: 8px;
-}
-
-.logo span {
-    color: #7b2cbf;
-}
-
-.tagline {
-    text-align: center;
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 28px;
-}
-
-h2 {
-    text-align: center;
-    color: #18351f;
-    margin-bottom: 22px;
-}
-
-label {
-    display: block;
-    margin: 14px 0 6px;
-    font-weight: bold;
-    color: #18351f;
-}
-
-input {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-}
-
-input:focus {
-    border-color: #126b2f;
-}
-
-button {
-    width: 100%;
-    margin-top: 24px;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    background: #126b2f;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:disabled {
-    background: #777;
-    cursor: not-allowed;
-}
-
-#message {
-    margin-top: 18px;
-    text-align: center;
-    font-weight: bold;
-    line-height: 1.5;
-    word-wrap: break-word;
-}
-
-.register {
-    text-align: center;
-    margin-top: 22px;
-    color: #555;
-}
-
-.register a {
-    color: #126b2f;
-    font-weight: bold;
-    text-decoration: none;
+button{
+    padding:18px 30px;
+    font-size:20px;
+    border:0;
+    border-radius:10px;
+    background:white;
+    color:#126b2f;
+    font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<h1>🌱 AgriLink AI</h1>
 
-    <div class="logo">
-        🌱 AgriLink <span>AI</span>
-    </div>
+<h2>Login Test</h2>
 
-    <div class="tagline">
-        One platform. Every farmer. A better future through AI. 🌱🚀
-    </div>
+<button type="button" onclick="testButton()">
+🔐 TEST LOGIN BUTTON
+</button>
 
-    <h2>Farmer Login</h2>
-
-    <label for="email">Email</label>
-
-    <input
-        id="email"
-        type="email"
-        placeholder="Enter your email"
-        autocomplete="email"
-    >
-
-    <label for="password">Password</label>
-
-    <input
-        id="password"
-        type="password"
-        placeholder="Enter your password"
-        autocomplete="current-password"
-    >
-
-    <button
-        id="loginButton"
-        type="button"
-        onclick="loginUser()"
-    >
-        🔐 Login
-    </button>
-
-    <div id="message"></div>
-
-    <div class="register">
-        Don't have an account?
-        <a href="index.html">Register</a>
-    </div>
-
-</div>
-
+<p id="result"></p>
 
 <script>
 
-/* ==============================
-   SUPABASE CONFIGURATION
-============================== */
+function testButton(){
 
-const SUPABASE_URL =
-"https://cjgbeankvgtychqqgvlq.supabase.co";
+    document.getElementById("result").innerHTML =
+        "✅ JAVASCRIPT IS WORKING!";
 
-const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_4Xv8GlAQ0eRDHX8MGDL
+}
+
+</script>
+
+</body>
+</html>
