@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AgriLink AI - Auth Test</title>
+<title>AgriLink AI Login Test</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -26,17 +26,33 @@ body{
     background:white;
     padding:30px;
     border-radius:16px;
-    text-align:center;
 }
 
 h1{
+    text-align:center;
     color:#126b2f;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:18px;
+    margin-bottom:6px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    box-sizing:border-box;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
 }
 
 button{
     width:100%;
     padding:15px;
-    margin-top:20px;
+    margin-top:22px;
     border:0;
     border-radius:8px;
     background:#126b2f;
@@ -47,8 +63,9 @@ button{
 
 #result{
     margin-top:20px;
+    text-align:center;
     font-weight:bold;
-    line-height:1.6;
+    line-height:1.5;
 }
 </style>
 </head>
@@ -59,10 +76,24 @@ button{
 
 <h1>🌱 AgriLink AI</h1>
 
-<h2>Supabase Auth Test</h2>
+<h2>Login Test</h2>
 
-<button onclick="testConnection()">
-🔐 TEST CONNECTION
+<label>Email</label>
+<input
+    id="email"
+    type="email"
+    placeholder="Enter your email"
+>
+
+<label>Password</label>
+<input
+    id="password"
+    type="password"
+    placeholder="Enter your password"
+>
+
+<button onclick="testLogin()">
+🔐 TEST LOGIN
 </button>
 
 <div id="result"></div>
@@ -83,25 +114,44 @@ window.supabase.createClient(
     SUPABASE_KEY
 );
 
-async function testConnection(){
+async function testLogin(){
 
     const result =
     document.getElementById("result");
 
+    const email =
+    document.getElementById("email").value.trim();
+
+    const password =
+    document.getElementById("password").value;
+
+    if(!email || !password){
+
+        result.style.color="#c62828";
+
+        result.innerHTML =
+        "❌ Enter your email and password.";
+
+        return;
+    }
+
     result.style.color="#126b2f";
-    result.innerHTML="🔄 Connecting to Supabase...";
+    result.innerHTML="🔄 Checking login...";
 
     try{
 
         const { data, error } =
-        await supabaseClient.auth.getSession();
+        await supabaseClient.auth.signInWithPassword({
+            email:email,
+            password:password
+        });
 
         if(error){
 
             result.style.color="#c62828";
 
             result.innerHTML =
-            "❌ Supabase connection failed.<br><br>" +
+            "❌ LOGIN FAILED<br><br>" +
             error.message;
 
             return;
@@ -110,8 +160,9 @@ async function testConnection(){
         result.style.color="#126b2f";
 
         result.innerHTML =
-        "✅ SUPABASE CONNECTION SUCCESSFUL!<br><br>" +
-        "🌱 Authentication service is responding.";
+        "✅ LOGIN SUCCESSFUL!<br><br>" +
+        "🌱 User ID:<br>" +
+        data.user.id;
 
     }catch(error){
 
