@@ -1,382 +1,537 @@
-<!DOCTYPE html>  <html lang="en">  <head>  <meta charset="UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>AgriLink AI - Farmer Dashboard</title>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <style>  
-  
-*{  
-    box-sizing:border-box;  
-    margin:0;  
-    padding:0;  
-    font-family:Arial,sans-serif;  
-}  
-  
-body{  
-    background:#f5faf6;  
-    color:#18351f;  
-    line-height:1.6;  
-}  
-  
-nav{  
-    background:#126b2f;  
-    color:white;  
-    padding:15px 20px;  
-    display:flex;  
-    justify-content:space-between;  
-    align-items:center;  
-    position:sticky;  
-    top:0;  
-    z-index:1000;  
-}  
-  
-.logo{  
-    font-size:22px;  
-    font-weight:bold;  
-}  
-  
-.logo span{  
-    color:#b9f6c8;  
-}  
-  
-.logout-button{  
-    background:white;  
-    color:#126b2f;  
-    border:none;  
-    padding:9px 14px;  
-    border-radius:8px;  
-    font-weight:bold;  
-    cursor:pointer;  
-}  
-  
-.container{  
-    width:92%;  
-    max-width:1150px;  
-    margin:25px auto;  
-}  
-  
-.dashboard-header{  
-    background:linear-gradient(135deg,#0c5c29,#2e8b46);  
-    color:white;  
-    padding:30px 20px;  
-    border-radius:15px;  
-    margin-bottom:25px;  
-}  
-  
-.dashboard-header h1{  
-    margin-bottom:8px;  
-}  
-  
-.dashboard-header p{  
-    opacity:.95;  
-}  
-  
-.profile-card{  
-    background:white;  
-    padding:20px;  
-    border-radius:15px;  
-    margin-bottom:25px;  
-    box-shadow:0 4px 12px rgba(0,0,0,.08);  
-}  
-  
-.profile-card h2{  
-    color:#126b2f;  
-    margin-bottom:10px;  
-}  
-  
-.section{  
-    background:white;  
-    padding:20px;  
-    border-radius:15px;  
-    margin-bottom:25px;  
-    box-shadow:0 4px 12px rgba(0,0,0,.08);  
-}  
-  
-.section h2{  
-    color:#126b2f;  
-    margin-bottom:15px;  
-}  
-  
-.weather-box{  
-    background:#eef8f0;  
-    padding:20px;  
-    border-radius:12px;  
-}  
-  
-.weather-item{  
-    margin:8px 0;  
-    font-size:17px;  
-}  
-  
-.form-group{  
-    margin-bottom:14px;  
-}  
-  
-.form-group label{  
-    display:block;  
-    margin-bottom:5px;  
-    font-weight:bold;  
-}  
-  
-input,  
-select{  
-    width:100%;  
-    padding:12px;  
-    border:1px solid #ccc;  
-    border-radius:8px;  
-    font-size:16px;  
-}  
-  
-button{  
-    border:none;  
-    padding:12px 18px;  
-    border-radius:8px;  
-    background:#126b2f;  
-    color:white;  
-    font-weight:bold;  
-    cursor:pointer;  
-}  
-  
-button:hover{  
-    opacity:.9;  
-}  
-  
-.secondary-button{  
-    background:#555;  
-}  
-  
-.produce-card{  
-    border:1px solid #ddd;  
-    padding:15px;  
-    border-radius:10px;  
-    margin-top:12px;  
-    background:#fafafa;  
-}  
-  
-.produce-card h3{  
-    color:#126b2f;  
-    margin-bottom:7px;  
-}  
-  
-.search-row{  
-    display:flex;  
-    gap:10px;  
-    margin-bottom:15px;  
-}  
-  
-.search-row input{  
-    flex:1;  
-}  
-  
-.market-card{  
-    border:1px solid #ddd;  
-    padding:17px;  
-    border-radius:12px;  
-    margin-top:12px;  
-    background:#fafafa;  
-}  
-  
-.market-card h3{  
-    color:#126b2f;  
-    margin-bottom:8px;  
-}  
-  
-.contact-button{  
-    width:100%;  
-    background:#126b2f;  
-    margin-top:12px;  
-}  
-  
-.disabled-contact{  
-    width:100%;  
-    background:#aaa;  
-    cursor:not-allowed;  
-    margin-top:12px;  
-}  
-  
-.ai-box{  
-    background:#eef8f0;  
-    padding:20px;  
-    border-radius:12px;  
-}  
-  
-.ai-box textarea{  
-    width:100%;  
-    min-height:100px;  
-    padding:12px;  
-    border:1px solid #ccc;  
-    border-radius:8px;  
-    font-size:16px;  
-    resize:vertical;  
-}  
-  
-.ai-answer{  
-    margin-top:15px;  
-    padding:15px;  
-    background:white;  
-    border-radius:10px;  
-    border-left:5px solid #126b2f;  
-}  
-  
-footer{  
-    text-align:center;  
-    padding:25px;  
-    margin-top:30px;  
-    background:#126b2f;  
-    color:white;  
-}  
-  
-@media(max-width:600px){  
-  
-    nav{  
-        padding:12px;  
-    }  
-  
-    .logo{  
-        font-size:18px;  
-    }  
-  
-    .container{  
-        width:94%;  
-    }  
-  
-    .search-row{  
-        flex-direction:column;  
-    }  
-  
-    button{  
-        width:100%;  
-    }  
-  
-}  
-  
-</style>  </head>  <body>  <nav>  <div class="logo">  
-🌱 AgriLink <span>AI</span>  
-</div>  <button  
-class="logout-button"  
-onclick="logoutUser()">
-Logout
+<!DOCTYPE html>    <html lang="en">    <head>    <meta charset="UTF-8">    <meta name="viewport"    
+content="width=device-width, initial-scale=1.0">
+
+<title>AgriLink AI - Farmer Dashboard</title>    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>    <style>    
+    
+*{    
+    box-sizing:border-box;    
+    margin:0;    
+    padding:0;    
+    font-family:Arial,sans-serif;    
+}    
+    
+body{    
+    background:#f5faf6;    
+    color:#18351f;    
+    line-height:1.6;    
+}    
+    
+nav{    
+    background:#126b2f;    
+    color:white;    
+    padding:15px 20px;    
+    display:flex;    
+    justify-content:space-between;    
+    align-items:center;    
+    position:sticky;    
+    top:0;    
+    z-index:1000;    
+}    
+    
+.logo{    
+    font-size:23px;    
+    font-weight:bold;    
+}    
+    
+.logo span{    
+    color:#b9f6c8;    
+}    
+    
+.logout-button{    
+    background:white;    
+    color:#126b2f;    
+    border:none;    
+    padding:9px 15px;    
+    border-radius:8px;    
+    font-weight:bold;    
+    cursor:pointer;    
+}    
+    
+.container{    
+    max-width:1100px;    
+    margin:auto;    
+    padding:25px 15px;    
+}    
+    
+.hero{    
+    text-align:center;    
+    padding:25px 10px;    
+}    
+    
+.hero h1{    
+    color:#126b2f;    
+    margin-bottom:8px;    
+}    
+    
+.card{    
+    background:white;    
+    border-radius:14px;    
+    padding:20px;    
+    margin-bottom:20px;    
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);    
+}    
+    
+.card h2{    
+    color:#126b2f;    
+    margin-bottom:15px;    
+}    
+    
+.profile-card{    
+    border-left:5px solid #126b2f;    
+}    
+    
+.weather-grid{    
+    display:grid;    
+    grid-template-columns:repeat(4,1fr);    
+    gap:12px;    
+}    
+    
+.weather-item{    
+    background:#f5faf6;    
+    padding:15px;    
+    border-radius:10px;    
+    text-align:center;    
+}    
+    
+.weather-item strong{    
+    display:block;    
+    font-size:20px;    
+    margin-top:5px;    
+}    
+    
+input,    
+select{    
+    width:100%;    
+    padding:12px;    
+    margin:7px 0 12px;    
+    border:1px solid #ccc;    
+    border-radius:8px;    
+    font-size:15px;    
+}    
+    
+button{    
+    border:none;    
+    border-radius:8px;    
+    padding:11px 16px;    
+    cursor:pointer;    
+    font-weight:bold;    
+}    
+    
+.primary-button{    
+    background:#126b2f;    
+    color:white;    
+}    
+    
+.secondary-button{    
+    background:#e7f5eb;    
+    color:#126b2f;    
+    margin-left:5px;    
+}    
+    
+.produce-card,    
+.market-card{    
+    background:#f5faf6;    
+    border-radius:10px;    
+    padding:15px;    
+    margin-top:12px;    
+    border-left:4px solid #126b2f;    
+}    
+    
+.market-card h3,    
+.produce-card h3{    
+    color:#126b2f;    
+    margin-bottom:8px;    
+}    
+    
+.contact-button{    
+    background:#25D366;    
+    color:white;    
+    margin-top:10px;    
+}    
+    
+.disabled-contact{    
+    background:#ddd;    
+    color:#666;    
+    margin-top:10px;    
+    cursor:not-allowed;    
+}    
+    
+.search-row{    
+    display:flex;    
+    gap:8px;    
+}    
+    
+.search-row input{    
+    flex:1;    
+}    
+    
+.ai-box{    
+    background:#f5faf6;    
+    padding:15px;    
+    border-radius:10px;    
+    margin-top:15px;    
+    min-height:80px;    
+}    
+    
+footer{    
+    text-align:center;    
+    padding:25px;    
+    background:#126b2f;    
+    color:white;    
+    margin-top:30px;    
+}    
+    
+@media(max-width:700px){    
+    
+    .weather-grid{    
+        grid-template-columns:repeat(2,1fr);    
+    }    
+    
+    .search-row{    
+        display:block;    
+    }    
+    
+    .search-row button{    
+        margin-top:5px;    
+        width:100%;    
+    }    
+    
+    .secondary-button{    
+        margin-left:0;    
+    }    
+    
+}    
+    
+</style>    </head>    <body>    <!-- =========================    
+NAVIGATION    
+========================= -->    <nav>    <div class="logo">    
+    🌱 AgriLink <span>AI</span>    
+</div>    
+
+<button    
+    class="logout-button"    
+    onclick="logoutUser()">    
+    Logout    
 </button>
 
-</nav>  <div class="container">  <div class="dashboard-header">  <h1>🌱 Farmer Dashboard</h1>  <p>  
-One platform. Every farmer. A better future through AI. 🚀  
-</p>  </div>  <div class="profile-card">  <h2>👨‍🌾 My Profile</h2>  <p id="profile-name">  
-👋 Loading profile...  
-</p>  <p id="profile-email">  
-📧 Loading email...  
-</p>  </div>  <!-- WEATHER -->  <div class="section">  <h2>🌦️ Weather Insights</h2>  <div class="weather-box">  <div class="weather-item">  
-📍 Location: Nairobi, Kenya  
-</div>  <div class="weather-item">  
-🌡️ Temperature:  
-<span id="temperature">Loading...</span>  
-</div>  <div class="weather-item">  
-🌧️ Rain probability:  
-<span id="rain">Loading...</span>  
-</div>  <div class="weather-item">  
-💨 Wind:  
-<span id="wind">Loading...</span>  
-</div>  <div class="weather-item">  
-☁️ Forecast:  
-<span id="forecast">Loading...</span>  
-</div>  <div class="weather-item">  
-<span id="weather-status">  
-⏳ Loading weather...  
-</span>  
-</div>  </div>  </div>  <!-- MY PRODUCE -->  <div class="section">  <h2>🌽 My Produce</h2>  <div class="form-group">  <label>Produce / Crop</label>
+</nav>    <!-- =========================    
+MAIN    
+========================= -->    <div class="container">    <div class="hero">    <h1>🌱 Farmer Dashboard</h1>    
 
-<input  
-type="text"  
-id="produce-name"  
-placeholder="Example: Maize">
+<p>    
+    One platform. Every farmer.    
+    A better future through AI. 🚀    
+</p>
 
-</div>  <div class="form-group">  <label>Quantity</label>
+</div>    <!-- =========================    
+PROFILE    
+========================= -->    <div class="card profile-card">    <h2>👨‍🌾 My Profile</h2>    
 
-<input  
-type="number"  
-id="produce-quantity"  
-placeholder="Example: 100">
+<p id="profile-name">    
+    👋 Loading profile...    
+</p>    
 
-</div>  <div class="form-group">  <label>Unit</label>
+<p id="profile-email">    
+    📧 Loading email...    
+</p>
 
-<select id="produce-unit">  <option value="kg">Kilograms</option>  <option value="bags">Bags</option>  <option value="tons">Tons</option>  <option value="pieces">Pieces</option>  </select>  </div>  <div class="form-group">  <label>Farm Location</label>
+</div>    <!-- =========================    
+WEATHER    
+========================= -->    <div class="card">    <h2>🌦️ Weather Insights</h2>    
 
-<input  
-type="text"  
-id="produce-location"  
-placeholder="Example: Nairobi">
+<p>    
+    📍 Location: Nairobi, Kenya    
+</p>    
 
-</div>  <button onclick="addProduce()">  
-➕ Add Produce  
-</button>  <div id="produce-list">  <p style="margin-top:15px;">  
-Loading produce...  
-</p>  </div>  </div>  <!-- SELL PRODUCE -->  <div class="section">  <h2>💰 Sell This Produce</h2>  <div class="form-group">  <label>Produce / Crop</label>
+<br>    
 
-<input  
-type="text"  
-id="sell-name"  
-placeholder="Example: Maize">
+<div class="weather-grid">    
 
-</div>  <div class="form-group">  <label>Quantity</label>
+    <div class="weather-item">    
+        🌡️ Temperature    
+        <strong id="temperature">    
+            Loading...    
+        </strong>    
+    </div>    
 
-<input  
-type="number"  
-id="sell-quantity"  
-placeholder="Example: 100">
+    <div class="weather-item">    
+        🌧️ Rain probability    
+        <strong id="rain">    
+            Loading...    
+        </strong>    
+    </div>    
 
-</div>  <div class="form-group">  <label>Unit</label>
+    <div class="weather-item">    
+        💨 Wind    
+        <strong id="wind">    
+            Loading...    
+        </strong>    
+    </div>    
 
-<select id="sell-unit">  <option value="kg">Kilograms</option>  <option value="bags">Bags</option>  <option value="tons">Tons</option>  <option value="pieces">Pieces</option>  </select>  </div>  <div class="form-group">  <label>Price (KSh)</label>
+    <div class="weather-item">    
+        ☁️ Forecast    
+        <strong id="forecast">    
+            Loading...    
+        </strong>    
+    </div>    
 
-<input  
-type="number"  
-id="sell-price"  
-placeholder="Example: 5000">
+</div>    
 
-</div>  <div class="form-group">  <label>Location</label>
+<p id="weather-status">    
+    ⏳ Loading weather...    
+</p>
 
-<input  
-type="text"  
-id="sell-location"  
-placeholder="Example: Nairobi">
+</div>    <!-- =========================    
+MY PRODUCE    
+========================= -->    <div class="card">    <h2>🌽 My Produce</h2>    
 
-</div>  <button onclick="postToMarketplace()">  
-📢 Post to Marketplace  
-</button>  </div>  <!-- MARKETPLACE -->  <div class="section">  <h2>🛒 Marketplace</h2>  <p>  
-Connect farmers with buyers and agricultural markets.  
-</p>  <div class="search-row">  <input  
-type="text"  
-id="marketplace-search"  
-placeholder="Search maize, tomatoes, Nairobi...">
+<label>    
+    Produce / Crop    
+</label>    
 
-<button onclick="searchMarketplace()">  
-🔎 Search Marketplace  
-</button>  <button  
-class="secondary-button"  
-onclick="clearMarketplaceSearch()">
-✖ Clear Search
+<input    
+    id="produce-name"    
+    type="text"    
+    placeholder="Example: Maize"    
+>    
+
+<label>    
+    Quantity    
+</label>    
+
+<input    
+    id="produce-quantity"    
+    type="number"    
+    placeholder="Example: 100"    
+>    
+
+<label>    
+    Unit    
+</label>    
+
+<select id="produce-unit">    
+
+    <option value="Kilograms">    
+        Kilograms    
+    </option>    
+
+    <option value="Bags">    
+        Bags    
+    </option>    
+
+    <option value="Crates">    
+        Crates    
+    </option>    
+
+    <option value="Tonnes">    
+        Tonnes    
+    </option>    
+
+</select>    
+
+<label>    
+    Farm Location    
+</label>    
+
+<input    
+    id="produce-location"    
+    type="text"    
+    placeholder="Example: Nairobi"    
+>    
+
+<button    
+    class="primary-button"    
+    onclick="addProduce()">    
+
+    ➕ Add Produce    
+
+</button>    
+
+<div id="produce-list">    
+
+    <p>Loading produce...</p>    
+
+</div>
+
+</div>    <!-- =========================    
+SELL PRODUCE    
+========================= -->    <div class="card">    <h2>💰 Sell This Produce</h2>    
+
+<label>    
+    Produce / Crop    
+</label>    
+
+<input    
+    id="sell-name"    
+    type="text"    
+    placeholder="Example: Maize"    
+>    
+
+<label>    
+    Quantity    
+</label>    
+
+<input    
+    id="sell-quantity"    
+    type="number"    
+    placeholder="Example: 100"    
+>    
+
+<label>    
+    Unit    
+</label>    
+
+<select id="sell-unit">    
+
+    <option value="Kilograms">    
+        Kilograms    
+    </option>    
+
+    <option value="Bags">    
+        Bags    
+    </option>    
+
+    <option value="Crates">    
+        Crates    
+    </option>    
+
+    <option value="Tonnes">    
+        Tonnes    
+    </option>    
+
+</select>    
+
+<label>    
+    Price (KSh)    
+</label>    
+
+<input    
+    id="sell-price"    
+    type="number"    
+    placeholder="Example: 5000"    
+>    
+
+<label>    
+    Location    
+</label>    
+
+<input    
+    id="sell-location"    
+    type="text"    
+    placeholder="Example: Nairobi"    
+>    
+
+<button    
+    class="primary-button"    
+    onclick="postToMarketplace()">    
+
+    📢 Post to Marketplace    
+
 </button>
 
-</div>  <div id="marketplace-list">  <p>  
-Loading marketplace...  
-</p>  </div>  </div>  <!-- AI ASSISTANT -->  <div class="section">  <h2>🤖 AI Farming Assistant</h2>  <div class="ai-box">  <p>  
-Ask AgriLink AI a farming question.  
-</p>  <br>  <textarea  
-id="question"  
-placeholder="Example: Why are my maize leaves turning yellow?"></textarea>  <br><br>
+</div>    <!-- =========================    
+MARKETPLACE    
+========================= -->    <div class="card">    <h2>🛒 Marketplace</h2>    
 
-<button onclick="askAI()">  
-🤖 Ask AgriLink AI  
-</button>  <div  
-class="ai-answer"  
-id="answer">  🌱 Your farming advice will appear here.
+<p>    
+    Connect farmers with buyers and agricultural markets.    
+</p>    
 
-</div>  </div>  </div>  </div>  <footer>  <p>🌱 AgriLink AI</p>  <p>Growing Agriculture Through Innovation</p>  <p>© 2026 AgriLink AI</p>  </footer>  <script>  
-  
-/* =========================  
-SUPABASE  
-========================= */  
-  
-const SUPABASE_URL =  
-"https://cjgbeankvgtychqqgvlq.supabase.co";  
-  
-const SUPABASE_KEY =  
-"sb_publishable_4Xv8  
-  
+<br>    
+
+<div class="search-row">    
+
+    <input    
+        id="marketplace-search"    
+        type="text"    
+        placeholder="Search maize, tomatoes, Nairobi..."    
+    >    
+
+    <button    
+        class="primary-button"    
+        onclick="searchMarketplace()">    
+
+        🔎 Search Marketplace    
+
+    </button>    
+
+    <button    
+        class="secondary-button"    
+        onclick="clearMarketplaceSearch()">    
+
+        ✖ Clear Search    
+
+    </button>    
+
+</div>    
+
+<div id="marketplace-list">    
+
+    <p>Loading marketplace...</p>    
+
+</div>
+
+</div>    <!-- =========================    
+AI ASSISTANT    
+========================= -->    <div class="card">    <h2>🤖 AI Farming Assistant</h2>    
+
+<p>    
+    Ask AgriLink AI a farming question.    
+</p>    
+
+<br>    
+
+<input    
+    id="question"    
+    type="text"    
+    placeholder="Example: Why are my maize leaves turning yellow?"    >
+
+    <button
+        class="primary-button"
+        onclick="askAI()">
+
+        🤖 Ask AgriLink AI
+
+    </button>
+
+    <div
+        id="answer"
+        class="ai-box">
+
+        🌱 Your farming advice will appear here.
+
+    </div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+    <strong>
+        🌱 AgriLink AI
+    </strong>
+
+    <br>
+
+    Growing Agriculture Through Innovation
+
+    <br><br>
+
+    © 2026 AgriLink AI
+
+</footer>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
 const supabaseClient =
 window.supabase.createClient(
     SUPABASE_URL,
@@ -384,65 +539,95 @@ window.supabase.createClient(
 );
 
 
-/* =========================
-AUTH CHECK
-========================= */
+/* AUTH */
 
 async function checkUser(){
 
-    const {data,error} =
-    await supabaseClient.auth.getSession();
+    try{
 
-    if(error || !data.session){
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
 
-        window.location.href="login.html";
+        if(error || !data.session){
+
+            window.location.href =
+            "login.html";
+
+            return null;
+        }
+
+        return data.session.user;
+
+    }catch(error){
+
+        console.log(
+            "Auth error:",
+            error
+        );
 
         return null;
     }
-
-    return data.session.user;
 }
 
 
-/* =========================
-LOGOUT
-========================= */
+/* LOGOUT */
 
 async function logoutUser(){
 
     await supabaseClient.auth.signOut();
 
-    localStorage.removeItem("agrilink_user");
+    localStorage.removeItem(
+        "agrilink_user"
+    );
 
-    window.location.href="login.html";
+    window.location.href =
+    "login.html";
 }
 
 
-/* =========================
-PROFILE
-========================= */
+/* PROFILE */
 
 async function loadProfile(user){
 
     const nameElement =
-    document.getElementById("profile-name");
+    document.getElementById(
+        "profile-name"
+    );
 
     const emailElement =
-    document.getElementById("profile-email");
+    document.getElementById(
+        "profile-email"
+    );
 
     emailElement.innerHTML =
     "📧 " + user.email;
 
     try{
 
-        const {data,error} =
+        const {
+            data,
+            error
+        } =
         await supabaseClient
         .from("users")
-        .select("full_name,email,role,location")
-        .eq("auth_id",user.id)
+        .select(
+            "full_name,email,role,location"
+        )
+        .eq(
+            "auth_id",
+            user.id
+        )
         .maybeSingle();
 
         if(error){
+
+            console.log(
+                "Profile error:",
+                error
+            );
 
             nameElement.innerHTML =
             "👋 Welcome, Farmer";
@@ -454,7 +639,10 @@ async function loadProfile(user){
 
             nameElement.innerHTML =
             "👋 Welcome, " +
-            (data.full_name || "Farmer");
+            (
+                data.full_name ||
+                "Farmer"
+            );
 
             if(data.email){
 
@@ -463,21 +651,27 @@ async function loadProfile(user){
 
             }
 
+        }else{
+
+            nameElement.innerHTML =
+            "👋 Welcome, Farmer";
+
         }
 
     }catch(error){
 
+        console.log(
+            "Profile error:",
+            error
+        );
+
         nameElement.innerHTML =
         "👋 Welcome, Farmer";
-
     }
-
 }
 
 
-/* =========================
-WEATHER
-========================= */
+/* WEATHER */
 
 async function loadWeather(){
 
@@ -497,89 +691,99 @@ async function loadWeather(){
         const data =
         await response.json();
 
-        const temperature =
-        data.current.temperature_2m;
+        document.getElementById(
+            "temperature"
+        ).innerHTML =
+        data.current.temperature_2m +
+        "°C";
 
-        const wind =
-        data.current.wind_speed_10m;
+        document.getElementById(
+            "rain"
+        ).innerHTML =
+        data.daily
+        .precipitation_probability_max[0] +
+        "%";
+
+        document.getElementById(
+            "wind"
+        ).innerHTML =
+        data.current.wind_speed_10m +
+        " km/h";
 
         const rain =
         data.daily
         .precipitation_probability_max[0];
 
-        document.getElementById("temperature")
-        .innerHTML =
-        temperature + "°C";
-
-        document.getElementById("rain")
-        .innerHTML =
-        rain + "%";
-
-        document.getElementById("wind")
-        .innerHTML =
-        wind + " km/h";
-
         if(rain >= 70){
 
-            document.getElementById("forecast")
-            .innerHTML =
+            document.getElementById(
+                "forecast"
+            ).innerHTML =
             "Rain likely 🌧️";
 
         }else if(rain >= 40){
 
-            document.getElementById("forecast")
-            .innerHTML =
+            document.getElementById(
+                "forecast"
+            ).innerHTML =
             "Cloudy ☁️";
 
         }else{
 
-            document.getElementById("forecast")
-            .innerHTML =
+            document.getElementById(
+                "forecast"
+            ).innerHTML =
             "Mostly clear ☀️";
-
         }
 
-        document.getElementById("weather-status")
-        .innerHTML =
+        document.getElementById(
+            "weather-status"
+        ).innerHTML =
         "✅ Live weather";
 
     }catch(error){
 
-        document.getElementById("weather-status")
-        .innerHTML =
+        console.log(
+            "Weather error:",
+            error
+        );
+
+        document.getElementById(
+            "weather-status"
+        ).innerHTML =
         "❌ Weather unavailable";
-
     }
-
 }
 
 
-/* =========================
-ADD PRODUCE
-========================= */
+/* PRODUCE */
 
 async function addProduce(){
 
     const name =
-    document.getElementById("produce-name")
-    .value.trim();
+    document.getElementById(
+        "produce-name"
+    ).value.trim();
 
     const quantity =
-    document.getElementById("produce-quantity")
-    .value;
+    document.getElementById(
+        "produce-quantity"
+    ).value;
 
     const unit =
-    document.getElementById("produce-unit")
-    .value;
+    document.getElementById(
+        "produce-unit"
+    ).value;
 
     const location =
-    document.getElementById("produce-location")
-    .value.trim();
+    document.getElementById(
+        "produce-location"
+    ).value.trim();
 
     if(!name || !quantity || !location){
 
         alert(
-        "Please fill in produce, quantity and location."
+            "Please fill in produce, quantity and location."
         );
 
         return;
@@ -600,121 +804,145 @@ async function addProduce(){
     if(result.error){
 
         alert(
-        "❌ Could not add produce: " +
-        result.error.message
+            "❌ Could not add produce: " +
+            result.error.message
         );
 
         return;
     }
 
     alert(
-    "✅ Produce added successfully!"
+        "✅ Produce added successfully!"
     );
 
-    document.getElementById("produce-name")
-    .value="";
+    document.getElementById(
+        "produce-name"
+    ).value="";
 
-    document.getElementById("produce-quantity")
-    .value="";
+    document.getElementById(
+        "produce-quantity"
+    ).value="";
 
-    document.getElementById("produce-location")
-    .value="";
+    document.getElementById(
+        "produce-location"
+    ).value="";
 
     loadMyProduce();
-
 }
 
 
-/* =========================
-LOAD PRODUCE
-========================= */
+/* LOAD PRODUCE */
 
 async function loadMyProduce(){
 
     const list =
-    document.getElementById("produce-list");
+    document.getElementById(
+        "produce-list"
+    );
 
-    const {data,error} =
-    await supabaseClient
-    .from("produce")
-    .select("*")
-    .order("created_at",{ascending:false});
+    try{
 
-    if(error){
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+        .from("produce")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+
+        if(error){
+
+            list.innerHTML =
+            "<p>❌ Could not load produce.</p>";
+
+            return;
+        }
+
+        if(!data || data.length === 0){
+
+            list.innerHTML =
+            "<p>No produce added yet.</p>";
+
+            return;
+        }
+
+        list.innerHTML="";
+
+        data.forEach(item => {
+
+            const card =
+            document.createElement(
+                "div"
+            );
+
+            card.className =
+            "produce-card";
+
+            card.innerHTML = `
+
+                <h3>
+                    🌾 ${item.produce_name}
+                </h3>
+
+                <p>
+                    📦 Quantity:
+                    ${item.quantity}
+                    ${item.unit}
+                </p>
+
+                <p>
+                    📍 Location:
+                    ${item.location}
+                </p>
+
+            `;
+
+            list.appendChild(card);
+
+        });
+
+    }catch(error){
 
         list.innerHTML =
         "<p>❌ Could not load produce.</p>";
-
-        return;
     }
-
-    if(!data || data.length === 0){
-
-        list.innerHTML =
-        "<p>No produce added yet.</p>";
-
-        return;
-    }
-
-    list.innerHTML = "";
-
-    data.forEach(item => {
-
-        const card =
-        document.createElement("div");
-
-        card.className =
-        "produce-card";
-
-        card.innerHTML = `
-
-        <h3>🌾 ${item.produce_name}</h3>
-
-        <p>
-        📦 Quantity:
-        ${item.quantity}
-        ${item.unit}
-        </p>
-
-        <p>
-        📍 Location:
-        ${item.location}
-        </p>
-
-        `;
-
-        list.appendChild(card);
-
-    });
-
 }
 
 
-/* =========================
-POST TO MARKETPLACE
-========================= */
+/* MARKETPLACE POST */
 
 async function postToMarketplace(){
 
     const name =
-    document.getElementById("sell-name")
-    .value.trim();
+    document.getElementById(
+        "sell-name"
+    ).value.trim();
 
     const quantity =
-    document.getElementById("sell-quantity")
-    .value;
+    document.getElementById(
+        "sell-quantity"
+    ).value;
 
     const unit =
-    document.getElementById("sell-unit")
-    .value;
+    document.getElementById(
+        "sell-unit"
+    ).value;
 
     const price =
-    document.getElementById("sell-price")
-    .value;
+    document.getElementById(
+        "sell-price"
+    ).value;
 
     const location =
-    document.getElementById("sell-location")
-    .value.trim();
+    document.getElementById(
+        "sell-location"
+    ).value.trim();
 
     if(
         !name ||
@@ -724,7 +952,7 @@ async function postToMarketplace(){
     ){
 
         alert(
-        "Please fill in all marketplace fields."
+            "Please fill in all marketplace fields."
         );
 
         return;
@@ -736,13 +964,17 @@ async function postToMarketplace(){
     } =
     await supabaseClient.auth.getUser();
 
-    if(userError || !userData.user){
+    if(
+        userError ||
+        !userData.user
+    ){
 
         alert(
-        "❌ Please log in again."
+            "❌ Please log in again."
         );
 
-        window.location.href="login.html";
+        window.location.href =
+        "login.html";
 
         return;
     }
@@ -756,42 +988,34 @@ async function postToMarketplace(){
     let sellerPhone =
     "";
 
-    try{
+    const profile =
+    await supabaseClient
+    .from("users")
+    .select(
+        "full_name,phone"
+    )
+    .eq(
+        "auth_id",
+        user.id
+    )
+    .maybeSingle();
 
-        const profile =
-        await supabaseClient
-        .from("users")
-        .select("full_name,phone")
-        .eq("auth_id",user.id)
-        .maybeSingle();
+    if(
+        profile.data &&
+        profile.data.full_name
+    ){
 
-        if(
-            profile.data &&
-            profile.data.full_name
-        ){
+        sellerName =
+        profile.data.full_name;
+    }
 
-            sellerName =
-            profile.data.full_name;
+    if(
+        profile.data &&
+        profile.data.phone
+    ){
 
-        }
-
-        if(
-            profile.data &&
-            profile.data.phone
-        ){
-
-            sellerPhone =
-            profile.data.phone;
-
-        }
-
-    }catch(error){
-
-        console.log(
-        "Profile lookup error:",
-        error
-        );
-
+        sellerPhone =
+        profile.data.phone;
     }
 
     const result =
@@ -812,181 +1036,200 @@ async function postToMarketplace(){
     if(result.error){
 
         alert(
-        "❌ Marketplace error: " +
-        result.error.message
+            "❌ Marketplace error: " +
+            result.error.message
         );
 
         return;
     }
 
     alert(
-    "✅ Your produce is now listed on the marketplace!"
+        "✅ Your produce is now listed on the marketplace!"
     );
 
-    document.getElementById("sell-name")
-    .value="";
+    document.getElementById(
+        "sell-name"
+    ).value="";
 
-    document.getElementById("sell-quantity")
-    .value="";
+    document.getElementById(
+        "sell-quantity"
+    ).value="";
 
-    document.getElementById("sell-price")
-    .value="";
+    document.getElementById(
+        "sell-price"
+    ).value="";
 
-    document.getElementById("sell-location")
-    .value="";
+    document.getElementById(
+        "sell-location"
+    ).value="";
 
     loadMarketplace();
-
 }
 
 
-/* =========================
-LOAD MARKETPLACE
-========================= */
+/* LOAD MARKETPLACE */
 
-async function loadMarketplace(searchTerm=""){
+async function loadMarketplace(
+    searchTerm=""
+){
 
     const list =
-    document.getElementById("marketplace-list");
+    document.getElementById(
+        "marketplace-list"
+    );
 
-    let query =
-    supabaseClient
-    .from("marketplace")
-    .select("*")
-    .order("created_at",{ascending:false});
+    try{
 
-    if(searchTerm){
-
-        query =
-        query.or(
-            "produce_name.ilike.%" +
-            searchTerm +
-            "%," +
-            "location.ilike.%" +
-            searchTerm +
-            "%," +
-            "seller_name.ilike.%" +
-            searchTerm +
-            "%"
+        let query =
+        supabaseClient
+        .from("marketplace")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
         );
 
-    }
+        if(searchTerm){
 
-    const {data,error} =
-    await query;
+            query =
+            query.or(
+                "produce_name.ilike.%" +
+                searchTerm +
+                "%," +
+                "location.ilike.%" +
+                searchTerm +
+                "%," +
+                "seller_name.ilike.%" +
+                searchTerm +
+                "%"
+            );
+        }
 
-    if(error){
+        const {
+            data,
+            error
+        } =
+        await query;
+
+        if(error){
+
+            list.innerHTML =
+            "<p>❌ Could not load marketplace.</p>";
+
+            return;
+        }
+
+        if(!data || data.length === 0){
+
+            list.innerHTML =
+            "<p>🌾 No marketplace listings found.</p>";
+
+            return;
+        }
+
+        list.innerHTML="";
+
+        data.forEach(item => {
+
+            let contactButton;
+
+            if(item.seller_phone){
+
+                let phone =
+                String(
+                    item.seller_phone
+                ).replace(
+                    /[^0-9+]/g,
+                    ""
+                );
+
+                if(
+                    phone.startsWith("0")
+                ){
+
+                    phone =
+                    "254" +
+                    phone.substring(1);
+                }
+
+                contactButton =
+                '<button type="button" ' +
+                'class="contact-button" ' +
+                'onclick="contactSeller(\'' +
+                phone +
+                '\',\'' +
+                encodeURIComponent(
+                    item.produce_name
+                ) +
+                '\')">' +
+                '📞 Contact Seller' +
+                '</button>';
+
+            }else{
+
+                contactButton =
+                '<button type="button" ' +
+                'class="disabled-contact" ' +
+                'disabled>' +
+                '📞 Seller contact unavailable' +
+                '</button>';
+            }
+
+            const card =
+            document.createElement(
+                "div"
+            );
+
+            card.className =
+            "market-card";
+
+            card.innerHTML = `
+
+                <h3>
+                    🌾 ${item.produce_name}
+                </h3>
+
+                <p>
+                    📦 Quantity:
+                    ${item.quantity}
+                    ${item.unit}
+                </p>
+
+                <p>
+                    💰 Price:
+                    KSh ${Number(
+                        item.price
+                    ).toLocaleString()}
+                </p>
+
+                <p>
+                    📍 Location:
+                    ${item.location}
+                </p>
+
+                <p>
+                    👨‍🌾 Seller:
+                    ${item.seller_name || "Farmer"}
+                </p>
+
+                ${contactButton}
+
+            `;
+
+            list.appendChild(card);
+        });
+
+    }catch(error){
 
         list.innerHTML =
         "<p>❌ Could not load marketplace.</p>";
-
-        return;
     }
-
-    if(!data || data.length === 0){
-
-        list.innerHTML =
-        "<p>🌾 No marketplace listings found.</p>";
-
-        return;
-    }
-
-    list.innerHTML = "";
-
-    data.forEach(item => {
-
-        let contactButton;
-
-        if(item.seller_phone){
-
-            let phone =
-            String(item.seller_phone)
-            .replace(/[^0-9+]/g,"");
-
-            let whatsappPhone =
-            phone;
-
-            if(
-                whatsappPhone.startsWith("0")
-            ){
-
-                whatsappPhone =
-                "254" +
-                whatsappPhone.substring(1);
-
-            }
-
-            contactButton =
-            '<button type="button" ' +
-            'class="contact-button" ' +
-            'onclick="contactSeller(\'' +
-            whatsappPhone +
-            '\',\'' +
-            encodeURIComponent(
-                item.produce_name
-            ) +
-            '\')">' +
-            '📞 Contact Seller' +
-            '</button>';
-
-        }else{
-
-            contactButton =
-            '<button type="button" ' +
-            'class="disabled-contact" ' +
-            'disabled>' +
-            '📞 Seller contact unavailable' +
-            '</button>';
-
-        }
-
-        const card =
-        document.createElement("div");
-
-        card.className =
-        "market-card";
-
-        card.innerHTML = `
-
-        <h3>
-        🌾 ${item.produce_name}
-        </h3>
-
-        <p>
-        📦 Quantity:
-        ${item.quantity}
-        ${item.unit}
-        </p>
-
-        <p>
-        💰 Price:
-        KSh ${Number(item.price).toLocaleString()}
-        </p>
-
-        <p>
-        📍 Location:
-        ${item.location}
-        </p>
-
-        <p>
-        👨‍🌾 Seller:
-        ${item.seller_name || "Farmer"}
-        </p>
-
-        ${contactButton}
-
-        `;
-
-        list.appendChild(card);
-
-    });
-
 }
 
 
-/* =========================
-SEARCH MARKETPLACE
-========================= */
+/* SEARCH */
 
 function searchMarketplace(){
 
@@ -995,14 +1238,13 @@ function searchMarketplace(){
         "marketplace-search"
     ).value.trim();
 
-    loadMarketplace(searchTerm);
-
+    loadMarketplace(
+        searchTerm
+    );
 }
 
 
-/* =========================
-CLEAR SEARCH
-========================= */
+/* CLEAR */
 
 function clearMarketplaceSearch(){
 
@@ -1011,15 +1253,15 @@ function clearMarketplaceSearch(){
     ).value="";
 
     loadMarketplace();
-
 }
 
 
-/* =========================
-CONTACT SELLER
-========================= */
+/* CONTACT SELLER */
 
-function contactSeller(phone,produce){
+function contactSeller(
+    phone,
+    produce
+){
 
     const message =
     "Hello! I found your " +
@@ -1035,24 +1277,25 @@ function contactSeller(phone,produce){
 
     window.location.href =
     whatsappURL;
-
 }
 
 
-/* =========================
-AI FARMING ASSISTANT
-========================= */
+/* AI */
 
 function askAI(){
 
     const question =
-    document.getElementById("question")
+    document.getElementById(
+        "question"
+    )
     .value
     .trim()
     .toLowerCase();
 
     const answer =
-    document.getElementById("answer");
+    document.getElementById(
+        "answer"
+    );
 
     if(!question){
 
@@ -1061,9 +1304,6 @@ function askAI(){
 
         return;
     }
-
-
-    /* MAIZE */
 
     if(
         question.includes("maize") ||
@@ -1076,40 +1316,27 @@ function askAI(){
         ){
 
             answer.innerHTML =
-
             "🌽 <strong>Maize leaves turning yellow?</strong><br><br>" +
-
             "Possible causes include nutrient deficiency, " +
             "too much water, poor drainage or disease.<br><br>" +
-
             "🌱 Check the soil moisture first.<br>" +
-
             "💧 Avoid overwatering.<br>" +
-
             "🌿 Check whether the crop needs nutrients.<br>" +
-
             "🔍 Inspect the leaves for pests or disease symptoms.";
 
         }else{
 
             answer.innerHTML =
-
             "🌽 <strong>Maize farming advice:</strong><br><br>" +
-
             "Use good-quality seed, maintain proper spacing, " +
             "control weeds and regularly check your maize " +
             "for pests and diseases.<br><br>" +
-
             "🌱 Keep the soil healthy and provide enough water " +
             "without overwatering.";
-
         }
 
         return;
     }
-
-
-    /* WATER */
 
     if(
         question.includes("water") ||
@@ -1117,25 +1344,16 @@ function askAI(){
     ){
 
         answer.innerHTML =
-
         "💧 <strong>Watering advice:</strong><br><br>" +
-
         "Water crops according to their growth stage " +
         "and soil condition.<br><br>" +
-
         "🌱 Check the soil before watering.<br>" +
-
         "💧 Water deeply when necessary.<br>" +
-
         "🌧️ Reduce irrigation when there has been enough rain.<br>" +
-
         "⚠️ Avoid keeping the soil continuously waterlogged.";
 
         return;
     }
-
-
-    /* PESTS */
 
     if(
         question.includes("pest") ||
@@ -1145,26 +1363,17 @@ function askAI(){
     ){
 
         answer.innerHTML =
-
         "🐛 <strong>Pest management:</strong><br><br>" +
-
         "Inspect your crops regularly and identify the " +
         "pest before applying treatment.<br><br>" +
-
         "🔍 Check the underside of leaves.<br>" +
-
         "🌱 Remove badly affected plant parts when appropriate.<br>" +
-
         "🪲 Encourage beneficial insects.<br>" +
-
         "⚠️ Use approved pesticides only when necessary " +
         "and follow the product instructions.";
 
         return;
     }
-
-
-    /* TOMATO */
 
     if(
         question.includes("tomato") ||
@@ -1172,23 +1381,15 @@ function askAI(){
     ){
 
         answer.innerHTML =
-
         "🍅 <strong>Tomato farming advice:</strong><br><br>" +
-
         "Give tomatoes enough sunlight, good drainage " +
         "and consistent watering.<br><br>" +
-
         "💧 Avoid unnecessary watering of the leaves.<br>" +
-
         "🌱 Keep the growing area free from weeds.<br>" +
-
         "🔍 Monitor regularly for pests and diseases.";
 
         return;
     }
-
-
-    /* WEATHER */
 
     if(
         question.includes("weather") ||
@@ -1196,81 +1397,107 @@ function askAI(){
     ){
 
         answer.innerHTML =
-
         "🌦️ <strong>Weather advice:</strong><br><br>" +
-
         "Weather information can help you decide when " +
         "to plant, irrigate, spray or harvest.<br><br>" +
-
         "📊 Check the Weather Insights section above " +
         "for the latest weather information.";
 
         return;
     }
 
-
-    /* GENERAL */
-
     answer.innerHTML =
-
     "🌱 <strong>AgriLink AI Farming Assistant</strong><br><br>" +
-
     "I can currently help with questions about:<br><br>" +
-
     "🌽 Maize<br>" +
     "🍅 Tomatoes<br>" +
     "💧 Water and irrigation<br>" +
     "🐛 Pests and insects<br>" +
     "🌦️ Weather and rain<br><br>" +
-
     "Try asking:<br>" +
-
     "👉 Why are my maize leaves turning yellow?<br>" +
     "👉 How often should I water my crops?<br>" +
     "👉 How can I control pests?<br>" +
     "👉 How do I grow healthy tomatoes?";
-
 }
 
 
-/* =========================
-START DASHBOARD
-========================= */
+/* START DASHBOARD */
 
 async function startDashboard(){
 
-    const user =
-    await checkUser();
-
-    if(!user){
-
-        return;
-    }
-
-    localStorage.setItem(
-        "agrilink_user",
-        user.id
+    console.log(
+        "🌱 Starting AgriLink AI Dashboard..."
     );
 
-    await loadProfile(user);
+    try{
 
-    loadWeather();
+        const user =
+        await checkUser();
 
-    loadMyProduce();
+        if(!user){
 
-    loadMarketplace();
+            return;
+        }
 
+        localStorage.setItem(
+            "agrilink_user",
+            user.id
+        );
+
+        try{
+            await loadProfile(user);
+        }catch(error){
+            console.log(
+                "Profile error:",
+                error
+            );
+        }
+
+        try{
+            await loadWeather();
+        }catch(error){
+            console.log(
+                "Weather error:",
+                error
+            );
+        }
+
+        try{
+            await loadMyProduce();
+        }catch(error){
+            console.log(
+                "Produce error:",
+                error
+            );
+        }
+
+        try{
+            await loadMarketplace();
+        }catch(error){
+            console.log(
+                "Marketplace error:",
+                error
+            );
+        }
+
+        console.log(
+            "🚀 Dashboard finished loading!"
+        );
+
+    }catch(error){
+
+        console.log(
+            "❌ Dashboard startup error:",
+            error
+        );
+    }
 }
 
-
-/* =========================
-START APPLICATION
-========================= */
 
 startDashboard();
 
 </script>
-
 
 </body>
 
