@@ -1906,14 +1906,11 @@ function askAI(){
 
 async function startDashboard(){
 
-    console.log(
-        "🌱 Starting AgriLink AI Dashboard..."
-    );
+    console.log("🌱 Starting AgriLink AI Dashboard...");
 
     try{
 
-        const user =
-        await checkUser();
+        const user = await checkUser();
 
         if(!user){
             return;
@@ -1924,14 +1921,32 @@ async function startDashboard(){
             user.id
         );
 
-        await loadProfile(user);
-        await loadWeather();
-        await loadMyProduce();
-        await loadMarketplace();
+        // Load each section safely
+        try{
+            await loadProfile(user);
+        }catch(error){
+            console.log("Profile error:", error);
+        }
 
-        console.log(
-            "🚀 Dashboard finished loading!"
-        );
+        try{
+            await loadWeather();
+        }catch(error){
+            console.log("Weather error:", error);
+        }
+
+        try{
+            await loadMyProduce();
+        }catch(error){
+            console.log("Produce error:", error);
+        }
+
+        try{
+            await loadMarketplace();
+        }catch(error){
+            console.log("Marketplace error:", error);
+        }
+
+        console.log("🚀 Dashboard finished loading!");
 
     }catch(error){
 
@@ -1942,7 +1957,7 @@ async function startDashboard(){
 
     }
 
-}
+  }
 
 startDashboard();
 
