@@ -1933,7 +1933,6 @@ function askAI(){
 
 
 /* START DASHBOARD */
-
 async function startDashboard(){
 
     console.log("🌱 Starting AgriLink AI Dashboard...");
@@ -1951,7 +1950,6 @@ async function startDashboard(){
             user.id
         );
 
-        // Load each section safely
         try{
             await loadProfile(user);
         }catch(error){
@@ -1976,7 +1974,9 @@ async function startDashboard(){
             console.log("Marketplace error:", error);
         }
 
-        console.log("🚀 Dashboard finished loading!");
+        console.log(
+            "🚀 Dashboard finished loading!"
+        );
 
     }catch(error){
 
@@ -1987,7 +1987,7 @@ async function startDashboard(){
 
     }
 
-  }
+}
 
 startDashboard();
 
