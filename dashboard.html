@@ -425,6 +425,49 @@ style="margin-top:15px;">
         🌱 Checking today's weather...
     </div>
 </section>
+<section class="card">
+    <h2>🐛 Pest & Disease Detection</h2>
+
+    <p>
+        Upload a photo of your crop and AgriLink AI
+        will help identify possible pests or diseases.
+    </p>
+
+    <input
+        type="file"
+        id="crop-image"
+        accept="image/*"
+    >
+
+    <br><br>
+
+    <label for="crop-type">
+        🌱 Select Crop
+    </label>
+
+    <select id="crop-type">
+        <option value="maize">🌽 Maize</option>
+        <option value="tomato">🍅 Tomato</option>
+        <option value="potato">🥔 Potato</option>
+        <option value="kale">🥬 Kale / Sukuma Wiki</option>
+        <option value="beans">🫘 Beans</option>
+        <option value="other">🌱 Other</option>
+    </select>
+
+    <br><br>
+
+    <button
+        type="button"
+        onclick="analyzeCrop()">
+        🤖 Analyze Crop
+    </button>
+
+    <div id="crop-preview"></div>
+
+    <div id="detection-result">
+        🌱 Upload a crop photo to begin.
+    </div>
+</section>
 
 
 <!-- MY PRODUCE -->
