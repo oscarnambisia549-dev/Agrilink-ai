@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AgriLink AI Connection Test</title>
+</head>
+
+<body>
+
+<h2>🌱 AgriLink AI Connection Test</h2>
+
+<p id="result">Testing Supabase...</p>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://cjgbeankvgtychqqgvlq.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+async function testConnection(){
+
+    const result =
+    document.getElementById("result");
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.auth.getSession();
+
+        if(error){
+
+            result.innerHTML =
+            "❌ Supabase error:<br>" +
+            error.message;
+
+            return;
+        }
+
+        if(data.session){
+
+            result.innerHTML =
+            "✅ SUPABASE CONNECTED<br><br>" +
+            "👤 User: " +
+            data.session.user.email;
+
+        }else{
+
+            result.innerHTML =
+            "⚠️ SUPABASE CONNECTED<br><br>" +
+            "No active login session.";
+
+        }
+
+    }catch(error){
+
+        result.innerHTML =
+        "❌ CONNECTION FAILED<br><br>" +
+        error.message;
+    }
+}
+
+testConnection();
+
+</script>
+
+</body>
+</html>
