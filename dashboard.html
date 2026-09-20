@@ -955,7 +955,52 @@ async function loadWeather(){
 
         status.innerHTML =
         "✅ Live weather";
+const recommendation =
+document.getElementById(
+    "farming-recommendation"
+);
 
+if(rain >= 70){
+
+    recommendation.innerHTML =
+    `
+    <strong>🌧️ Heavy rain expected</strong>
+    <br><br>
+    💧 Avoid unnecessary irrigation.
+    <br>
+    🌱 Check drainage around your crops.
+    <br>
+    🦠 Monitor crops for fungal diseases.
+    <br>
+    🚜 Avoid working wet soil where possible.
+    `;
+
+}else if(rain >= 40){
+
+    recommendation.innerHTML =
+    `
+    <strong>☁️ Moderate rain possible</strong>
+    <br><br>
+    💧 Check soil moisture before watering.
+    <br>
+    🌱 Keep monitoring your crops.
+    <br>
+    🐛 Watch for pests and disease.
+    `;
+
+}else{
+
+    recommendation.innerHTML =
+    `
+    <strong>☀️ Low rain probability</strong>
+    <br><br>
+    💧 Check whether your crops need irrigation.
+    <br>
+    🌱 Maintain soil moisture.
+    <br>
+    🐛 Continue checking for pests.
+    `;
+}
     }catch(error){
 
         console.log(
