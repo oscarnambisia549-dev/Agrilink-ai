@@ -649,27 +649,55 @@ console.log("✅ SUPABASE CLIENT READY");
 
 
 /* AUTH */
-
 async function checkUser(){
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient.auth.getSession();
+    console.log("🔎 Checking user...");
 
-    if(error || !data.session){
+    try{
 
-        window.location.href =
-        "login.html";
+        const result =
+        await supabaseClient.auth.getSession();
+
+        console.log("Session result:", result);
+
+        if(result.error){
+
+            alert(
+                "❌ AUTH ERROR: " +
+                result.error.message
+            );
+
+            return null;
+        }
+
+        if(!result.data.session){
+
+            alert("⚠️ No active login session.");
+
+            window.location.href="login.html";
+
+            return null;
+        }
+
+        console.log(
+            "✅ User found:",
+            result.data.session.user.email
+        );
+
+        return result.data.session.user;
+
+    }catch(error){
+
+        alert(
+            "❌ CHECK USER ERROR: " +
+            error.message
+        );
+
+        console.log(error);
 
         return null;
     }
-
-    return data.session.user;
 }
-
-
 async function logoutUser(){
 
     await supabaseClient.auth.signOut();
