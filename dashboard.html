@@ -5,20 +5,14 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>AgriLink AI Farmer Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* =========================
-   GENERAL
-========================= */
 
 *{
     box-sizing:border-box;
@@ -33,19 +27,13 @@ body{
     line-height:1.6;
 }
 
-button,
-input,
-select{
+button,input,select{
     font:inherit;
 }
 
 button{
     cursor:pointer;
 }
-
-/* =========================
-   NAVIGATION
-========================= */
 
 nav{
     background:#126b2f;
@@ -77,10 +65,6 @@ nav{
     font-weight:bold;
 }
 
-/* =========================
-   MAIN
-========================= */
-
 .container{
     width:92%;
     max-width:1100px;
@@ -104,14 +88,6 @@ nav{
     margin-bottom:8px;
 }
 
-.hero p{
-    font-size:16px;
-}
-
-/* =========================
-   CARDS
-========================= */
-
 .card{
     background:white;
     padding:22px;
@@ -132,18 +108,13 @@ nav{
     margin-top:10px;
 }
 
-/* =========================
-   FORMS
-========================= */
-
 label{
     display:block;
     font-weight:bold;
     margin:10px 0 5px;
 }
 
-input,
-select{
+input,select{
     width:100%;
     padding:12px;
     border:1px solid #c9d8cd;
@@ -171,16 +142,6 @@ button.secondary{
     font-weight:bold;
 }
 
-button.primary:active,
-button.secondary:active,
-.logout-btn:active{
-    transform:scale(.98);
-}
-
-/* =========================
-   WEATHER
-========================= */
-
 .weather-grid{
     display:grid;
     grid-template-columns:
@@ -200,10 +161,6 @@ button.secondary:active,
     font-size:22px;
     color:#126b2f;
 }
-
-/* =========================
-   MARKETPLACE
-========================= */
 
 .market-card{
     border:1px solid #dce9df;
@@ -230,10 +187,6 @@ button.secondary:active,
     border-radius:8px;
 }
 
-/* =========================
-   IMAGE PREVIEW
-========================= */
-
 #crop-preview img{
     max-width:100%;
     border-radius:12px;
@@ -246,10 +199,6 @@ button.secondary:active,
     border-radius:10px;
     margin-top:15px;
 }
-
-/* =========================
-   FOOTER
-========================= */
 
 footer{
     text-align:center;
@@ -283,444 +232,392 @@ footer{
 
     <button
         class="logout-btn"
-        onclick="logoutUser()"
-    >
+        onclick="logoutUser()">
         Logout
     </button>
 
 </nav>
 
-
 <main class="container">
 
-    <section class="hero">
+<section class="hero">
 
-        <h1>
-            🌱 Farmer Dashboard
-        </h1>
+    <h1>
+        🌱 Farmer Dashboard
+    </h1>
 
-        <p>
-            One platform. Every farmer.
-            A better future through AI. 🚀
-        </p>
+    <p>
+        One platform. Every farmer.
+        A better future through AI. 🚀
+    </p>
 
-    </section>
+</section>
 
 
-    <!-- =========================
-         PROFILE
-    ========================= -->
+<section class="card">
 
-    <section class="card">
+    <h2>👨‍🌾 My Profile</h2>
 
-        <h2>👨‍🌾 My Profile</h2>
+    <div class="info">
 
-        <div class="info">
+        <div id="profile-name">
+            👋 Loading profile...
+        </div>
 
-            <div id="profile-name">
-                👋 Loading profile...
-            </div>
+        <div id="profile-email">
+            📧 Loading email...
+        </div>
 
-            <div id="profile-email">
-                📧 Loading email...
-            </div>
+    </div>
+
+</section>
+<section class="card">
+
+    <h2>🌦️ Weather Insights</h2>
+
+    <p>
+        📍 Location:
+        <strong>Nairobi, Kenya</strong>
+    </p>
+
+    <br>
+
+    <div class="weather-grid">
+
+        <div class="weather-box">
+
+            🌡️ Temperature
+
+            <strong id="temperature">
+                Loading...
+            </strong>
 
         </div>
 
-    </section>
-    <!-- =========================
-         WEATHER
-    ========================= -->
+        <div class="weather-box">
 
-    <section class="card">
+            🌧️ Rain probability
 
-        <h2>🌦️ Weather Insights</h2>
-
-        <p>
-            📍 Location:
-            <strong>Nairobi, Kenya</strong>
-        </p>
-
-        <br>
-
-        <div class="weather-grid">
-
-            <div class="weather-box">
-
-                🌡️ Temperature
-
-                <strong id="temperature">
-                    Loading...
-                </strong>
-
-            </div>
-
-
-            <div class="weather-box">
-
-                🌧️ Rain probability
-
-                <strong id="rain">
-                    Loading...
-                </strong>
-
-            </div>
-
-
-            <div class="weather-box">
-
-                💨 Wind
-
-                <strong id="wind">
-                    Loading...
-                </strong>
-
-            </div>
-
-
-            <div class="weather-box">
-
-                ☁️ Forecast
-
-                <strong id="forecast">
-                    Loading...
-                </strong>
-
-            </div>
+            <strong id="rain">
+                Loading...
+            </strong>
 
         </div>
 
-        <div
-            id="weather-status"
-            class="info"
-        >
-            ⏳ Loading weather...
-        </div>
+        <div class="weather-box">
 
-    </section>
+            💨 Wind
 
-
-    <!-- =========================
-         FARMING RECOMMENDATION
-    ========================= -->
-
-    <section class="card">
-
-        <h2>
-            🌱 Today's Farming Recommendation
-        </h2>
-
-        <div
-            id="farming-recommendation"
-            class="info"
-        >
-            🌱 Checking today's weather...
-        </div>
-
-    </section>
-    <!-- =========================
-         PEST & DISEASE
-    ========================= -->
-
-    <section class="card">
-
-        <h2>
-            🐛 Pest & Disease Detection
-        </h2>
-
-        <p>
-            Upload a photo of your crop and
-            AgriLink AI will help you check for
-            possible pests or diseases.
-        </p>
-
-        <br>
-
-        <input
-            type="file"
-            id="crop-image"
-            accept="image/*"
-        >
-
-        <label for="crop-type">
-            🌱 Select Crop
-        </label>
-
-        <select id="crop-type">
-
-            <option value="maize">
-                🌽 Maize
-            </option>
-
-            <option value="tomato">
-                🍅 Tomato
-            </option>
-
-            <option value="potato">
-                🥔 Potato
-            </option>
-
-            <option value="kale">
-                🥬 Kale / Sukuma Wiki
-            </option>
-
-            <option value="beans">
-                🫘 Beans
-            </option>
-
-            <option value="other">
-                🌱 Other
-            </option>
-
-        </select>
-
-        <button
-            type="button"
-            class="primary"
-            onclick="analyzeCrop()"
-        >
-            🤖 Analyze Crop
-        </button>
-
-        <div id="crop-preview"></div>
-
-        <div id="detection-result">
-
-            🌱 Upload a crop photo to begin.
+            <strong id="wind">
+                Loading...
+            </strong>
 
         </div>
 
-    </section>
+        <div class="weather-box">
 
+            ☁️ Forecast
 
-    <!-- =========================
-         MY PRODUCE
-    ========================= -->
-
-    <section class="card">
-
-        <h2>🌽 My Produce</h2>
-
-        <label>
-            Produce / Crop
-        </label>
-
-        <input
-            id="produce-name"
-            type="text"
-            placeholder="e.g. Maize"
-        >
-
-        <label>
-            Quantity
-        </label>
-
-        <input
-            id="produce-quantity"
-            type="number"
-            placeholder="e.g. 50"
-        >
-
-        <label>
-            Unit
-        </label>
-
-        <select id="produce-unit">
-
-            <option value="kg">
-                kg
-            </option>
-
-            <option value="bags">
-                bags
-            </option>
-
-            <option value="tons">
-                tons
-            </option>
-
-        </select>
-
-        <label>
-            Farm Location
-        </label>
-
-        <input
-            id="produce-location"
-            type="text"
-            placeholder="e.g. Nairobi"
-        >
-
-        <button
-            class="primary"
-            onclick="addProduce()"
-        >
-            ➕ Add Produce
-        </button>
-
-        <div
-            id="produce-list"
-            class="info"
-        >
-            Loading produce...
-        </div>
-
-    </section>
-    <!-- =========================
-         SELL PRODUCE
-    ========================= -->
-
-    <section class="card">
-
-        <h2>💰 Sell This Produce</h2>
-
-        <label>
-            Produce / Crop
-        </label>
-
-        <input
-            id="sell-name"
-            type="text"
-            placeholder="e.g. Maize"
-        >
-
-        <label>
-            Quantity
-        </label>
-
-        <input
-            id="sell-quantity"
-            type="number"
-            placeholder="e.g. 50"
-        >
-
-        <label>
-            Unit
-        </label>
-
-        <select id="sell-unit">
-
-            <option value="kg">
-                kg
-            </option>
-
-            <option value="bags">
-                bags
-            </option>
-
-            <option value="tons">
-                tons
-            </option>
-
-        </select>
-
-        <label>
-            Price (KSh)
-        </label>
-
-        <input
-            id="sell-price"
-            type="number"
-            placeholder="e.g. 3000"
-        >
-
-        <label>
-            Location
-        </label>
-
-        <input
-            id="sell-location"
-            type="text"
-            placeholder="e.g. Nairobi"
-        >
-
-        <button
-            class="primary"
-            onclick="postToMarketplace()"
-        >
-            📢 Post to Marketplace
-        </button>
-
-    </section>
-
-
-    <!-- =========================
-         MARKETPLACE
-    ========================= -->
-
-    <section class="card">
-
-        <h2>🛒 Marketplace</h2>
-
-        <p>
-            Connect farmers with buyers and
-            agricultural markets.
-        </p>
-
-        <br>
-
-        <input
-            id="market-search"
-            type="text"
-            placeholder="Search maize, Nairobi, seller..."
-        >
-
-        <button
-            class="primary"
-            onclick="searchMarketplace()"
-        >
-            🔎 Search Marketplace
-        </button>
-
-        <button
-            class="secondary"
-            onclick="clearMarketplaceSearch()"
-        >
-            ✖ Clear Search
-        </button>
-
-        <div id="marketplace-list">
-
-            Loading marketplace...
+            <strong id="forecast">
+                Loading...
+            </strong>
 
         </div>
 
-    </section>
-    <!-- =========================
-         AI FARMING ASSISTANT
-    ========================= -->
+    </div>
 
-    <section class="card">
+    <div
+        id="weather-status"
+        class="info">
 
-        <h2>🤖 AI Farming Assistant</h2>
+        ⏳ Loading weather...
 
-        <p>
-            Ask AgriLink AI a farming question.
-        </p>
+    </div>
 
-        <br>
+</section>
 
-        <input
-            id="question"
-            type="text"
-            placeholder="Example: Why are my maize leaves turning yellow?"
-        >
 
-        <button
-            class="primary"
-            onclick="askAI()"
-        >
-            🤖 Ask AgriLink AI
-        </button>
+<section class="card">
 
-        <div
-            id="answer"
-            class="info"
-        >
-            🌱 Your farming advice will appear here.
-        </div>
+    <h2>
+        🌱 Today's Farming Recommendation
+    </h2>
 
-    </section>
+    <div
+        id="farming-recommendation"
+        class="info">
+
+        🌱 Checking today's weather...
+
+    </div>
+
+</section>
+<section class="card">
+
+    <h2>
+        🐛 Pest & Disease Detection
+    </h2>
+
+    <p>
+        Upload a photo of your crop and
+        AgriLink AI will help you check
+        for possible pests or diseases.
+    </p>
+
+    <br>
+
+    <input
+        type="file"
+        id="crop-image"
+        accept="image/*">
+
+    <label for="crop-type">
+        🌱 Select Crop
+    </label>
+
+    <select id="crop-type">
+
+        <option value="maize">
+            🌽 Maize
+        </option>
+
+        <option value="tomato">
+            🍅 Tomato
+        </option>
+
+        <option value="potato">
+            🥔 Potato
+        </option>
+
+        <option value="kale">
+            🥬 Kale / Sukuma Wiki
+        </option>
+
+        <option value="beans">
+            🫘 Beans
+        </option>
+
+        <option value="other">
+            🌱 Other
+        </option>
+
+    </select>
+
+    <button
+        type="button"
+        class="primary"
+        onclick="analyzeCrop()">
+
+        🤖 Analyze Crop
+
+    </button>
+
+    <div id="crop-preview"></div>
+
+    <div id="detection-result">
+
+        🌱 Upload a crop photo to begin.
+
+    </div>
+
+</section>
+
+
+<section class="card">
+
+    <h2>🌽 My Produce</h2>
+
+    <label>
+        Produce / Crop
+    </label>
+
+    <input
+        id="produce-name"
+        type="text"
+        placeholder="e.g. Maize">
+
+    <label>
+        Quantity
+    </label>
+
+    <input
+        id="produce-quantity"
+        type="number"
+        placeholder="e.g. 50">
+
+    <label>
+        Unit
+    </label>
+
+    <select id="produce-unit">
+
+        <option value="kg">kg</option>
+        <option value="bags">bags</option>
+        <option value="tons">tons</option>
+
+    </select>
+
+    <label>
+        Farm Location
+    </label>
+
+    <input
+        id="produce-location"
+        type="text"
+        placeholder="e.g. Nairobi">
+
+    <button
+        class="primary"
+        onclick="addProduce()">
+
+        ➕ Add Produce
+
+    </button>
+
+    <div
+        id="produce-list"
+        class="info">
+
+        Loading produce...
+
+    </div>
+
+</section>
+<section class="card">
+
+    <h2>💰 Sell This Produce</h2>
+
+    <label>
+        Produce / Crop
+    </label>
+
+    <input
+        id="sell-name"
+        type="text"
+        placeholder="e.g. Maize">
+
+    <label>
+        Quantity
+    </label>
+
+    <input
+        id="sell-quantity"
+        type="number"
+        placeholder="e.g. 50">
+
+    <label>
+        Unit
+    </label>
+
+    <select id="sell-unit">
+
+        <option value="kg">kg</option>
+        <option value="bags">bags</option>
+        <option value="tons">tons</option>
+
+    </select>
+
+    <label>
+        Price (KSh)
+    </label>
+
+    <input
+        id="sell-price"
+        type="number"
+        placeholder="e.g. 3000">
+
+    <label>
+        Location
+    </label>
+
+    <input
+        id="sell-location"
+        type="text"
+        placeholder="e.g. Nairobi">
+
+    <button
+        class="primary"
+        onclick="postToMarketplace()">
+
+        📢 Post to Marketplace
+
+    </button>
+
+</section>
+
+
+<section class="card">
+
+    <h2>🛒 Marketplace</h2>
+
+    <p>
+        Connect farmers with buyers
+        and agricultural markets.
+    </p>
+
+    <br>
+
+    <input
+        id="market-search"
+        type="text"
+        placeholder="Search maize, Nairobi, seller...">
+
+    <button
+        class="primary"
+        onclick="searchMarketplace()">
+
+        🔎 Search Marketplace
+
+    </button>
+
+    <button
+        class="secondary"
+        onclick="clearMarketplaceSearch()">
+
+        ✖ Clear Search
+
+    </button>
+
+    <div id="marketplace-list">
+
+        Loading marketplace...
+
+    </div>
+
+</section>
+<section class="card">
+
+    <h2>🤖 AI Farming Assistant</h2>
+
+    <p>
+        Ask AgriLink AI a farming question.
+    </p>
+
+    <br>
+
+    <input
+        id="question"
+        type="text"
+        placeholder="Example: Why are my maize leaves turning yellow?">
+
+    <button
+        class="primary"
+        onclick="askAI()">
+
+        🤖 Ask AgriLink AI
+
+    </button>
+
+    <div
+        id="answer"
+        class="info">
+
+        🌱 Your farming advice
+        will appear here.
+
+    </div>
+
+</section>
 
 </main>
 
@@ -743,10 +640,6 @@ footer{
 
 
 <script>
-/* =====================================
-   SUPABASE CONFIGURATION
-===================================== */
-
 const SUPABASE_URL =
 "https://cjgbeankvgtychqqgvlq.supabase.co";
 
@@ -759,17 +652,8 @@ window.supabase.createClient(
     SUPABASE_KEY
 );
 
-
-/* =====================================
-   GLOBAL USER
-===================================== */
-
 let currentUser = null;
 
-
-/* =====================================
-   CHECK LOGIN
-===================================== */
 
 async function checkUser(){
 
@@ -778,17 +662,8 @@ async function checkUser(){
         const result =
         await supabaseClient.auth.getSession();
 
-        if(result.error){
-
-            console.error(
-                "Auth error:",
-                result.error
-            );
-
-            return null;
-        }
-
         if(
+            result.error ||
             !result.data ||
             !result.data.session
         ){
@@ -807,7 +682,7 @@ async function checkUser(){
     }catch(error){
 
         console.error(
-            "Check user error:",
+            "Auth error:",
             error
         );
 
@@ -816,24 +691,9 @@ async function checkUser(){
 }
 
 
-/* =====================================
-   LOGOUT
-===================================== */
-
 async function logoutUser(){
 
-    try{
-
-        await supabaseClient.auth.signOut();
-
-    }catch(error){
-
-        console.error(
-            "Logout error:",
-            error
-        );
-
-    }
+    await supabaseClient.auth.signOut();
 
     localStorage.removeItem(
         "agrilink_user"
@@ -844,28 +704,19 @@ async function logoutUser(){
 }
 
 
-/* =====================================
-   LOAD PROFILE
-===================================== */
-
 async function loadProfile(user){
 
-    const nameElement =
+    const name =
     document.getElementById(
         "profile-name"
     );
 
-    const emailElement =
+    const email =
     document.getElementById(
         "profile-email"
     );
 
-    if(!nameElement || !emailElement){
-
-        return;
-    }
-
-    emailElement.innerHTML =
+    email.innerHTML =
     "📧 " + user.email;
 
     try{
@@ -887,13 +738,13 @@ async function loadProfile(user){
             !result.data
         ){
 
-            nameElement.innerHTML =
+            name.innerHTML =
             "👋 Welcome, Farmer";
 
             return;
         }
 
-        nameElement.innerHTML =
+        name.innerHTML =
         "👋 Welcome, " +
         (
             result.data.full_name ||
@@ -902,9 +753,10 @@ async function loadProfile(user){
 
         if(result.data.email){
 
-            emailElement.innerHTML =
+            email.innerHTML =
             "📧 " +
             result.data.email;
+
         }
 
     }catch(error){
@@ -914,14 +766,10 @@ async function loadProfile(user){
             error
         );
 
-        nameElement.innerHTML =
+        name.innerHTML =
         "👋 Welcome, Farmer";
     }
 }
-/* =====================================
-   WEATHER
-===================================== */
-
 async function loadWeather(){
 
     const temperature =
@@ -955,12 +803,6 @@ async function loadWeather(){
     );
 
     try{
-
-        /*
-         Nairobi coordinates.
-         Open-Meteo does not require
-         an API key for this request.
-        */
 
         const url =
         "https://api.open-meteo.com/v1/forecast" +
@@ -999,16 +841,14 @@ async function loadWeather(){
         " °C";
 
         rain.innerHTML =
-        rainProbability +
-        "%";
+        rainProbability + "%";
 
         wind.innerHTML =
         Number(windSpeed).toFixed(1) +
         " km/h";
 
-
         let forecastText =
-        "Partly cloudy ☁️";
+        "Mostly dry ☀️";
 
         if(rainProbability >= 70){
 
@@ -1019,11 +859,6 @@ async function loadWeather(){
 
             forecastText =
             "Possible rain ☁️";
-
-        }else{
-
-            forecastText =
-            "Mostly dry ☀️";
         }
 
         forecast.innerHTML =
@@ -1033,11 +868,10 @@ async function loadWeather(){
         "✅ Live weather";
 
 
-        /* FARMING RECOMMENDATION */
-
         if(rainProbability >= 70){
 
             recommendation.innerHTML = `
+
                 <strong>
                     🌧️ Heavy rain expected
                 </strong>
@@ -1057,11 +891,13 @@ async function loadWeather(){
                 <br>
 
                 🚜 Avoid working wet soil where possible.
+
             `;
 
         }else if(rainProbability >= 40){
 
             recommendation.innerHTML = `
+
                 <strong>
                     ☁️ Moderate rain possible
                 </strong>
@@ -1077,18 +913,21 @@ async function loadWeather(){
                 <br>
 
                 🐛 Watch for pests and disease.
+
             `;
 
         }else{
 
             recommendation.innerHTML = `
+
                 <strong>
                     ☀️ Low rain probability
                 </strong>
 
                 <br><br>
 
-                💧 Check whether your crops need irrigation.
+                💧 Check whether your crops
+                need irrigation.
 
                 <br>
 
@@ -1097,6 +936,7 @@ async function loadWeather(){
                 <br>
 
                 🐛 Continue checking for pests.
+
             `;
         }
 
@@ -1120,16 +960,12 @@ async function loadWeather(){
         "Unavailable";
 
         status.innerHTML =
-        "⚠️ Weather temporarily unavailable";
+        "⚠️ Weather unavailable";
 
         recommendation.innerHTML =
-        "🌱 Weather data could not be loaded right now.";
+        "🌱 Weather data could not be loaded.";
     }
 }
-/* =====================================
-   ADD PRODUCE
-===================================== */
-
 async function addProduce(){
 
     const name =
@@ -1165,71 +1001,47 @@ async function addProduce(){
         return;
     }
 
-    try{
+    const result =
+    await supabaseClient
+    .from("produce")
+    .insert({
 
-        const result =
-        await supabaseClient
-        .from("produce")
-        .insert({
+        produce_name:name,
+        quantity:Number(quantity),
+        unit:unit,
+        location:location
 
-            produce_name:name,
+    });
 
-            quantity:Number(quantity),
-
-            unit:unit,
-
-            location:location
-
-        });
-
-        if(result.error){
-
-            console.error(
-                result.error
-            );
-
-            alert(
-                "❌ Could not add produce."
-            );
-
-            return;
-        }
-
-        document.getElementById(
-            "produce-name"
-        ).value = "";
-
-        document.getElementById(
-            "produce-quantity"
-        ).value = "";
-
-        document.getElementById(
-            "produce-location"
-        ).value = "";
-
-        await loadProduce();
+    if(result.error){
 
         alert(
-            "✅ Produce added successfully!"
+            "❌ Could not add produce: " +
+            result.error.message
         );
 
-    }catch(error){
-
-        console.error(
-            "Add produce error:",
-            error
-        );
-
-        alert(
-            "❌ Something went wrong."
-        );
+        return;
     }
+
+    document.getElementById(
+        "produce-name"
+    ).value = "";
+
+    document.getElementById(
+        "produce-quantity"
+    ).value = "";
+
+    document.getElementById(
+        "produce-location"
+    ).value = "";
+
+    await loadProduce();
+
+    alert(
+        "✅ Produce added successfully!"
+    );
 }
 
-
-/* =====================================
-   LOAD PRODUCE
-===================================== */
 
 async function loadProduce(){
 
@@ -1252,10 +1064,6 @@ async function loadProduce(){
         );
 
         if(result.error){
-
-            console.error(
-                result.error
-            );
 
             list.innerHTML =
             "⚠️ Could not load produce.";
@@ -1280,7 +1088,9 @@ async function loadProduce(){
             <div class="market-card">
 
                 <h3>
-                    🌱 ${escapeHTML(item.produce_name)}
+                    🌱 ${escapeHTML(
+                        item.produce_name
+                    )}
                 </h3>
 
                 <p>
@@ -1300,20 +1110,13 @@ async function loadProduce(){
 
     }catch(error){
 
-        console.error(
-            "Load produce error:",
-            error
-        );
+        console.error(error);
 
         list.innerHTML =
         "⚠️ Could not load produce.";
     }
 }
 
-
-/* =====================================
-   POST TO MARKETPLACE
-===================================== */
 
 async function postToMarketplace(){
 
@@ -1356,25 +1159,7 @@ async function postToMarketplace(){
         return;
     }
 
-    if(!currentUser){
-
-        alert(
-            "Please log in again."
-        );
-
-        window.location.href =
-        "login.html";
-
-        return;
-    }
-
     try{
-
-        let sellerName =
-        "Farmer";
-
-        let sellerPhone =
-        "";
 
         const profile =
         await supabaseClient
@@ -1388,16 +1173,13 @@ async function postToMarketplace(){
         )
         .maybeSingle();
 
-        if(profile.data){
+        const sellerName =
+        profile.data?.full_name ||
+        "Farmer";
 
-            sellerName =
-            profile.data.full_name ||
-            "Farmer";
-
-            sellerPhone =
-            profile.data.phone ||
-            "";
-        }
+        const sellerPhone =
+        profile.data?.phone ||
+        "";
 
         const result =
         await supabaseClient
@@ -1405,26 +1187,16 @@ async function postToMarketplace(){
         .insert({
 
             produce_name:name,
-
             quantity:Number(quantity),
-
             unit:unit,
-
             price:Number(price),
-
             location:location,
-
             seller_name:sellerName,
-
             seller_phone:sellerPhone
 
         });
 
         if(result.error){
-
-            console.error(
-                result.error
-            );
 
             alert(
                 "❌ Marketplace error: " +
@@ -1453,15 +1225,12 @@ async function postToMarketplace(){
         await loadMarketplace();
 
         alert(
-            "✅ Produce posted to marketplace!"
+            "✅ Produce posted!"
         );
 
     }catch(error){
 
-        console.error(
-            "Marketplace post error:",
-            error
-        );
+        console.error(error);
 
         alert(
             "❌ Could not post listing."
@@ -1470,12 +1239,8 @@ async function postToMarketplace(){
 }
 
 
-/* =====================================
-   LOAD MARKETPLACE
-===================================== */
-
 async function loadMarketplace(
-    searchTerm = ""
+    searchTerm=""
 ){
 
     const list =
@@ -1498,22 +1263,16 @@ async function loadMarketplace(
 
         if(searchTerm){
 
-            const safeTerm =
-            searchTerm.replace(
-                /[%_]/g,
-                ""
-            );
-
             query =
             query.or(
                 "produce_name.ilike.%" +
-                safeTerm +
+                searchTerm +
                 "%," +
                 "location.ilike.%" +
-                safeTerm +
+                searchTerm +
                 "%," +
                 "seller_name.ilike.%" +
-                safeTerm +
+                searchTerm +
                 "%"
             );
         }
@@ -1522,10 +1281,6 @@ async function loadMarketplace(
         await query;
 
         if(result.error){
-
-            console.error(
-                result.error
-            );
 
             list.innerHTML =
             "⚠️ Could not load marketplace.";
@@ -1539,90 +1294,79 @@ async function loadMarketplace(
         ){
 
             list.innerHTML =
-            "🛒 No marketplace listings found.";
+            "🛒 No listings found.";
 
             return;
         }
 
         list.innerHTML =
-        result.data.map(item => {
+        result.data.map(item => `
 
-            const phone =
-            item.seller_phone || "";
+            <div class="market-card">
 
-            return `
+                <h3>
+                    🌱 ${escapeHTML(
+                        item.produce_name
+                    )}
+                </h3>
 
-                <div class="market-card">
+                <p>
+                    📦 Quantity:
+                    ${item.quantity}
+                    ${escapeHTML(item.unit)}
+                </p>
 
-                    <h3>
-                        🌱
-                        ${escapeHTML(
-                            item.produce_name
-                        )}
-                    </h3>
+                <p>
+                    💰 Price:
+                    KSh ${Number(
+                        item.price
+                    ).toLocaleString()}
+                </p>
 
-                    <p>
-                        📦 Quantity:
-                        ${item.quantity}
-                        ${escapeHTML(item.unit)}
-                    </p>
+                <p>
+                    📍 ${escapeHTML(
+                        item.location
+                    )}
+                </p>
 
-                    <p>
-                        💰 Price:
-                        KSh ${Number(
-                            item.price
-                        ).toLocaleString()}
-                    </p>
+                <p>
+                    👨‍🌾 Seller:
+                    ${escapeHTML(
+                        item.seller_name ||
+                        "Farmer"
+                    )}
+                </p>
 
-                    <p>
-                        📍
-                        ${escapeHTML(
-                            item.location
-                        )}
-                    </p>
+                ${
+                    item.seller_phone
+                    ?
+                    `
+                    <button
+                        class="phone-btn"
+                        onclick="contactSeller(
+                            '${escapeHTML(
+                                item.seller_phone
+                            )}',
+                            '${escapeHTML(
+                                item.produce_name
+                            )}'
+                        )">
 
-                    <p>
-                        👨‍🌾 Seller:
-                        ${escapeHTML(
-                            item.seller_name ||
-                            "Farmer"
-                        )}
-                    </p>
+                        📞 Contact Seller
 
-                    ${
-                        phone
-                        ?
-                        `
-                        <div class="market-actions">
+                    </button>
+                    `
+                    :
+                    ""
+                }
 
-                            <button
-                                class="phone-btn"
-                                onclick="contactSeller(
-                                    '${escapeHTML(phone)}',
-                                    '${escapeHTML(item.produce_name)}'
-                                )"
-                            >
-                                📞 Contact Seller
-                            </button>
+            </div>
 
-                        </div>
-                        `
-                        :
-                        ""
-                    }
-
-                </div>
-
-            `;
-
-        }).join("");
+        `).join("");
 
     }catch(error){
 
-        console.error(
-            "Marketplace load error:",
-            error
-        );
+        console.error(error);
 
         list.innerHTML =
         "⚠️ Marketplace unavailable.";
@@ -1630,19 +1374,12 @@ async function loadMarketplace(
 }
 
 
-/* =====================================
-   MARKETPLACE SEARCH
-===================================== */
-
 async function searchMarketplace(){
 
-    const input =
+    const term =
     document.getElementById(
         "market-search"
-    );
-
-    const term =
-    input.value.trim();
+    ).value.trim();
 
     await loadMarketplace(term);
 }
@@ -1657,10 +1394,6 @@ function clearMarketplaceSearch(){
     loadMarketplace();
 }
 
-
-/* =====================================
-   CONTACT SELLER
-===================================== */
 
 function contactSeller(
     phone,
@@ -1696,74 +1429,44 @@ function contactSeller(
     produce +
     " listing on AgriLink AI.";
 
-    const whatsappURL =
+    const url =
     "https://wa.me/" +
     cleanPhone +
     "?text=" +
     encodeURIComponent(message);
 
     window.open(
-        whatsappURL,
+        url,
         "_blank"
     );
 }
 
-
-/* =====================================
-   SAFE HTML
-===================================== */
 
 function escapeHTML(value){
 
     return String(
         value ?? ""
     )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
-/* =====================================
-   AI FARMING ASSISTANT
-===================================== */
-
 function askAI(){
 
     const input =
-    document.getElementById(
-        "question"
-    );
+    document.getElementById("question");
 
     const answer =
-    document.getElementById(
-        "answer"
-    );
+    document.getElementById("answer");
 
     if(!input || !answer){
-
         return;
     }
 
     const question =
-    input.value
-    .trim()
-    .toLowerCase();
+    input.value.trim().toLowerCase();
 
     if(!question){
 
@@ -1779,34 +1482,148 @@ function askAI(){
         question.includes("corn")
     ){
 
-        answer.innerHTML = `
+        if(
+            question.includes("yellow") ||
+            question.includes("yellowing")
+        ){
 
-            <strong>
-                🌽 Maize farming advice
-            </strong>
+            answer.innerHTML = `
 
-            <br><br>
+                <strong>
+                    🌽 Why maize leaves may turn yellow
+                </strong>
 
-            🌱 Use quality seed and proper spacing.
+                <br><br>
 
-            <br>
+                There are several possible causes:
 
-            🐛 Inspect plants regularly for pests.
+                <br><br>
 
-            <br>
+                💧 <strong>Water stress</strong><br>
+                Too little water can cause yellowing,
+                while excessive water can damage roots.
 
-            🌿 Keep weeds under control.
+                <br><br>
 
-            <br>
+                🌱 <strong>Nutrient deficiency</strong><br>
+                Nitrogen deficiency can cause older
+                maize leaves to become pale or yellow.
 
-            💧 Avoid overwatering.
+                <br><br>
 
-            <br>
+                🐛 <strong>Pests</strong><br>
+                Check leaves, stems and the growing point
+                for insect damage.
 
-            🦠 Watch for yellowing,
-            spots and disease symptoms.
+                <br><br>
 
-        `;
+                🦠 <strong>Disease</strong><br>
+                Look for spots, streaks or unusual
+                patterns on the leaves.
+
+                <br><br>
+
+                🔎 <strong>What to check first:</strong>
+
+                <br><br>
+
+                1️⃣ Check soil moisture.
+
+                <br>
+
+                2️⃣ Inspect the underside of leaves.
+
+                <br>
+
+                3️⃣ Look for insects or feeding damage.
+
+                <br>
+
+                4️⃣ Check whether yellowing starts
+                on older or newer leaves.
+
+                <br><br>
+
+                ⚠️ A photo and field inspection are
+                needed before confirming the exact cause.
+
+            `;
+
+        }else if(
+            question.includes("pest") ||
+            question.includes("worm") ||
+            question.includes("armyworm")
+        ){
+
+            answer.innerHTML = `
+
+                <strong>
+                    🐛 Maize pest management
+                </strong>
+
+                <br><br>
+
+                🔎 Inspect plants regularly.
+
+                <br>
+
+                🌱 Check inside the whorl for
+                feeding damage or caterpillars.
+
+                <br>
+
+                🐛 Look for holes and insect damage.
+
+                <br>
+
+                🌿 Keep weeds controlled.
+
+                <br>
+
+                ⚠️ Identify the pest before
+                choosing treatment.
+
+            `;
+
+        }else{
+
+            answer.innerHTML = `
+
+                <strong>
+                    🌽 Maize farming advice
+                </strong>
+
+                <br><br>
+
+                🌱 Use quality seed.
+
+                <br>
+
+                📏 Maintain suitable spacing.
+
+                <br>
+
+                🌿 Control weeds.
+
+                <br>
+
+                💧 Maintain appropriate soil moisture.
+
+                <br>
+
+                🐛 Inspect regularly for pests.
+
+                <br>
+
+                🦠 Watch for disease symptoms.
+
+                <br>
+
+                🌱 Maintain healthy soil and nutrients.
+
+            `;
+        }
+
 
     }else if(
         question.includes("tomato")
@@ -1820,8 +1637,11 @@ function askAI(){
 
             <br><br>
 
-            💧 Water consistently without
-            overwatering.
+            💧 Water consistently without overwatering.
+
+            <br>
+
+            🌱 Maintain well-drained soil.
 
             <br>
 
@@ -1833,78 +1653,43 @@ function askAI(){
 
             <br>
 
-            🌱 Keep soil well drained.
+            🌿 Keep weeds controlled.
 
         `;
 
+
     }else if(
-        question.includes("pest") ||
-        question.includes("insect") ||
-        question.includes("aphid") ||
-        question.includes("worm")
+        question.includes("potato")
     ){
 
         answer.innerHTML = `
 
             <strong>
-                🐛 Pest management advice
+                🥔 Potato farming advice
             </strong>
 
             <br><br>
 
-            🔎 Inspect leaves,
-            stems and undersides of leaves.
+            🌱 Use healthy planting material.
 
             <br>
 
-            🌱 Remove severely damaged material
-            where appropriate.
+            💧 Maintain suitable soil moisture.
 
             <br>
 
-            🐞 Encourage beneficial insects.
+            🌿 Control weeds.
 
             <br>
 
-            ⚠️ Identify the pest before
-            choosing a treatment.
+            🐛 Monitor for pests.
+
+            <br>
+
+            🦠 Check for disease symptoms.
 
         `;
 
-    }else if(
-        question.includes("disease") ||
-        question.includes("fungus") ||
-        question.includes("blight") ||
-        question.includes("spot")
-    ){
-
-        answer.innerHTML = `
-
-            <strong>
-                🦠 Plant disease advice
-            </strong>
-
-            <br><br>
-
-            🔎 Look for spots,
-            mold or discoloration.
-
-            <br>
-
-            💧 Avoid unnecessary
-            overhead watering.
-
-            <br>
-
-            🌱 Remove severely affected
-            plant material where appropriate.
-
-            <br>
-
-            ⚠️ Confirm the disease before
-            applying treatment.
-
-        `;
 
     }else if(
         question.includes("water") ||
@@ -1919,18 +1704,92 @@ function askAI(){
 
             <br><br>
 
-            Check soil moisture before watering.
+            🔎 Check soil moisture before watering.
 
             <br>
 
-            🌱 Water when crops need it.
+            🌱 Water according to crop needs.
 
             <br>
 
-            🌧️ Reduce irrigation when
-            substantial rain is expected.
+            🌧️ Reduce irrigation when substantial
+            rainfall is expected.
+
+            <br>
+
+            🚫 Avoid waterlogged soil.
 
         `;
+
+
+    }else if(
+        question.includes("pest") ||
+        question.includes("insect") ||
+        question.includes("aphid") ||
+        question.includes("caterpillar") ||
+        question.includes("worm")
+    ){
+
+        answer.innerHTML = `
+
+            <strong>
+                🐛 Pest management advice
+            </strong>
+
+            <br><br>
+
+            🔎 Inspect leaves and stems regularly.
+
+            <br>
+
+            🐛 Look for feeding damage.
+
+            <br>
+
+            🌿 Keep weeds controlled.
+
+            <br>
+
+            ⚠️ Identify the pest before
+            selecting treatment.
+
+        `;
+
+
+    }else if(
+        question.includes("disease") ||
+        question.includes("fungus") ||
+        question.includes("blight") ||
+        question.includes("spot")
+    ){
+
+        answer.innerHTML = `
+
+            <strong>
+                🦠 Crop disease advice
+            </strong>
+
+            <br><br>
+
+            🔎 Look for spots, mold,
+            streaks or discoloration.
+
+            <br>
+
+            💧 Avoid unnecessary overhead watering.
+
+            <br>
+
+            🌱 Remove severely affected material
+            where appropriate.
+
+            <br>
+
+            ⚠️ Confirm the disease before
+            applying treatment.
+
+        `;
+
 
     }else if(
         question.includes("soil") ||
@@ -1951,34 +1810,36 @@ function askAI(){
 
             <br>
 
+            🧪 Soil testing can help identify
+            nutrient problems.
+
+            <br>
+
             💧 Avoid waterlogging.
 
             <br>
 
-            🧪 Use soil testing where available.
-
-            <br>
-
-            🌿 Apply fertilizer according
-            to the crop's needs.
+            🌿 Apply nutrients according
+            to crop requirements.
 
         `;
 
+
     }else if(
+        question.includes("weather") ||
         question.includes("rain") ||
-        question.includes("weather")
+        question.includes("forecast")
     ){
 
         answer.innerHTML = `
 
             <strong>
-                🌦️ Weather advice
+                🌦️ Weather farming advice
             </strong>
 
             <br><br>
 
-            Check the Weather Insights
-            section above.
+            Check the Weather Insights section.
 
             <br>
 
@@ -1991,6 +1852,7 @@ function askAI(){
             monitor soil moisture.
 
         `;
+
 
     }else if(
         question.includes("market") ||
@@ -2007,7 +1869,7 @@ function askAI(){
 
             <br><br>
 
-            Check AgriLink AI Marketplace
+            Check the AgriLink AI Marketplace
             for available listings.
 
             <br>
@@ -2016,63 +1878,55 @@ function askAI(){
 
             <br>
 
-            📞 Contact sellers directly
-            for suitable listings.
+            📞 Contact sellers when appropriate.
 
         `;
+
 
     }else{
 
         answer.innerHTML = `
 
             <strong>
-                🌱 AgriLink AI can help with:
+                🌱 AgriLink AI Farming Assistant
             </strong>
+
+            <br><br>
+
+            I can currently help with:
 
             <br><br>
 
             🌽 Maize
 
             <br>
-
             🍅 Tomatoes
 
             <br>
-
             🥔 Potatoes
 
             <br>
-
             💧 Watering
 
             <br>
-
             🐛 Pests
 
             <br>
-
-            🦠 Crop diseases
-
-            <br>
-
-            🌱 Soil and fertilizer
+            🦠 Diseases
 
             <br>
+            🌱 Soil and nutrients
 
+            <br>
             🌦️ Weather
 
             <br>
-
             🛒 Markets
 
         `;
     }
 }
 
-
-/* =====================================
-   PEST & DISEASE DETECTION
-===================================== */
 
 function analyzeCrop(){
 
@@ -2126,8 +1980,7 @@ function analyzeCrop(){
 
         <img
             src="${imageURL}"
-            alt="Uploaded crop"
-        >
+            alt="Uploaded crop">
 
     `;
 
@@ -2193,8 +2046,7 @@ function analyzeCrop(){
 
             <br>
 
-            🌱 Check for yellowing
-            or nutrient problems.
+            🌱 Check for yellowing or nutrient problems.
 
             <br><br>
 
@@ -2235,98 +2087,51 @@ function analyzeCrop(){
 }
 
 
-/* =====================================
-   START DASHBOARD
-===================================== */
-
 async function startDashboard(){
 
     console.log(
-        "🌱 Starting AgriLink AI dashboard..."
+        "🌱 Starting AgriLink AI..."
     );
 
     const user =
     await checkUser();
 
     if(!user){
-
         return;
     }
-
-    console.log(
-        "✅ User authenticated:",
-        user.email
-    );
 
     currentUser =
     user;
 
-
-    /* Load each section independently.
-       One failure will not stop the
-       entire dashboard. */
-
     try{
-
         await loadProfile(user);
-
     }catch(error){
-
-        console.error(
-            "Profile failed:",
-            error
-        );
+        console.error(error);
     }
 
-
     try{
-
         await loadWeather();
-
     }catch(error){
-
-        console.error(
-            "Weather failed:",
-            error
-        );
+        console.error(error);
     }
 
-
     try{
-
         await loadProduce();
-
     }catch(error){
-
-        console.error(
-            "Produce failed:",
-            error
-        );
+        console.error(error);
     }
-
 
     try{
-
         await loadMarketplace();
-
     }catch(error){
-
-        console.error(
-            "Marketplace failed:",
-            error
-        );
+        console.error(error);
     }
-
 
     console.log(
-        "🚀 Dashboard ready!"
+        "🚀 AgriLink AI dashboard ready!"
     );
 }
 
-
-/* =====================================
-   START
-===================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
