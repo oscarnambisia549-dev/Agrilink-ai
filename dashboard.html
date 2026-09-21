@@ -69,7 +69,12 @@ nav button{
 }
 
 .hero{
-    background:linear-gradient(135deg,#0c5c29,#2e8b46);
+    background:linear-gradient(
+        135deg,
+        #0c5c29,
+        #2e8b46
+    );
+
     color:white;
     padding:35px 25px;
     border-radius:18px;
@@ -86,7 +91,9 @@ nav button{
     padding:22px;
     margin-bottom:20px;
     border-radius:16px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.08);
 }
 
 .card h2{
@@ -141,15 +148,32 @@ button:hover{
 
 .crop-preview{
     width:100%;
-    max-height:300px;
+    max-height:350px;
     object-fit:contain;
     margin-top:15px;
     border-radius:10px;
+    background:#f5faf6;
 }
 
 .loading{
     color:#126b2f;
     font-weight:bold;
+}
+
+.ai-analysis{
+    margin-top:15px;
+    padding:18px;
+    background:#f0f8f2;
+    border-left:5px solid #126b2f;
+    border-radius:10px;
+    line-height:1.7;
+}
+
+.ai-warning{
+    margin-top:15px;
+    padding:12px;
+    background:#fff8e1;
+    border-radius:8px;
 }
 
 footer{
@@ -169,6 +193,10 @@ footer{
         font-size:25px;
     }
 
+    .container{
+        padding:12px;
+    }
+
 }
 
 </style>
@@ -176,6 +204,7 @@ footer{
 </head>
 
 <body>
+
 <nav>
 
 <div class="nav-container">
@@ -210,7 +239,6 @@ A better future through AI. 🚀
 </p>
 
 </section>
-
 <section class="card">
 
 <h2>👤 My Profile</h2>
@@ -223,20 +251,24 @@ A better future through AI. 🚀
 📧 Loading...
 </p>
 
-<p id="profile-location"
-   class="small">
+<p
+    id="profile-location"
+    class="small">
 
 📍 Loading...
 
 </p>
 
 </section>
+
+
 <section class="card">
 
 <h2>🌦️ Live Weather</h2>
 
-<div id="weather-result"
-     class="result">
+<div
+    id="weather-result"
+    class="result">
 
 🌦️ Loading weather...
 
@@ -252,14 +284,16 @@ A better future through AI. 🚀
 
 </section>
 
+
 <section class="card">
 
 <h2>
 🌱 Today's Farming Recommendation
 </h2>
 
-<div id="farming-recommendation"
-     class="result">
+<div
+    id="farming-recommendation"
+    class="result">
 
 🌱 Checking today's weather...
 
@@ -269,14 +303,21 @@ A better future through AI. 🚀
 <section class="card">
 
 <h2>
-🐛 Pest & Disease Detection
+🐛 AI Pest & Disease Detection
 </h2>
 
 <p>
-Upload a photo of your crop and
-AgriLink AI will help identify
-possible problems.
+Upload a clear photo of your crop and
+AgriLink AI will analyze the image for
+possible pests, diseases, nutrient
+problems, and other visible symptoms.
 </p>
+
+<br>
+
+<label for="crop-image">
+📷 Upload Crop Photo
+</label>
 
 <input
     type="file"
@@ -317,6 +358,7 @@ possible problems.
 
 <button
     type="button"
+    id="analyze-crop-button"
     onclick="analyzeCrop()">
 
 🤖 Analyze Crop
@@ -325,8 +367,9 @@ possible problems.
 
 <div id="crop-preview"></div>
 
-<div id="detection-result"
-     class="result">
+<div
+    id="detection-result"
+    class="result">
 
 🌱 Upload a crop photo to begin.
 
@@ -376,8 +419,9 @@ Tonnes
 
 </button>
 
-<div id="produce-list"
-     class="result">
+<div
+    id="produce-list"
+    class="result">
 
 Loading produce...
 
@@ -439,8 +483,9 @@ Tonnes
 
 </button>
 
-<div id="sell-result"
-     class="result">
+<div
+    id="sell-result"
+    class="result">
 
 </div>
 
@@ -451,6 +496,8 @@ Tonnes
 
 <p>
 Connect with farmers and buyers.
+Search for available agricultural
+produce.
 </p>
 
 <input
@@ -466,8 +513,9 @@ Connect with farmers and buyers.
 
 </button>
 
-<div id="marketplace-list"
-     class="result">
+<div
+    id="marketplace-list"
+    class="result">
 
 Loading marketplace...
 
@@ -480,8 +528,9 @@ Loading marketplace...
 
 <h2>📞 Contact Seller</h2>
 
-<div id="contact-result"
-     class="result">
+<div
+    id="contact-result"
+    class="result">
 
 Select a marketplace listing
 to contact a seller.
@@ -511,8 +560,9 @@ Ask AgriLink AI a farming question.
 
 </button>
 
-<div id="answer"
-     class="result">
+<div
+    id="answer"
+    class="result">
 
 🌱 Ask me anything about farming.
 
@@ -521,6 +571,7 @@ Ask AgriLink AI a farming question.
 </section>
 
 </main>
+
 
 <footer>
 
@@ -537,17 +588,25 @@ with technology.
 
 </footer>
 
-<!-- SUPABASE LIBRARY -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- OUR JAVASCRIPT STARTS HERE -->
+<!-- SUPABASE LIBRARY -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<!-- AGRILINK AI JAVASCRIPT -->
 
 <script>
+
 const SUPABASE_URL =
     "https://cjgbeankvgtychqqgvlq.supabase.co";
 
+
 const SUPABASE_KEY =
     "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -558,8 +617,6 @@ const supabaseClient =
 
 const AI_FUNCTION_URL =
     "https://cjgbeankvgtychqqgvlq.supabase.co/functions/v1/smooth-handler";
-
-
 async function checkUser(){
 
     try{
@@ -604,7 +661,18 @@ async function checkUser(){
 
 async function logoutUser(){
 
-    await supabaseClient.auth.signOut();
+    try{
+
+        await supabaseClient.auth.signOut();
+
+    }catch(error){
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
 
     localStorage.removeItem(
         "agrilink_user"
@@ -632,9 +700,13 @@ async function loadProfile(user){
             "profile-location"
         );
 
+
     emailElement.textContent =
         "📧 " +
-        (user.email || "");
+        (
+            user.email ||
+            ""
+        );
 
 
     try{
@@ -676,6 +748,14 @@ async function loadProfile(user){
                 );
 
 
+            if(result.data.email){
+
+                emailElement.textContent =
+                    "📧 " +
+                    result.data.email;
+            }
+
+
             if(result.data.location){
 
                 locationElement.textContent =
@@ -689,6 +769,7 @@ async function loadProfile(user){
                 "👋 Welcome, Farmer";
         }
 
+
     }catch(error){
 
         console.error(
@@ -700,6 +781,8 @@ async function loadProfile(user){
             "👋 Welcome, Farmer";
     }
 }
+
+
 async function loadWeather(){
 
     const weatherBox =
@@ -712,6 +795,7 @@ async function loadWeather(){
             "farming-recommendation"
         );
 
+
     weatherBox.textContent =
         "🌦️ Loading live weather...";
 
@@ -722,6 +806,14 @@ async function loadWeather(){
             await fetch(
                 "https://api.open-meteo.com/v1/forecast?latitude=-1.286389&longitude=36.817223&current=temperature_2m,wind_speed_10m,precipitation&hourly=precipitation_probability&forecast_days=1"
             );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Weather request failed"
+            );
+        }
 
 
         const data =
@@ -739,22 +831,39 @@ async function loadWeather(){
         const temperature =
             data.current.temperature_2m;
 
+
         const wind =
             data.current.wind_speed_10m;
 
+
         const rain =
-            data.hourly
-            .precipitation_probability[0];
+            data.hourly &&
+            data.hourly.precipitation_probability &&
+            data.hourly.precipitation_probability.length
+                ? data.hourly.precipitation_probability[0]
+                : 0;
 
 
         weatherBox.innerHTML = `
-            📍 Nairobi, Kenya<br><br>
+
+            📍 Nairobi, Kenya
+
+            <br><br>
+
             🌡️ Temperature:
-            ${temperature}°C<br>
+            ${temperature}°C
+
+            <br>
+
             🌧️ Rain probability:
-            ${rain}%<br>
+            ${rain}%
+
+            <br>
+
             💨 Wind:
-            ${wind} km/h<br><br>
+            ${wind} km/h
+
+            <br><br>
 
             ${
                 rain >= 70
@@ -765,49 +874,85 @@ async function loadWeather(){
             }
 
             <br><br>
+
             <span class="small">
             ✅ Live weather
             </span>
+
         `;
 
 
         if(rain >= 70){
 
             recommendationBox.innerHTML = `
+
                 🌧️ <strong>
                 Heavy rain expected.
-                </strong><br><br>
+                </strong>
 
-                • Avoid unnecessary irrigation.<br>
-                • Check farm drainage.<br>
-                • Monitor crops for fungal diseases.<br>
+                <br><br>
+
+                • Avoid unnecessary irrigation.
+
+                <br>
+
+                • Check farm drainage.
+
+                <br>
+
+                • Monitor crops for fungal diseases.
+
+                <br>
+
                 • Avoid working very wet soil.
+
             `;
 
         }else if(rain >= 40){
 
             recommendationBox.innerHTML = `
+
                 🌦️ <strong>
                 Moderate rain possible.
-                </strong><br><br>
+                </strong>
 
-                • Check soil moisture.<br>
-                • Monitor crops for pests and disease.<br>
+                <br><br>
+
+                • Check soil moisture.
+
+                <br>
+
+                • Monitor crops for pests and disease.
+
+                <br>
+
                 • Irrigate only if the soil is dry.
+
             `;
 
         }else{
 
             recommendationBox.innerHTML = `
+
                 ☀️ <strong>
                 Lower rain probability.
-                </strong><br><br>
+                </strong>
 
-                • Check soil moisture.<br>
-                • Consider irrigation if necessary.<br>
+                <br><br>
+
+                • Check soil moisture.
+
+                <br>
+
+                • Consider irrigation if necessary.
+
+                <br>
+
                 • Continue monitoring crops.
+
             `;
         }
+
 
     }catch(error){
 
@@ -816,15 +961,15 @@ async function loadWeather(){
             error
         );
 
+
         weatherBox.textContent =
             "❌ Unable to load weather.";
+
 
         recommendationBox.textContent =
             "🌱 Weather recommendation unavailable.";
     }
 }
-
-
 async function addProduce(){
 
     const name =
@@ -878,6 +1023,7 @@ async function addProduce(){
     if(result.error){
 
         console.error(
+            "Add produce error:",
             result.error
         );
 
@@ -919,6 +1065,10 @@ async function loadProduce(){
         );
 
 
+    box.textContent =
+        "🌽 Loading produce...";
+
+
     const result =
         await supabaseClient
         .from("produce")
@@ -934,6 +1084,7 @@ async function loadProduce(){
     if(result.error){
 
         console.error(
+            "Load produce error:",
             result.error
         );
 
@@ -944,8 +1095,10 @@ async function loadProduce(){
     }
 
 
-    if(!result.data ||
-       !result.data.length){
+    if(
+        !result.data ||
+        !result.data.length
+    ){
 
         box.textContent =
             "🌱 No produce added yet.";
@@ -1053,6 +1206,7 @@ async function sellProduce(){
     if(result.error){
 
         console.error(
+            "Sell produce error:",
             result.error
         );
 
@@ -1069,6 +1223,27 @@ async function sellProduce(){
     );
 
 
+    document.getElementById(
+        "sell-name"
+    ).value = "";
+
+    document.getElementById(
+        "sell-quantity"
+    ).value = "";
+
+    document.getElementById(
+        "sell-price"
+    ).value = "";
+
+    document.getElementById(
+        "sell-location"
+    ).value = "";
+
+    document.getElementById(
+        "seller-phone"
+    ).value = "";
+
+
     await loadMarketplace();
 }
 
@@ -1079,6 +1254,10 @@ async function loadMarketplace(){
         document.getElementById(
             "marketplace-list"
         );
+
+
+    box.textContent =
+        "🛒 Loading marketplace...";
 
 
     const result =
@@ -1096,6 +1275,7 @@ async function loadMarketplace(){
     if(result.error){
 
         console.error(
+            "Marketplace error:",
             result.error
         );
 
@@ -1128,6 +1308,16 @@ async function searchMarketplace(){
     }
 
 
+    const box =
+        document.getElementById(
+            "marketplace-list"
+        );
+
+
+    box.textContent =
+        "🔎 Searching marketplace...";
+
+
     const result =
         await supabaseClient
         .from("marketplace")
@@ -1147,12 +1337,11 @@ async function searchMarketplace(){
     if(result.error){
 
         console.error(
+            "Marketplace search error:",
             result.error
         );
 
-        document.getElementById(
-            "marketplace-list"
-        ).textContent =
+        box.textContent =
             "❌ Search failed.";
 
         return;
@@ -1163,8 +1352,6 @@ async function searchMarketplace(){
         result.data || []
     );
 }
-
-
 function displayMarketplace(items){
 
     const box =
@@ -1242,6 +1429,16 @@ function displayMarketplace(items){
 
 async function contactSellerById(id){
 
+    const box =
+        document.getElementById(
+            "contact-result"
+        );
+
+
+    box.textContent =
+        "📞 Loading seller information...";
+
+
     const result =
         await supabaseClient
         .from("marketplace")
@@ -1253,14 +1450,10 @@ async function contactSellerById(id){
         .maybeSingle();
 
 
-    const box =
-        document.getElementById(
-            "contact-result"
-        );
-
-
-    if(result.error ||
-       !result.data){
+    if(
+        result.error ||
+        !result.data
+    ){
 
         box.textContent =
             "❌ Seller information unavailable.";
@@ -1291,6 +1484,15 @@ async function contactSellerById(id){
         );
 
 
+    if(!phone){
+
+        box.textContent =
+            "❌ Seller phone number is invalid.";
+
+        return;
+    }
+
+
     box.innerHTML = `
 
         <strong>
@@ -1312,29 +1514,510 @@ async function contactSellerById(id){
 
         <br><br>
 
-        <a href="tel:${escapeHTML(phone)}">
+        <a
+            href="tel:${escapeHTML(phone)}"
+            style="text-decoration:none;">
 
             <button type="button">
-            📞 Call Seller
+
+                📞 Call Seller
+
             </button>
 
         </a>
 
     `;
 }
-function escapeHTML(value){
 
-    return String(value || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+/* ========================================
+   REAL AI CROP IMAGE ANALYSIS
+======================================== */
+
+
+async function analyzeCrop(){
+
+    const input =
+        document.getElementById(
+            "crop-image"
+        );
+
+
+    const crop =
+        document.getElementById(
+            "crop-type"
+        ).value;
+
+
+    const preview =
+        document.getElementById(
+            "crop-preview"
+        );
+
+
+    const result =
+        document.getElementById(
+            "detection-result"
+        );
+
+
+    const button =
+        document.getElementById(
+            "analyze-crop-button"
+        );
+
+
+    if(
+        !input ||
+        !input.files ||
+        !input.files.length
+    ){
+
+        result.textContent =
+            "📷 Please upload a crop photo first.";
+
+        return;
+    }
+
+
+    const file =
+        input.files[0];
+
+
+    if(
+        !file.type ||
+        !file.type.startsWith("image/")
+    ){
+
+        result.textContent =
+            "❌ Please select an image file.";
+
+        return;
+    }
+
+
+    /*
+       Show image preview
+    */
+
+
+    const imageURL =
+        URL.createObjectURL(file);
+
+
+    preview.innerHTML = `
+
+        <img
+            src="${imageURL}"
+            class="crop-preview"
+            alt="Uploaded crop photo">
+
+    `;
+
+
+    /*
+       Disable button while analysing
+    */
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "🤖 AI is analyzing...";
+
+
+    result.innerHTML = `
+
+        <div class="loading">
+
+            🔬 AgriLink AI is examining
+            your crop photo...
+
+            <br><br>
+
+            Please wait.
+
+        </div>
+
+    `;
+
+
+    try{
+
+        /*
+           Compress the image before
+           sending it to the AI.
+        */
+
+
+        const compressed =
+            await compressImage(
+                file,
+                1400,
+                0.82
+            );
+
+
+        const imageBase64 =
+            compressed.base64;
+
+
+        const imageMimeType =
+            compressed.mimeType ||
+            "image/jpeg";
+
+
+        /*
+           Build farming question
+        */
+
+
+        const question = `
+
+Analyze this crop photo as an
+agricultural AI assistant.
+
+Crop type: ${crop}.
+
+Identify visible signs of:
+
+1. Pest damage
+2. Plant disease
+3. Nutrient deficiency
+4. Water stress
+5. Physical or environmental damage
+
+Give the most likely explanation
+based only on visible evidence.
+
+Then provide:
+
+• What you observe
+• Possible problem
+• Confidence level
+• Recommended next steps
+• What the farmer should monitor
+
+If the image is unclear or there is
+not enough evidence, say so clearly.
+
+Do not claim a confirmed diagnosis.
+
+        `.trim();
+
+
+        /*
+           Send text + image to
+           AgriLink AI Edge Function
+        */
+
+
+        const response =
+            await fetch(
+                AI_FUNCTION_URL,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_KEY
+                    },
+
+                    body:JSON.stringify({
+
+                        question:
+                            question,
+
+                        cropType:
+                            crop,
+
+                        imageBase64:
+                            imageBase64,
+
+                        imageMimeType:
+                            imageMimeType
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Crop AI response:",
+            data
+        );
+
+
+        if(!response.ok){
+
+            console.error(
+                "Crop AI error:",
+                data
+            );
+
+
+            result.innerHTML = `
+
+                ❌ <strong>
+                Crop analysis failed.
+                </strong>
+
+                <br><br>
+
+                ${escapeHTML(
+                    data.error ||
+                    "Unable to analyze the crop photo."
+                )}
+
+            `;
+
+            return;
+        }
+
+
+        const answer =
+            data.answer ||
+            "The AI could not generate a crop analysis.";
+
+
+        result.innerHTML = `
+
+            <div class="ai-analysis">
+
+                <strong>
+                🤖 AgriLink AI Crop Analysis
+                </strong>
+
+                <br><br>
+
+                ${formatAIAnswer(answer)}
+
+            </div>
+
+            <div class="ai-warning">
+
+                ⚠️ <strong>Important:</strong>
+
+                AI image analysis is an
+                assistance tool, not a confirmed
+                agricultural diagnosis.
+
+                For serious crop problems,
+                consult an agricultural expert
+                or extension officer.
+
+            </div>
+
+        `;
+
+
+    }catch(error){
+
+        console.error(
+            "Crop analysis connection error:",
+            error
+        );
+
+
+        result.innerHTML = `
+
+            ❌ <strong>
+            Could not connect to AgriLink AI.
+            </strong>
+
+            <br><br>
+
+            Please check your internet
+            connection and try again.
+
+        `;
+
+
+    }finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "🤖 Analyze Crop";
+
+    }
 }
 
 
 /* ========================================
-   REAL AGRILINK AI
+   IMAGE COMPRESSION
+======================================== */
+
+
+function compressImage(
+    file,
+    maxSize,
+    quality
+){
+
+    return new Promise(
+        (resolve,reject) => {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(event){
+
+                    const image =
+                        new Image();
+
+
+                    image.onload =
+                        function(){
+
+                            let width =
+                                image.width;
+
+                            let height =
+                                image.height;
+
+
+                            /*
+                               Keep the image
+                               within maxSize.
+                            */
+
+
+                            if(
+                                width > maxSize ||
+                                height > maxSize
+                            ){
+
+                                if(
+                                    width >
+                                    height
+                                ){
+
+                                    height =
+                                        Math.round(
+                                            height *
+                                            maxSize /
+                                            width
+                                        );
+
+                                    width =
+                                        maxSize;
+
+                                }else{
+
+                                    width =
+                                        Math.round(
+                                            width *
+                                            maxSize /
+                                            height
+                                        );
+
+                                    height =
+                                        maxSize;
+                                }
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                width;
+
+                            canvas.height =
+                                height;
+
+
+                            const context =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            context.drawImage(
+                                image,
+                                0,
+                                0,
+                                width,
+                                height
+                            );
+
+
+                            const dataURL =
+                                canvas.toDataURL(
+                                    "image/jpeg",
+                                    quality
+                                );
+
+
+                            const base64 =
+                                dataURL.split(
+                                    ","
+                                )[1];
+
+
+                            resolve({
+
+                                base64:
+                                    base64,
+
+                                mimeType:
+                                    "image/jpeg"
+
+                            });
+
+                        };
+
+
+                    image.onerror =
+                        function(){
+
+                            reject(
+                                new Error(
+                                    "Could not read image."
+                                )
+                            );
+
+                        };
+
+
+                    image.src =
+                        event.target.result;
+
+                };
+
+
+            reader.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "Could not load image."
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+}
+/* ========================================
+   AI FARMING ASSISTANT
 ======================================== */
 
 async function askAI(){
@@ -1363,8 +2046,11 @@ async function askAI(){
     }
 
 
-    answerBox.innerHTML =
-        '<span class="loading">🤖 AgriLink AI is thinking...</span>';
+    answerBox.innerHTML = `
+        <span class="loading">
+            🤖 AgriLink AI is thinking...
+        </span>
+    `;
 
 
     try{
@@ -1409,12 +2095,21 @@ async function askAI(){
                 data
             );
 
-            answerBox.innerHTML =
-                "❌ AI error: " +
-                escapeHTML(
+
+            answerBox.innerHTML = `
+
+                ❌ <strong>
+                AI error
+                </strong>
+
+                <br><br>
+
+                ${escapeHTML(
                     data.error ||
                     "Unable to contact AgriLink AI."
-                );
+                )}
+
+            `;
 
             return;
         }
@@ -1427,13 +2122,17 @@ async function askAI(){
 
         answerBox.innerHTML = `
 
-            <strong>
-            🤖 AgriLink AI
-            </strong>
+            <div class="ai-analysis">
 
-            <br><br>
+                <strong>
+                🤖 AgriLink AI
+                </strong>
 
-            ${formatAIAnswer(answer)}
+                <br><br>
+
+                ${formatAIAnswer(answer)}
+
+            </div>
 
         `;
 
@@ -1461,203 +2160,59 @@ async function askAI(){
 }
 
 
-function formatAIAnswer(text){
-
-    return escapeHTML(text)
-        .replace(/\n/g,"<br>");
-}
-
-
 /* ========================================
-   CROP ANALYSIS PROTOTYPE
+   SAFE AI TEXT FORMATTING
 ======================================== */
 
-function analyzeCrop(){
+function formatAIAnswer(text){
 
-    const input =
-        document.getElementById(
-            "crop-image"
-        );
-
-    const crop =
-        document.getElementById(
-            "crop-type"
-        ).value;
-
-    const preview =
-        document.getElementById(
-            "crop-preview"
-        );
-
-    const result =
-        document.getElementById(
-            "detection-result"
-        );
+    return escapeHTML(
+        text
+    ).replace(
+        /\n/g,
+        "<br>"
+    );
+}
 
 
-    if(!input.files.length){
+function escapeHTML(value){
 
-        result.textContent =
-            "📷 Please upload a crop photo first.";
-
-        return;
-    }
-
-
-    const file =
-        input.files[0];
-
-
-    if(!file.type.startsWith("image/")){
-
-        result.textContent =
-            "❌ Please select an image file.";
-
-        return;
-    }
-
-
-    const imageURL =
-        URL.createObjectURL(file);
-
-
-    preview.innerHTML = `
-
-        <img
-            src="${imageURL}"
-            class="crop-preview"
-            alt="Uploaded crop">
-
-    `;
-
-
-    let advice = "";
-
-
-    if(crop === "maize"){
-
-        advice = `
-
-            🌽 <strong>
-            Maize preliminary check
-            </strong>
-
-            <br><br>
-
-            Possible causes to investigate:
-
-            <br>
-            • 🐛 Fall armyworm or other pests
-            <br>
-            • 🦠 Leaf diseases
-            <br>
-            • 🌱 Nutrient deficiency
-            <br>
-            • 💧 Water stress
-
-            <br><br>
-
-            🔎 Inspect the leaves carefully,
-            especially underneath and around
-            the growing point.
-
-        `;
-
-    }else if(crop === "tomato"){
-
-        advice = `
-
-            🍅 <strong>
-            Tomato preliminary check
-            </strong>
-
-            <br><br>
-
-            Look for:
-
-            <br>
-            • 🐛 Aphids or caterpillars
-            <br>
-            • 🦠 Leaf spots or blight
-            <br>
-            • 🌱 Nutrient deficiency
-            <br>
-            • 💧 Water stress
-
-        `;
-
-    }else if(crop === "potato"){
-
-        advice = `
-
-            🥔 <strong>
-            Potato preliminary check
-            </strong>
-
-            <br><br>
-
-            Look for:
-
-            <br>
-            • 🐛 Insect damage
-            <br>
-            • 🦠 Blight symptoms
-            <br>
-            • 🌱 Yellowing leaves
-            <br>
-            • 💧 Water stress
-
-        `;
-
-    }else{
-
-        advice = `
-
-            🌱 <strong>
-            Crop preliminary check
-            </strong>
-
-            <br><br>
-
-            Inspect the crop for:
-
-            <br>
-            • 🐛 Insects
-            <br>
-            • 🦠 Disease symptoms
-            <br>
-            • 🌱 Nutrient deficiency
-            <br>
-            • 💧 Water stress
-
-        `;
-    }
-
-
-    result.innerHTML = `
-
-        ${advice}
-
-        <br><br>
-
-        ⚠️ <strong>Important:</strong>
-
-        This is a preliminary check,
-        not a confirmed diagnosis.
-
-        For serious crop problems,
-        consult an agricultural expert
-        or extension officer.
-
-    `;
+    return String(
+        value || ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 }
 
 
 /* ========================================
-   START DASHBOARD
+   START AGRILINK AI DASHBOARD
 ======================================== */
 
 async function startDashboard(){
+
+    console.log(
+        "🌱 Starting AgriLink AI dashboard..."
+    );
+
 
     const user =
         await checkUser();
@@ -1673,11 +2228,19 @@ async function startDashboard(){
         user
     );
 
+
     await loadWeather();
+
 
     await loadProduce();
 
+
     await loadMarketplace();
+
+
+    console.log(
+        "✅ AgriLink AI dashboard ready."
+    );
 }
 
 
