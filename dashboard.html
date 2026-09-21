@@ -1706,19 +1706,13 @@ function askAI(){
 
     const question =
     document
-    .getElementById(
-        "question"
-    )
+    .getElementById("question")
     .value
     .trim()
     .toLowerCase();
 
-
     const answer =
-    document.getElementById(
-        "answer"
-    );
-
+    document.getElementById("answer");
 
     if(!question){
 
@@ -1727,19 +1721,221 @@ function askAI(){
 
         return;
     }
+
+    if(
+        question.includes("maize") ||
+        question.includes("corn")
+    ){
+
+        answer.innerHTML = `
+        <strong>🌽 Maize farming advice</strong>
+        <br><br>
+        🌱 Use quality seed and maintain proper spacing.
+        <br>
+        🐛 Regularly inspect your maize for pests.
+        <br>
+        💧 Provide adequate water without overwatering.
+        <br>
+        🌿 Keep weeds under control.
+        <br>
+        🦠 Watch for yellowing, spots and other signs of disease.
+        `;
+
+    }else if(
+        question.includes("tomato")
+    ){
+
+        answer.innerHTML = `
+        <strong>🍅 Tomato farming advice</strong>
+        <br><br>
+        💧 Water consistently without overwatering.
+        <br>
+        🌱 Keep the soil healthy and well drained.
+        <br>
+        🐛 Check regularly for aphids and caterpillars.
+        <br>
+        🦠 Watch for leaf spots and blight.
+        `;
+
+    }else if(
+        question.includes("potato")
+    ){
+
+        answer.innerHTML = `
+        <strong>🥔 Potato farming advice</strong>
+        <br><br>
+        🌱 Use healthy planting material.
+        <br>
+        💧 Maintain good soil moisture.
+        <br>
+        🐛 Check for potato pests.
+        <br>
+        🦠 Monitor leaves for disease symptoms.
+        `;
+
+    }else if(
+        question.includes("water") ||
+        question.includes("watering") ||
+        question.includes("irrigation")
+    ){
+
+        answer.innerHTML = `
+        <strong>💧 Watering advice</strong>
+        <br><br>
+        Check soil moisture before watering.
+        <br>
+        🌱 Water deeply when needed rather than
+        constantly keeping the soil wet.
+        <br>
+        🌧️ Reduce irrigation when substantial rain
+        is expected.
+        `;
+
+    }else if(
+        question.includes("pest") ||
+        question.includes("insect") ||
+        question.includes("aphid") ||
+        question.includes("worm") ||
+        question.includes("caterpillar")
+    ){
+
+        answer.innerHTML = `
+        <strong>🐛 Pest management advice</strong>
+        <br><br>
+        🔎 Inspect leaves, stems and the underside
+        of leaves regularly.
+        <br>
+        🌱 Remove heavily damaged plant material
+        where appropriate.
+        <br>
+        🐞 Encourage beneficial insects.
+        <br>
+        ⚠️ Identify the pest before choosing a treatment.
+        `;
+
+    }else if(
+        question.includes("disease") ||
+        question.includes("fungus") ||
+        question.includes("spot") ||
+        question.includes("blight")
+    ){
+
+        answer.innerHTML = `
+        <strong>🦠 Plant disease advice</strong>
+        <br><br>
+        🔎 Check leaves and stems for unusual spots,
+        mold or discoloration.
+        <br>
+        💧 Avoid unnecessary overhead watering.
+        <br>
+        🌱 Remove severely affected plant material
+        where appropriate.
+        <br>
+        ⚠️ Confirm the disease before applying treatment.
+        `;
+
+    }else if(
+        question.includes("soil") ||
+        question.includes("fertilizer") ||
+        question.includes("fertiliser") ||
+        question.includes("nutrient")
+    ){
+
+        answer.innerHTML = `
+        <strong>🌱 Soil & nutrient advice</strong>
+        <br><br>
+        🌱 Maintain healthy organic matter.
+        <br>
+        💧 Avoid waterlogging.
+        <br>
+        🧪 Use soil testing where available.
+        <br>
+        🌿 Apply fertilizer according to the crop's needs.
+        `;
+
+    }else if(
+        question.includes("rain") ||
+        question.includes("weather") ||
+        question.includes("forecast")
+    ){
+
+        answer.innerHTML = `
+        <strong>🌦️ Weather farming advice</strong>
+        <br><br>
+        Check the Weather Insights section above.
+        <br>
+        🌧️ During heavy rain, check drainage and avoid
+        unnecessary irrigation.
+        <br>
+        ☀️ During dry periods, monitor soil moisture
+        and irrigation needs.
+        `;
+
+    }else if(
+        question.includes("market") ||
+        question.includes("price") ||
+        question.includes("sell") ||
+        question.includes("buyer")
+    ){
+
+        answer.innerHTML = `
+        <strong>🛒 Market advice</strong>
+        <br><br>
+        Check the AgriLink AI Marketplace for current
+        farmer listings.
+        <br>
+        💰 Compare prices and quantities.
+        <br>
+        📞 Contact sellers directly when you find
+        a suitable listing.
+        `;
+
+    }else{
+
+        answer.innerHTML = `
+        <strong>🌱 AgriLink AI farming advice</strong>
+        <br><br>
+        I can currently help with:
+        <br>
+        🌽 Maize
+        <br>
+        🍅 Tomatoes
+        <br>
+        🥔 Potatoes
+        <br>
+        💧 Watering and irrigation
+        <br>
+        🐛 Pests
+        <br>
+        🦠 Crop diseases
+        <br>
+        🌱 Soil and fertilizer
+        <br>
+        🌦️ Weather
+        <br>
+        🛒 Markets and selling
+        `;
+    }
+}
+
+
+/* ================================
+   PEST & DISEASE DETECTION
+================================ */
+
 function analyzeCrop(){
 
     const imageInput =
-        document.getElementById("crop-image");
+    document.getElementById("crop-image");
 
     const crop =
-        document.getElementById("crop-type");
+    document.getElementById("crop-type");
 
     const preview =
-        document.getElementById("crop-preview");
+    document.getElementById("crop-preview");
 
     const result =
-        document.getElementById("detection-result");
+    document.getElementById("detection-result");
 
     if(!imageInput){
         alert("❌ Crop image input not found.");
@@ -1770,10 +1966,10 @@ function analyzeCrop(){
     }
 
     const file =
-        imageInput.files[0];
+    imageInput.files[0];
 
     const imageURL =
-        URL.createObjectURL(file);
+    URL.createObjectURL(file);
 
     preview.innerHTML = `
         <br>
@@ -1791,7 +1987,7 @@ function analyzeCrop(){
     `;
 
     const selectedCrop =
-        crop.value;
+    crop.value;
 
     if(selectedCrop === "maize"){
 
