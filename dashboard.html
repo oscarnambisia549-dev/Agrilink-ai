@@ -1729,24 +1729,116 @@ function askAI(){
     }function analyzeCrop(){
 
     const imageInput =
-    document.getElementById("crop-image");
+        document.getElementById("crop-image");
 
     const crop =
-    document.getElementById("crop-type").value;
+        document.getElementById("crop-type");
 
     const preview =
-    document.getElementById("crop-preview");
+        document.getElementById("crop-preview");
 
     const result =
-    document.getElementById("detection-result");
+        document.getElementById("detection-result");
 
-    if(!imageInput.files.length){
+    if(!imageInput){
+        alert("❌ Crop image input not found.");
+        return;
+    }
+
+    if(!crop){
+        alert("❌ Crop selector not found.");
+        return;
+    }
+
+    if(!preview){
+        alert("❌ Preview area not found.");
+        return;
+    }
+
+    if(!result){
+        alert("❌ Detection result area not found.");
+        return;
+    }
+
+    if(imageInput.files.length === 0){
 
         result.innerHTML =
-        "📷 Please upload a crop photo first.";
+        "📷 Please select a crop photo first.";
 
         return;
     }
+
+    const file =
+        imageInput.files[0];
+
+    const imageURL =
+        URL.createObjectURL(file);
+
+    preview.innerHTML = `
+        <br>
+        <img
+            src="${imageURL}"
+            alt="Uploaded crop"
+            style="
+                width:100%;
+                max-width:500px;
+                border-radius:12px;
+                display:block;
+                margin:10px auto;
+            "
+        >
+    `;
+
+    const selectedCrop =
+        crop.value;
+
+    if(selectedCrop === "maize"){
+
+        result.innerHTML = `
+            <strong>🌽 Maize Analysis</strong>
+            <br><br>
+            🔍 Possible issues to check:
+            <br>
+            🐛 Fall armyworm or other pests
+            <br>
+            🦠 Leaf diseases
+            <br>
+            🌱 Nutrient deficiency
+            <br><br>
+            💡 Inspect the leaves carefully,
+            especially underneath the leaves.
+        `;
+
+    }else if(selectedCrop === "tomato"){
+
+        result.innerHTML = `
+            <strong>🍅 Tomato Analysis</strong>
+            <br><br>
+            🐛 Check for aphids and caterpillars.
+            <br>
+            🦠 Check for leaf spots or blight.
+            <br>
+            🌱 Check for yellowing or nutrient problems.
+        `;
+
+    }else{
+
+        result.innerHTML = `
+            <strong>🌱 Crop Analysis</strong>
+            <br><br>
+            🐛 Check for insects or feeding damage.
+            <br>
+            🦠 Check for spots, mold or discoloration.
+            <br>
+            🌱 Check for yellowing or damaged leaves.
+        `;
+    }
+
+    console.log(
+        "✅ Crop analysis completed:",
+        selectedCrop
+    );
+}
 
     const file =
     imageInput.files[0];
