@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -47,6 +46,9 @@ nav{
     flex-wrap:wrap;
     gap:10px;
     padding:10px;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
 nav button{
@@ -121,6 +123,12 @@ button.action:hover{
     display:none;
 }
 
+hr{
+    border:none;
+    border-top:1px solid #ddd;
+    margin:15px 0;
+}
+
 </style>
 
 </head>
@@ -134,7 +142,8 @@ button.action:hover{
 <p>Farmer Dashboard</p>
 
 <p>
-One platform. Every farmer. A better future through AI. 🚀
+One platform. Every farmer.
+A better future through AI. 🚀
 </p>
 
 </header>
@@ -200,12 +209,15 @@ One platform. Every farmer. A better future through AI. 🚀
 <h2>🌦️ Smart Weather</h2>
 
 <p>
-Get current weather information and farming recommendations.
+Get current weather information
+and farming recommendations.
 </p>
 
 <button class="action"
 onclick="loadWeather()">
+
 🌦️ Check Weather
+
 </button>
 
 <div id="weather-result"
@@ -222,11 +234,14 @@ Weather information will appear here.
 
 <section class="card" id="crop-ai">
 
-<h2>🩺 AI Pest & Disease Detection</h2>
+<h2>
+🩺 AI Pest & Disease Detection
+</h2>
 
 <p>
-Upload a crop photo and ask AgriLink AI about possible
-pests, diseases, or crop problems.
+Upload a crop photo and ask
+AgriLink AI about possible pests,
+diseases, or crop problems.
 </p>
 
 <input
@@ -240,12 +255,16 @@ id="crop-question"
 placeholder="Example: What could be affecting these maize leaves?"
 ></textarea>
 
-<button class="action"
+<button
+class="action"
 onclick="analyzeCrop()">
+
 🔍 Analyze Crop
+
 </button>
 
-<div id="crop-result"
+<div
+id="crop-result"
 class="result">
 
 Upload a crop image to begin.
@@ -253,7 +272,7 @@ Upload a crop image to begin.
 </div>
 
 </section>
-<!-- PRODUCE -->
+<!-- MY PRODUCE -->
 
 <section class="card" id="produce">
 
@@ -277,10 +296,21 @@ placeholder="Quantity e.g. 50"
 
 <select id="produce-unit">
 
-<option value="kg">Kilograms</option>
-<option value="bags">Bags</option>
-<option value="tons">Tons</option>
-<option value="pieces">Pieces</option>
+<option value="kg">
+Kilograms
+</option>
+
+<option value="bags">
+Bags
+</option>
+
+<option value="tons">
+Tons
+</option>
+
+<option value="pieces">
+Pieces
+</option>
 
 </select>
 
@@ -290,12 +320,16 @@ id="produce-location"
 placeholder="Farm location e.g. Nairobi"
 >
 
-<button class="action"
+<button
+class="action"
 onclick="addProduce()">
+
 ➕ Add Produce
+
 </button>
 
-<div id="produce-result"
+<div
+id="produce-result"
 class="result">
 
 No produce loaded yet.
@@ -312,7 +346,8 @@ No produce loaded yet.
 <h2>💰 Sell Produce</h2>
 
 <p>
-Create a marketplace listing for your produce.
+Create a marketplace listing
+for your produce.
 </p>
 
 <input
@@ -329,10 +364,21 @@ placeholder="Quantity e.g. 50"
 
 <select id="sell-unit">
 
-<option value="kg">Kilograms</option>
-<option value="bags">Bags</option>
-<option value="tons">Tons</option>
-<option value="pieces">Pieces</option>
+<option value="kg">
+Kilograms
+</option>
+
+<option value="bags">
+Bags
+</option>
+
+<option value="tons">
+Tons
+</option>
+
+<option value="pieces">
+Pieces
+</option>
 
 </select>
 
@@ -360,12 +406,16 @@ id="seller-phone"
 placeholder="Seller phone"
 >
 
-<button class="action"
+<button
+class="action"
 onclick="sellProduce()">
+
 💰 List Produce
+
 </button>
 
-<div id="sell-result"
+<div
+id="sell-result"
 class="result">
 
 Your listing status will appear here.
@@ -375,12 +425,17 @@ Your listing status will appear here.
 </section>
 <!-- MARKETPLACE -->
 
-<section class="card" id="marketplace">
+<section
+class="card"
+id="marketplace">
 
-<h2>🛒 Produce Marketplace</h2>
+<h2>
+🛒 Produce Marketplace
+</h2>
 
 <p>
-Connect farmers with buyers and agricultural markets.
+Connect farmers with buyers
+and agricultural markets.
 </p>
 
 <input
@@ -389,17 +444,24 @@ id="market-search"
 placeholder="Search produce e.g. maize"
 >
 
-<button class="action"
+<button
+class="action"
 onclick="searchMarketplace()">
+
 🔎 Search Marketplace
+
 </button>
 
-<button class="action"
+<button
+class="action"
 onclick="loadMarketplace()">
+
 🔄 Show All Listings
+
 </button>
 
-<div id="marketplace-result"
+<div
+id="marketplace-result"
 class="result">
 
 Marketplace listings will appear here.
@@ -411,12 +473,17 @@ Marketplace listings will appear here.
 
 <!-- CONTACT SELLER -->
 
-<section class="card" id="contact">
+<section
+class="card"
+id="contact">
 
-<h2>📞 Contact Seller</h2>
+<h2>
+📞 Contact Seller
+</h2>
 
 <p>
-Select a seller from the marketplace to contact them.
+Select a seller from the marketplace
+to contact them.
 </p>
 
 <input
@@ -436,24 +503,33 @@ id="contact-message"
 placeholder="Write your message..."
 ></textarea>
 
-<button class="action"
+<button
+class="action"
 onclick="contactSeller()">
+
 📩 Contact Seller
+
 </button>
 
-<div id="contact-result"
+<div
+id="contact-result"
 class="result">
 
-Seller contact information will appear here.
+Seller contact information
+will appear here.
 
 </div>
 
 </section>
 <!-- AI FARMING ASSISTANT -->
 
-<section class="card" id="assistant">
+<section
+class="card"
+id="assistant">
 
-<h2>🤖 AI Farming Assistant</h2>
+<h2>
+🤖 AI Farming Assistant
+</h2>
 
 <p>
 Ask AgriLink AI any farming question.
@@ -464,12 +540,16 @@ id="question"
 placeholder="Example: Why are my maize leaves turning yellow?"
 ></textarea>
 
-<button class="action"
+<button
+class="action"
 onclick="askAI()">
+
 🤖 Ask AgriLink AI
+
 </button>
 
-<div id="answer"
+<div
+id="answer"
 class="result">
 
 Your AI farming advice will appear here.
@@ -481,16 +561,22 @@ Your AI farming advice will appear here.
 
 <!-- FARM INSIGHTS -->
 
-<section class="card" id="insights">
+<section
+class="card"
+id="insights">
 
-<h2>📊 Farm Insights</h2>
+<h2>
+📊 Farm Insights
+</h2>
 
 <p>
-Use your weather, produce and AI information to make
-smarter farming decisions.
+Use your weather, produce and AI
+information to make smarter
+farming decisions.
 </p>
 
-<div id="farm-insights"
+<div
+id="farm-insights"
 class="result">
 
 🌱 Your farm insights will appear here.
@@ -502,46 +588,35 @@ class="result">
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 </script>
 
 <script>
-// ========================================
-// SUPABASE CONFIGURATION
-// ========================================
-
 const SUPABASE_URL =
-    "https://cjgbeankvgtychqqgvlq.supabase.co";
+"https://cjgbeankvgtychqqgvlq.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
+"sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-// ========================================
-// AI EDGE FUNCTION
-// ========================================
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 const AI_FUNCTION_URL =
-    "https://cjgbeankvgtychqqgvlq.supabase.co/functions/v1/smooth-handler";
+"https://cjgbeankvgtychqqgvlq.supabase.co/functions/v1/smooth-handler";
 
+console.log(
+"🌱 AgriLink AI dashboard loaded."
+);
 
-console.log("🌱 AgriLink AI dashboard loaded.");
-
-
-// ========================================
-// SCROLL
-// ========================================
 
 function scrollToSection(id){
 
     const element =
-        document.getElementById(id);
+    document.getElementById(id);
 
     if(element){
 
@@ -550,19 +625,16 @@ function scrollToSection(id){
         });
 
     }
+
 }
 
-
-// ========================================
-// CHECK LOGIN
-// ========================================
 
 async function checkUser(){
 
     try{
 
         const result =
-            await supabaseClient.auth.getSession();
+        await supabaseClient.auth.getSession();
 
         if(result.error){
 
@@ -572,17 +644,19 @@ async function checkUser(){
             );
 
             return null;
+
         }
 
         const session =
-            result.data.session;
+        result.data.session;
 
         if(!session){
 
             window.location.href =
-                "login.html";
+            "login.html";
 
             return null;
+
         }
 
         console.log(
@@ -600,13 +674,11 @@ async function checkUser(){
         );
 
         return null;
+
     }
+
 }
 
-
-// ========================================
-// LOGOUT
-// ========================================
 
 async function logoutUser(){
 
@@ -628,43 +700,46 @@ async function logoutUser(){
     );
 
     window.location.href =
-        "login.html";
+    "login.html";
+
 }
 
-
-// ========================================
-// LOAD PROFILE
-// ========================================
 
 async function loadProfile(user){
 
     const nameElement =
-        document.getElementById("profile-name");
+    document.getElementById(
+        "profile-name"
+    );
 
     const emailElement =
-        document.getElementById("profile-email");
+    document.getElementById(
+        "profile-email"
+    );
 
     const locationElement =
-        document.getElementById("profile-location");
+    document.getElementById(
+        "profile-location"
+    );
 
 
     emailElement.innerHTML =
-        "📧 " + user.email;
+    "📧 " + user.email;
 
 
     try{
 
         const result =
-            await supabaseClient
-                .from("users")
-                .select(
-                    "full_name,email,role,location"
-                )
-                .eq(
-                    "auth_id",
-                    user.id
-                )
-                .maybeSingle();
+        await supabaseClient
+        .from("users")
+        .select(
+            "full_name,email,role,location"
+        )
+        .eq(
+            "auth_id",
+            user.id
+        )
+        .maybeSingle();
 
 
         if(result.error){
@@ -675,27 +750,28 @@ async function loadProfile(user){
             );
 
             nameElement.innerHTML =
-                "👋 Welcome, Farmer";
+            "👋 Welcome, Farmer";
 
             return;
+
         }
 
 
         if(result.data){
 
             nameElement.innerHTML =
-                "👋 Welcome, " +
-                (
-                    result.data.full_name ||
-                    "Farmer"
-                );
+            "👋 Welcome, " +
+            (
+                result.data.full_name ||
+                "Farmer"
+            );
 
 
             if(result.data.email){
 
                 emailElement.innerHTML =
-                    "📧 " +
-                    result.data.email;
+                "📧 " +
+                result.data.email;
 
             }
 
@@ -703,8 +779,8 @@ async function loadProfile(user){
             if(result.data.location){
 
                 locationElement.innerHTML =
-                    "📍 " +
-                    result.data.location;
+                "📍 " +
+                result.data.location;
 
             }
 
@@ -718,37 +794,35 @@ async function loadProfile(user){
         );
 
         nameElement.innerHTML =
-            "👋 Welcome, Farmer";
-    }
-}
-// ========================================
-// WEATHER
-// ========================================
+        "👋 Welcome, Farmer";
 
+    }
+
+}
 async function loadWeather(){
 
     const resultElement =
-        document.getElementById(
-            "weather-result"
-        );
+    document.getElementById(
+        "weather-result"
+    );
 
     resultElement.innerHTML =
-        "🌦️ Loading live weather...";
+    "🌦️ Loading live weather...";
 
 
     try{
 
         const url =
-            "https://api.open-meteo.com/v1/forecast" +
-            "?latitude=-1.286389" +
-            "&longitude=36.817223" +
-            "&current=temperature_2m,wind_speed_10m,precipitation" +
-            "&hourly=precipitation_probability" +
-            "&timezone=Africa%2FNairobi";
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=-1.286389" +
+        "&longitude=36.817223" +
+        "&current=temperature_2m,wind_speed_10m,precipitation" +
+        "&hourly=precipitation_probability" +
+        "&timezone=Africa%2FNairobi";
 
 
         const response =
-            await fetch(url);
+        await fetch(url);
 
 
         if(!response.ok){
@@ -756,21 +830,22 @@ async function loadWeather(){
             throw new Error(
                 "Weather request failed."
             );
+
         }
 
 
         const data =
-            await response.json();
+        await response.json();
 
 
         const temperature =
-            data.current?.temperature_2m;
+        data.current?.temperature_2m;
 
         const wind =
-            data.current?.wind_speed_10m;
+        data.current?.wind_speed_10m;
 
         const precipitation =
-            data.current?.precipitation;
+        data.current?.precipitation;
 
 
         let rainProbability = 0;
@@ -779,18 +854,21 @@ async function loadWeather(){
         if(
             data.hourly &&
             Array.isArray(
-                data.hourly.precipitation_probability
+                data.hourly
+                .precipitation_probability
             )
         ){
 
             const currentHour =
-                new Date().getHours();
+            new Date().getHours();
+
 
             rainProbability =
-                data.hourly
-                    .precipitation_probability[
-                        currentHour
-                    ] || 0;
+            data.hourly
+            .precipitation_probability[
+                currentHour
+            ] || 0;
+
         }
 
 
@@ -800,50 +878,54 @@ async function loadWeather(){
         if(rainProbability >= 70){
 
             recommendation =
-                "🌧️ Heavy rain is possible. " +
-                "Avoid unnecessary irrigation, check drainage, " +
-                "and monitor crops for fungal diseases.";
+            "🌧️ Heavy rain is possible. " +
+            "Avoid unnecessary irrigation, " +
+            "check drainage, and monitor crops " +
+            "for fungal diseases.";
 
         }else if(rainProbability >= 40){
 
             recommendation =
-                "🌦️ Moderate rain is possible. " +
-                "Check soil moisture and monitor your crops.";
+            "🌦️ Moderate rain is possible. " +
+            "Check soil moisture and monitor " +
+            "your crops.";
 
         }else{
 
             recommendation =
-                "☀️ Rain probability is relatively low. " +
-                "Check irrigation needs and maintain soil moisture.";
+            "☀️ Rain probability is relatively low. " +
+            "Check irrigation needs and maintain " +
+            "soil moisture.";
 
         }
 
 
         resultElement.innerHTML =
 
-            "📍 Nairobi, Kenya<br><br>" +
+        "📍 Nairobi, Kenya<br><br>" +
 
-            "🌡️ Temperature: " +
-            temperature +
-            " °C<br>" +
+        "🌡️ Temperature: " +
+        temperature +
+        " °C<br>" +
 
-            "🌧️ Rain probability: " +
-            rainProbability +
-            "%<br>" +
+        "🌧️ Rain probability: " +
+        rainProbability +
+        "%<br>" +
 
-            "💨 Wind: " +
-            wind +
-            " km/h<br>" +
+        "💨 Wind: " +
+        wind +
+        " km/h<br>" +
 
-            "💧 Precipitation: " +
-            precipitation +
-            " mm<br><br>" +
+        "💧 Precipitation: " +
+        precipitation +
+        " mm<br><br>" +
 
-            "🤖 <strong>AgriLink Recommendation</strong><br>" +
+        "🤖 <strong>AgriLink Recommendation</strong><br>" +
 
-            recommendation +
+        recommendation +
 
-            "<br><br>✅ Live weather";
+        "<br><br>✅ Live weather";
+
 
     }catch(error){
 
@@ -853,41 +935,49 @@ async function loadWeather(){
         );
 
         resultElement.innerHTML =
-            "❌ Unable to load weather right now.";
+        "❌ Unable to load weather right now.";
+
     }
+
 }
 
-
-// ========================================
-// ADD PRODUCE
-// ========================================
 
 async function addProduce(){
 
     const name =
-        document.getElementById(
-            "produce-name"
-        ).value.trim();
+    document
+    .getElementById(
+        "produce-name"
+    )
+    .value
+    .trim();
+
 
     const quantity =
-        document.getElementById(
-            "produce-quantity"
-        ).value;
+    document.getElementById(
+        "produce-quantity"
+    ).value;
+
 
     const unit =
-        document.getElementById(
-            "produce-unit"
-        ).value;
+    document.getElementById(
+        "produce-unit"
+    ).value;
+
 
     const location =
-        document.getElementById(
-            "produce-location"
-        ).value.trim();
+    document
+    .getElementById(
+        "produce-location"
+    )
+    .value
+    .trim();
+
 
     const resultElement =
-        document.getElementById(
-            "produce-result"
-        );
+    document.getElementById(
+        "produce-result"
+    );
 
 
     if(
@@ -897,39 +987,44 @@ async function addProduce(){
     ){
 
         resultElement.innerHTML =
-            "⚠️ Please fill in all produce details.";
+        "⚠️ Please fill in all produce details.";
 
         return;
+
     }
 
 
     resultElement.innerHTML =
-        "⏳ Adding produce...";
+    "⏳ Adding produce...";
 
 
     try{
 
         const result =
-            await supabaseClient
-                .from("produce")
-                .insert([{
+        await supabaseClient
+        .from("produce")
+        .insert([{
 
-                    produce_name:name,
-                    quantity:Number(quantity),
-                    unit:unit,
-                    location:location
+            produce_name:name,
 
-                }]);
+            quantity:Number(quantity),
+
+            unit:unit,
+
+            location:location
+
+        }]);
 
 
         if(result.error){
 
             throw result.error;
+
         }
 
 
         resultElement.innerHTML =
-            "✅ Produce added successfully!";
+        "✅ Produce added successfully!";
 
 
         await loadProduce();
@@ -943,40 +1038,39 @@ async function addProduce(){
         );
 
         resultElement.innerHTML =
-            "❌ Could not add produce.";
+        "❌ Could not add produce.";
+
     }
+
 }
 
-
-// ========================================
-// LOAD PRODUCE
-// ========================================
 
 async function loadProduce(){
 
     const resultElement =
-        document.getElementById(
-            "produce-result"
-        );
+    document.getElementById(
+        "produce-result"
+    );
 
 
     try{
 
         const result =
-            await supabaseClient
-                .from("produce")
-                .select("*")
-                .order(
-                    "created_at",
-                    {
-                        ascending:false
-                    }
-                );
+        await supabaseClient
+        .from("produce")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
         if(result.error){
 
             throw result.error;
+
         }
 
 
@@ -986,9 +1080,10 @@ async function loadProduce(){
         ){
 
             resultElement.innerHTML =
-                "🌽 No produce added yet.";
+            "🌽 No produce added yet.";
 
             return;
+
         }
 
 
@@ -998,25 +1093,46 @@ async function loadProduce(){
         result.data.forEach(item => {
 
             html +=
-                "🌽 <strong>" +
-                (item.produce_name || "") +
-                "</strong><br>" +
 
-                "📦 Quantity: " +
-                (item.quantity || "") +
-                " " +
-                (item.unit || "") +
-                "<br>" +
+            "🌽 <strong>" +
 
-                "📍 Location: " +
-                (item.location || "") +
-                "<br><br>";
+            (
+                item.produce_name ||
+                ""
+            ) +
+
+            "</strong><br>" +
+
+            "📦 Quantity: " +
+
+            (
+                item.quantity ||
+                ""
+            ) +
+
+            " " +
+
+            (
+                item.unit ||
+                ""
+            ) +
+
+            "<br>" +
+
+            "📍 Location: " +
+
+            (
+                item.location ||
+                ""
+            ) +
+
+            "<br><br>";
 
         });
 
 
         resultElement.innerHTML =
-            html;
+        html;
 
 
     }catch(error){
@@ -1027,54 +1143,59 @@ async function loadProduce(){
         );
 
         resultElement.innerHTML =
-            "❌ Unable to load produce.";
-    }
-}
-// ========================================
-// SELL PRODUCE
-// ========================================
+        "❌ Unable to load produce.";
 
+    }
+
+}
 async function sellProduce(){
 
     const name =
-        document.getElementById(
-            "sell-name"
-        ).value.trim();
+    document.getElementById(
+        "sell-name"
+    ).value.trim();
+
 
     const quantity =
-        document.getElementById(
-            "sell-quantity"
-        ).value;
+    document.getElementById(
+        "sell-quantity"
+    ).value;
+
 
     const unit =
-        document.getElementById(
-            "sell-unit"
-        ).value;
+    document.getElementById(
+        "sell-unit"
+    ).value;
+
 
     const price =
-        document.getElementById(
-            "sell-price"
-        ).value;
+    document.getElementById(
+        "sell-price"
+    ).value;
+
 
     const location =
-        document.getElementById(
-            "sell-location"
-        ).value.trim();
+    document.getElementById(
+        "sell-location"
+    ).value.trim();
+
 
     const sellerName =
-        document.getElementById(
-            "seller-name"
-        ).value.trim();
+    document.getElementById(
+        "seller-name"
+    ).value.trim();
+
 
     const sellerPhone =
-        document.getElementById(
-            "seller-phone"
-        ).value.trim();
+    document.getElementById(
+        "seller-phone"
+    ).value.trim();
+
 
     const resultElement =
-        document.getElementById(
-            "sell-result"
-        );
+    document.getElementById(
+        "sell-result"
+    );
 
 
     if(
@@ -1085,44 +1206,53 @@ async function sellProduce(){
     ){
 
         resultElement.innerHTML =
-            "⚠️ Please fill in the required fields.";
+        "⚠️ Please fill in the required fields.";
 
         return;
+
     }
 
 
     resultElement.innerHTML =
-        "⏳ Creating marketplace listing...";
+    "⏳ Creating marketplace listing...";
 
 
     try{
 
         const result =
-            await supabaseClient
-                .from("marketplace")
-                .insert([{
+        await supabaseClient
+        .from("marketplace")
+        .insert([{
 
-                    produce_name:name,
-                    quantity:Number(quantity),
-                    unit:unit,
-                    price:Number(price),
-                    location:location,
-                    seller_name:
-                        sellerName || "Farmer",
-                    seller_phone:
-                        sellerPhone
+            produce_name:name,
 
-                }]);
+            quantity:Number(quantity),
+
+            unit:unit,
+
+            price:Number(price),
+
+            location:location,
+
+            seller_name:
+            sellerName ||
+            "Farmer",
+
+            seller_phone:
+            sellerPhone
+
+        }]);
 
 
         if(result.error){
 
             throw result.error;
+
         }
 
 
         resultElement.innerHTML =
-            "✅ Your produce has been listed in the marketplace!";
+        "✅ Your produce has been listed in the marketplace!";
 
 
         await loadMarketplace();
@@ -1136,44 +1266,43 @@ async function sellProduce(){
         );
 
         resultElement.innerHTML =
-            "❌ Could not create marketplace listing.";
+        "❌ Could not create marketplace listing.";
+
     }
+
 }
 
-
-// ========================================
-// LOAD MARKETPLACE
-// ========================================
 
 async function loadMarketplace(){
 
     const resultElement =
-        document.getElementById(
-            "marketplace-result"
-        );
+    document.getElementById(
+        "marketplace-result"
+    );
 
 
     resultElement.innerHTML =
-        "🛒 Loading marketplace...";
+    "🛒 Loading marketplace...";
 
 
     try{
 
         const result =
-            await supabaseClient
-                .from("marketplace")
-                .select("*")
-                .order(
-                    "created_at",
-                    {
-                        ascending:false
-                    }
-                );
+        await supabaseClient
+        .from("marketplace")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
         if(result.error){
 
             throw result.error;
+
         }
 
 
@@ -1183,9 +1312,10 @@ async function loadMarketplace(){
         ){
 
             resultElement.innerHTML =
-                "🛒 No marketplace listings yet.";
+            "🛒 No marketplace listings yet.";
 
             return;
+
         }
 
 
@@ -1195,56 +1325,105 @@ async function loadMarketplace(){
         result.data.forEach(item => {
 
             const seller =
-                item.seller_name || "Farmer";
+            item.seller_name ||
+            "Farmer";
+
 
             const phone =
-                item.seller_phone || "Not provided";
+            item.seller_phone ||
+            "Not provided";
+
+
+            const safeSeller =
+            seller
+            .replace(/'/g,"\\'");
+
+
+            const safePhone =
+            phone
+            .replace(/'/g,"\\'");
 
 
             html +=
-                "🌽 <strong>" +
-                (item.produce_name || "") +
-                "</strong><br>" +
 
-                "📦 Quantity: " +
-                (item.quantity || "") +
-                " " +
-                (item.unit || "") +
-                "<br>" +
+            "🌽 <strong>" +
 
-                "💰 Price: KSh " +
-                (item.price || "") +
-                "<br>" +
+            (
+                item.produce_name ||
+                ""
+            ) +
 
-                "📍 Location: " +
-                (item.location || "") +
-                "<br>" +
+            "</strong><br>" +
 
-                "👤 Seller: " +
-                seller +
-                "<br>" +
+            "📦 Quantity: " +
 
-                "📞 Phone: " +
-                phone +
-                "<br><br>" +
+            (
+                item.quantity ||
+                ""
+            ) +
 
-                "<button class='action' " +
-                "onclick=\"selectSeller('" +
-                seller.replace(/'/g,"\\'") +
-                "','" +
-                phone.replace(/'/g,"\\'") +
-                "')\">" +
+            " " +
 
-                "📩 Contact Seller" +
+            (
+                item.unit ||
+                ""
+            ) +
 
-                "</button>" +
+            "<br>" +
 
-                "<hr><br>";
+            "💰 Price: KSh " +
+
+            (
+                item.price ||
+                ""
+            ) +
+
+            "<br>" +
+
+            "📍 Location: " +
+
+            (
+                item.location ||
+                ""
+            ) +
+
+            "<br>" +
+
+            "👤 Seller: " +
+
+            seller +
+
+            "<br>" +
+
+            "📞 Phone: " +
+
+            phone +
+
+            "<br><br>" +
+
+            "<button class='action' " +
+
+            "onclick=\"selectSeller('" +
+
+            safeSeller +
+
+            "','" +
+
+            safePhone +
+
+            "')\">" +
+
+            "📩 Contact Seller" +
+
+            "</button>" +
+
+            "<hr><br>";
+
         });
 
 
         resultElement.innerHTML =
-            html;
+        html;
 
 
     }catch(error){
@@ -1255,21 +1434,22 @@ async function loadMarketplace(){
         );
 
         resultElement.innerHTML =
-            "❌ Unable to load marketplace.";
+        "❌ Unable to load marketplace.";
+
     }
+
 }
 
-
-// ========================================
-// SEARCH MARKETPLACE
-// ========================================
 
 async function searchMarketplace(){
 
     const search =
-        document.getElementById(
-            "market-search"
-        ).value.trim();
+    document
+    .getElementById(
+        "market-search"
+    )
+    .value
+    .trim();
 
 
     if(!search){
@@ -1277,40 +1457,42 @@ async function searchMarketplace(){
         await loadMarketplace();
 
         return;
+
     }
 
 
     const resultElement =
-        document.getElementById(
-            "marketplace-result"
-        );
+    document.getElementById(
+        "marketplace-result"
+    );
 
 
     resultElement.innerHTML =
-        "🔎 Searching marketplace...";
+    "🔎 Searching marketplace...";
 
 
     try{
 
         const result =
-            await supabaseClient
-                .from("marketplace")
-                .select("*")
-                .ilike(
-                    "produce_name",
-                    "%" + search + "%"
-                )
-                .order(
-                    "created_at",
-                    {
-                        ascending:false
-                    }
-                );
+        await supabaseClient
+        .from("marketplace")
+        .select("*")
+        .ilike(
+            "produce_name",
+            "%" + search + "%"
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
         if(result.error){
 
             throw result.error;
+
         }
 
 
@@ -1320,9 +1502,10 @@ async function searchMarketplace(){
         ){
 
             resultElement.innerHTML =
-                "🔎 No listings found.";
+            "🔎 No listings found.";
 
             return;
+
         }
 
 
@@ -1332,56 +1515,90 @@ async function searchMarketplace(){
         result.data.forEach(item => {
 
             const seller =
-                item.seller_name || "Farmer";
+            item.seller_name ||
+            "Farmer";
+
 
             const phone =
-                item.seller_phone || "Not provided";
+            item.seller_phone ||
+            "Not provided";
+
+
+            const safeSeller =
+            seller
+            .replace(/'/g,"\\'");
+
+
+            const safePhone =
+            phone
+            .replace(/'/g,"\\'");
 
 
             html +=
-                "🌽 <strong>" +
-                item.produce_name +
-                "</strong><br>" +
 
-                "📦 Quantity: " +
-                item.quantity +
-                " " +
-                item.unit +
-                "<br>" +
+            "🌽 <strong>" +
 
-                "💰 Price: KSh " +
-                item.price +
-                "<br>" +
+            item.produce_name +
 
-                "📍 Location: " +
-                item.location +
-                "<br>" +
+            "</strong><br>" +
 
-                "👤 Seller: " +
-                seller +
-                "<br>" +
+            "📦 Quantity: " +
 
-                "📞 Phone: " +
-                phone +
-                "<br><br>" +
+            item.quantity +
 
-                "<button class='action' " +
-                "onclick=\"selectSeller('" +
-                seller.replace(/'/g,"\\'") +
-                "','" +
-                phone.replace(/'/g,"\\'") +
-                "')\">" +
+            " " +
 
-                "📩 Contact Seller" +
+            item.unit +
 
-                "</button>" +
+            "<br>" +
 
-                "<hr><br>";
+            "💰 Price: KSh " +
+
+            item.price +
+
+            "<br>" +
+
+            "📍 Location: " +
+
+            item.location +
+
+            "<br>" +
+
+            "👤 Seller: " +
+
+            seller +
+
+            "<br>" +
+
+            "📞 Phone: " +
+
+            phone +
+
+            "<br><br>" +
+
+            "<button class='action' " +
+
+            "onclick=\"selectSeller('" +
+
+            safeSeller +
+
+            "','" +
+
+            safePhone +
+
+            "')\">" +
+
+            "📩 Contact Seller" +
+
+            "</button>" +
+
+            "<hr><br>";
+
         });
 
 
         resultElement.innerHTML =
-            html;
+        html;
 
 
     }catch(error){
@@ -1392,14 +1609,12 @@ async function searchMarketplace(){
         );
 
         resultElement.innerHTML =
-            "❌ Marketplace search failed.";
+        "❌ Marketplace search failed.";
+
     }
+
 }
 
-
-// ========================================
-// SELECT SELLER
-// ========================================
 
 function selectSeller(
     sellerName,
@@ -1409,107 +1624,357 @@ function selectSeller(
     document.getElementById(
         "contact-name"
     ).value =
-        sellerName || "";
+    sellerName || "";
+
 
     document.getElementById(
         "contact-phone"
     ).value =
-        sellerPhone || "";
+    sellerPhone || "";
 
-    scrollToSection("contact");
+
+    scrollToSection(
+        "contact"
+    );
+
 }
-// ========================================
-// CONTACT SELLER
-// ========================================
-
 function contactSeller(){
 
     const name =
-        document.getElementById(
-            "contact-name"
-        ).value.trim();
+    document.getElementById(
+        "contact-name"
+    ).value.trim();
+
 
     const phone =
-        document.getElementById(
-            "contact-phone"
-        ).value.trim();
+    document.getElementById(
+        "contact-phone"
+    ).value.trim();
+
 
     const message =
-        document.getElementById(
-            "contact-message"
-        ).value.trim();
+    document.getElementById(
+        "contact-message"
+    ).value.trim();
+
 
     const resultElement =
-        document.getElementById(
-            "contact-result"
-        );
+    document.getElementById(
+        "contact-result"
+    );
 
 
     if(!phone){
 
         resultElement.innerHTML =
-            "⚠️ Seller phone number is not available.";
+        "⚠️ Seller phone number is not available.";
 
         return;
+
     }
 
 
     resultElement.innerHTML =
-        "📞 Seller: <strong>" +
-        name +
-        "</strong><br><br>" +
 
-        "📱 Phone: " +
-        phone +
-        "<br><br>" +
+    "📞 Seller: <strong>" +
 
-        (
-            message
-            ? "💬 Your message:<br>" +
-              message +
-              "<br><br>"
-            : ""
-        ) +
+    name +
 
-        "You can contact the seller using the phone number above.";
+    "</strong><br><br>" +
+
+    "📱 Phone: " +
+
+    phone +
+
+    "<br><br>" +
+
+    (
+        message
+        ?
+        "💬 Your message:<br>" +
+        message +
+        "<br><br>"
+        :
+        ""
+    ) +
+
+    "You can contact the seller using the phone number above.";
+
 }
 
 
-// ========================================
-// AI FARMING ASSISTANT
-// ========================================
+/* ========================================
+   FREE LOCAL FARMING KNOWLEDGE
+   ======================================== */
+
+function getLocalFarmAdvice(question){
+
+    const q =
+    question.toLowerCase();
+
+
+    /* MAIZE YELLOW LEAVES */
+
+    if(
+        (
+            q.includes("maize") ||
+            q.includes("corn")
+        ) &&
+        (
+            q.includes("yellow") ||
+            q.includes("yellowing")
+        )
+    ){
+
+        return (
+
+            "🌽 Your maize leaves turning yellow " +
+            "can have several possible causes.\n\n" +
+
+            "1️⃣ Nitrogen deficiency — older leaves " +
+            "may become pale or yellow.\n\n" +
+
+            "2️⃣ Too much water — waterlogged soil " +
+            "can damage roots and reduce nutrient uptake.\n\n" +
+
+            "3️⃣ Poor drainage — maize roots need " +
+            "adequate air in the soil.\n\n" +
+
+            "4️⃣ Pest or disease problems — inspect " +
+            "the leaves and stems carefully.\n\n" +
+
+            "5️⃣ Soil problems — low fertility or " +
+            "incorrect soil conditions can affect growth.\n\n" +
+
+            "🌱 What to do:\n" +
+
+            "• Check soil moisture before irrigating.\n" +
+
+            "• Inspect the underside of leaves for pests.\n" +
+
+            "• Improve drainage if the soil stays wet.\n" +
+
+            "• Consider a soil test before applying fertilizer.\n\n" +
+
+            "⚠️ If you upload a clear photo of the leaves, " +
+            "AgriLink AI can try to help identify visible symptoms."
+
+        );
+
+    }
+
+
+    /* TOMATO */
+
+    if(
+        q.includes("tomato") &&
+        (
+            q.includes("yellow") ||
+            q.includes("leaves")
+        )
+    ){
+
+        return (
+
+            "🍅 Yellow tomato leaves may be caused " +
+            "by nutrient deficiency, overwatering, " +
+            "root problems, pests, or disease.\n\n" +
+
+            "🌱 Check soil moisture first and inspect " +
+            "the underside of leaves for insects.\n\n" +
+
+            "Avoid excessive watering and remove badly " +
+            "affected leaves when appropriate."
+
+        );
+
+    }
+
+
+    /* BEANS */
+
+    if(
+        q.includes("bean") &&
+        (
+            q.includes("yellow") ||
+            q.includes("disease")
+        )
+    ){
+
+        return (
+
+            "🫘 Yellowing bean leaves may be associated " +
+            "with nutrient problems, excess moisture, " +
+            "root damage, pests, or disease.\n\n" +
+
+            "Check drainage, inspect leaves carefully, " +
+            "and avoid unnecessary irrigation."
+
+        );
+
+    }
+
+
+    /* POTATO */
+
+    if(
+        q.includes("potato")
+    ){
+
+        return (
+
+            "🥔 For potatoes, regularly check leaves " +
+            "for spots, curling, yellowing, and insect " +
+            "damage.\n\n" +
+
+            "Maintain appropriate soil moisture and " +
+            "good drainage. Avoid keeping the soil " +
+            "continuously waterlogged."
+
+        );
+
+    }
+
+
+    /* WATER */
+
+    if(
+        q.includes("water") ||
+        q.includes("irrigat")
+    ){
+
+        return (
+
+            "💧 Irrigation should depend on soil moisture, " +
+            "crop stage, soil type, temperature, and rainfall.\n\n" +
+
+            "🌱 Check the soil before watering rather " +
+            "than following a fixed schedule.\n\n" +
+
+            "Avoid excessive watering because saturated " +
+            "soil can reduce oxygen around roots."
+
+        );
+
+    }
+
+
+    /* PEST */
+
+    if(
+        q.includes("pest") ||
+        q.includes("insect") ||
+        q.includes("bug")
+    ){
+
+        return (
+
+            "🐛 Start by identifying the pest before " +
+            "choosing a control method.\n\n" +
+
+            "Inspect both sides of leaves, stems, " +
+            "and new growth.\n\n" +
+
+            "Remove heavily affected plant material " +
+            "where appropriate and use integrated " +
+            "pest-management methods."
+
+        );
+
+    }
+
+
+    /* SOIL */
+
+    if(
+        q.includes("soil") ||
+        q.includes("fertilizer") ||
+        q.includes("fertiliser") ||
+        q.includes("nutrient")
+    ){
+
+        return (
+
+            "🌱 Healthy soil is important for crop growth.\n\n" +
+
+            "Consider soil testing before applying large " +
+            "amounts of fertilizer.\n\n" +
+
+            "Organic matter, appropriate nutrients, " +
+            "good drainage, and suitable soil pH can " +
+            "all affect crop performance."
+
+        );
+
+    }
+
+
+    /* GENERAL */
+
+    return (
+
+        "🌱 AgriLink AI is currently using its free " +
+        "offline farming knowledge because the Gemini " +
+        "daily request limit has been reached.\n\n" +
+
+        "Try asking about:\n" +
+
+        "🌽 Maize\n" +
+        "🍅 Tomatoes\n" +
+        "🫘 Beans\n" +
+        "🥔 Potatoes\n" +
+        "🐛 Pests\n" +
+        "💧 Irrigation\n" +
+        "🌱 Soil and nutrients\n\n" +
+
+        "For a more specific answer, include the crop " +
+        "name and describe the symptoms you see."
+
+    );
+
+}
+
+
+/* ========================================
+   AI FARMING ASSISTANT
+   ======================================== */
 
 async function askAI(){
 
     const questionElement =
-        document.getElementById("question");
+    document.getElementById(
+        "question"
+    );
+
 
     const answerElement =
-        document.getElementById("answer");
+    document.getElementById(
+        "answer"
+    );
 
 
     const question =
-        questionElement.value.trim();
+    questionElement.value.trim();
 
 
     if(!question){
 
         answerElement.innerHTML =
-            "🌱 Please enter a farming question.";
+        "🌱 Please enter a farming question.";
 
         return;
+
     }
 
 
     answerElement.innerHTML =
-        "🤖 AgriLink AI is thinking...";
+    "🤖 AgriLink AI is thinking...";
 
 
     try{
 
-        // Check current login session
         const sessionResult =
-            await supabaseClient.auth.getSession();
+        await supabaseClient.auth.getSession();
 
 
         if(sessionResult.error){
@@ -1519,53 +1984,58 @@ async function askAI(){
                 sessionResult.error
             );
 
+
             answerElement.innerHTML =
-                "❌ Could not verify your login.";
+            "❌ Could not verify your login.";
 
             return;
+
         }
 
 
         const session =
-            sessionResult.data.session;
+        sessionResult.data.session;
 
 
         if(!session){
 
             answerElement.innerHTML =
-                "⚠️ Your login session has expired.<br><br>" +
-                "Please log in again.";
+
+            "⚠️ Your login session has expired.<br><br>" +
+
+            "Please log in again.";
+
 
             setTimeout(() => {
 
                 window.location.href =
-                    "login.html";
+                "login.html";
 
             },1500);
 
+
             return;
+
         }
 
 
         console.log(
-            "🔐 Authenticated user:",
+            "✅ Authenticated user:",
             session.user.email
         );
 
 
-        // ====================================
-        // SUPABASE EDGE FUNCTION INVOKE
-        // ====================================
+        /* TRY GEMINI FIRST */
 
         const result =
-            await supabaseClient.functions.invoke(
-                "smooth-handler",
-                {
-                    body:{
-                        question:question
-                    }
+        await supabaseClient.functions.invoke(
+            "smooth-handler",
+            {
+                body:{
+                    question:question
                 }
-            );
+            }
+        );
 
 
         console.log(
@@ -1574,62 +2044,79 @@ async function askAI(){
         );
 
 
-        // ====================================
-        // FUNCTION ERROR
-        // ====================================
+        /* GEMINI RATE LIMIT */
 
         if(result.error){
 
-            console.error(
-                "AI Edge Function error:",
+            const message =
+            (
+                result.error.message ||
+                ""
+            ).toLowerCase();
+
+
+            console.log(
+                "AI error:",
                 result.error
             );
 
 
-            const message =
-                result.error.message || "";
-
-
             if(
-                message
-                    .toLowerCase()
-                    .includes("authorization") ||
-                message
-                    .toLowerCase()
-                    .includes("unauthorized") ||
-                message
-                    .includes("401")
+                message.includes("429") ||
+                message.includes("rate limit") ||
+                message.includes("non-2xx")
             ){
 
+                console.log(
+                    "🌱 Gemini limited. Using local fallback."
+                );
+
+
+                const localAnswer =
+                getLocalFarmAdvice(
+                    question
+                );
+
+
                 answerElement.innerHTML =
-                    "⚠️ Your login authorization needs to be refreshed.<br><br>" +
-                    "Please log out and log in again.";
+
+                "🌱 <strong>AgriLink AI Free Mode</strong><br><br>" +
+
+                localAnswer.replace(
+                    /\n/g,
+                    "<br>"
+                ) +
+
+                "<br><br>" +
+
+                "ℹ️ Gemini is temporarily unavailable " +
+                "because its free daily request limit " +
+                "has been reached.";
 
                 return;
+
             }
 
 
             answerElement.innerHTML =
-                "❌ <strong>AI assistant could not respond.</strong><br><br>" +
-                message;
+
+            "❌ <strong>AI assistant could not respond.</strong><br><br>" +
+
+            (
+                result.error.message ||
+                "Unknown Edge Function error."
+            );
 
             return;
+
         }
 
 
         const data =
-            result.data;
+        result.data;
 
 
-        console.log(
-            "🤖 AI response data:",
-            data
-        );
-
-
-        // ====================================
-        // GEMINI RATE LIMIT
-        // ====================================
+        /* BACKEND RATE LIMIT */
 
         if(
             data &&
@@ -1637,19 +2124,32 @@ async function askAI(){
             "RATE_LIMITED"
         ){
 
-            answerElement.innerHTML =
-                "⚠️ <strong>AgriLink AI is temporarily unavailable.</strong><br><br>" +
+            const localAnswer =
+            getLocalFarmAdvice(
+                question
+            );
 
-                "The Gemini free-tier request limit has been reached. " +
-                "Please try again later.";
+
+            answerElement.innerHTML =
+
+            "🌱 <strong>AgriLink AI Free Mode</strong><br><br>" +
+
+            localAnswer.replace(
+                /\n/g,
+                "<br>"
+            ) +
+
+            "<br><br>" +
+
+            "ℹ️ Gemini has reached its free daily " +
+            "request limit.";
 
             return;
+
         }
 
 
-        // ====================================
-        // BACKEND ERROR
-        // ====================================
+        /* BACKEND ERROR */
 
         if(
             data &&
@@ -1657,20 +2157,20 @@ async function askAI(){
         ){
 
             answerElement.innerHTML =
-                "❌ <strong>AI assistant could not respond.</strong><br><br>" +
 
-                (
-                    data.message ||
-                    data.error
-                );
+            "❌ <strong>AI assistant could not respond.</strong><br><br>" +
+
+            (
+                data.message ||
+                data.error
+            );
 
             return;
+
         }
 
 
-        // ====================================
-        // SUCCESS
-        // ====================================
+        /* SUCCESS */
 
         if(
             data &&
@@ -1678,17 +2178,40 @@ async function askAI(){
         ){
 
             answerElement.innerHTML =
-                "🤖 <strong>AgriLink AI:</strong><br><br>" +
 
-                data.answer
-                    .replace(/\n/g,"<br>");
+            "🤖 <strong>AgriLink AI:</strong><br><br>" +
+
+            data.answer.replace(
+                /\n/g,
+                "<br>"
+            );
 
             return;
+
         }
 
 
+        /* EMPTY RESPONSE */
+
         answerElement.innerHTML =
-            "❌ AI returned no answer.";
+        "⚠️ Gemini returned no answer. " +
+        "Trying AgriLink Free Mode...";
+
+
+        const localAnswer =
+        getLocalFarmAdvice(
+            question
+        );
+
+
+        answerElement.innerHTML =
+
+        "🌱 <strong>AgriLink AI Free Mode</strong><br><br>" +
+
+        localAnswer.replace(
+            /\n/g,
+            "<br>"
+        );
 
 
     }catch(error){
@@ -1699,33 +2222,57 @@ async function askAI(){
         );
 
 
+        /* FALLBACK EVEN IF FUNCTION FAILS */
+
+        const localAnswer =
+        getLocalFarmAdvice(
+            question
+        );
+
+
         answerElement.innerHTML =
-            "❌ <strong>AI assistant could not respond.</strong><br><br>" +
-            "Please try again.";
+
+        "🌱 <strong>AgriLink AI Free Mode</strong><br><br>" +
+
+        localAnswer.replace(
+            /\n/g,
+            "<br>"
+        ) +
+
+        "<br><br>" +
+
+        "ℹ️ Gemini is temporarily unavailable.";
+
     }
+
 }
 
 
-// ========================================
-// CROP AI
-// ========================================
+/* ========================================
+   CROP AI
+   ======================================== */
 
 async function analyzeCrop(){
 
     const imageInput =
-        document.getElementById(
-            "crop-image"
-        );
+    document.getElementById(
+        "crop-image"
+    );
+
 
     const question =
-        document.getElementById(
-            "crop-question"
-        ).value.trim();
+    document
+    .getElementById(
+        "crop-question"
+    )
+    .value
+    .trim();
+
 
     const resultElement =
-        document.getElementById(
-            "crop-result"
-        );
+    document.getElementById(
+        "crop-result"
+    );
 
 
     if(
@@ -1734,79 +2281,85 @@ async function analyzeCrop(){
     ){
 
         resultElement.innerHTML =
-            "⚠️ Please upload a crop image first.";
+        "⚠️ Please upload a crop image first.";
 
         return;
+
     }
 
 
     if(!question){
 
         resultElement.innerHTML =
-            "⚠️ Please describe what you want AgriLink AI to check.";
+        "⚠️ Please describe what you want AgriLink AI to check.";
 
         return;
+
     }
 
 
     resultElement.innerHTML =
-        "🔍 Analyzing your crop image...";
+    "🔍 Analyzing your crop image...";
 
 
     try{
 
         const sessionResult =
-            await supabaseClient.auth.getSession();
+        await supabaseClient.auth.getSession();
 
 
         if(sessionResult.error){
 
             throw sessionResult.error;
+
         }
 
 
         const session =
-            sessionResult.data.session;
+        sessionResult.data.session;
 
 
         if(!session){
 
             resultElement.innerHTML =
-                "⚠️ Please log in again.";
+            "⚠️ Please log in again.";
 
             return;
+
         }
 
 
         const file =
-            imageInput.files[0];
+        imageInput.files[0];
 
 
         const reader =
-            new FileReader();
+        new FileReader();
 
 
-        reader.onload = async function(){
+        reader.onload =
+        async function(){
 
             try{
 
                 const base64 =
-                    reader.result.split(",")[1];
+                reader.result
+                .split(",")[1];
 
 
                 const result =
-                    await supabaseClient.functions.invoke(
-                        "smooth-handler",
-                        {
-                            body:{
-                                question:question,
-                                imageBase64:base64,
-                                imageMimeType:
-                                    file.type ||
-                                    "image/jpeg"
-                            }
+                await supabaseClient.functions.invoke(
+                    "smooth-handler",
+                    {
+                        body:{
+                            question:question,
+                            imageBase64:base64,
+                            imageMimeType:
+                            file.type ||
+                            "image/jpeg"
                         }
-                    );
+                    }
+                );
 
 
                 console.log(
@@ -1818,15 +2371,18 @@ async function analyzeCrop(){
                 if(result.error){
 
                     resultElement.innerHTML =
-                        "❌ <strong>Crop AI could not respond.</strong><br><br>" +
-                        result.error.message;
+
+                    "❌ <strong>Crop AI could not respond.</strong><br><br>" +
+
+                    result.error.message;
 
                     return;
+
                 }
 
 
                 const data =
-                    result.data;
+                result.data;
 
 
                 if(
@@ -1836,28 +2392,47 @@ async function analyzeCrop(){
                 ){
 
                     resultElement.innerHTML =
-                        "⚠️ <strong>AgriLink AI is temporarily unavailable.</strong><br><br>" +
-                        "The Gemini free-tier request limit has been reached. Please try again later.";
+
+                    "🌱 <strong>Crop AI Free Mode</strong><br><br>" +
+
+                    getLocalFarmAdvice(
+                        question
+                    ).replace(
+                        /\n/g,
+                        "<br>"
+                    ) +
+
+                    "<br><br>" +
+
+                    "ℹ️ Gemini has reached its " +
+                    "free daily request limit.";
 
                     return;
+
                 }
 
 
-                if(data && data.answer){
+                if(
+                    data &&
+                    data.answer
+                ){
 
                     resultElement.innerHTML =
-                        "🩺 <strong>AgriLink AI Crop Analysis:</strong><br><br>" +
-                        data.answer.replace(
-                            /\n/g,
-                            "<br>"
-                        );
+
+                    "🩺 <strong>AgriLink AI Crop Analysis:</strong><br><br>" +
+
+                    data.answer.replace(
+                        /\n/g,
+                        "<br>"
+                    );
 
                 }else{
 
                     resultElement.innerHTML =
-                        "❌ No crop analysis was returned.";
+                    "❌ No crop analysis was returned.";
 
                 }
+
 
             }catch(error){
 
@@ -1866,9 +2441,12 @@ async function analyzeCrop(){
                     error
                 );
 
+
                 resultElement.innerHTML =
-                    "❌ Unable to analyze the crop image.";
+                "❌ Unable to analyze the crop image.";
+
             }
+
         };
 
 
@@ -1882,63 +2460,73 @@ async function analyzeCrop(){
             error
         );
 
-        resultElement.innerHTML =
-            "❌ Crop AI could not start.";
-    }
-}
-// ========================================
-// FARM INSIGHTS
-// ========================================
 
+        resultElement.innerHTML =
+        "❌ Crop AI could not start.";
+
+    }
+
+}
 async function loadFarmInsights(){
 
     const resultElement =
-        document.getElementById(
-            "farm-insights"
-        );
+    document.getElementById(
+        "farm-insights"
+    );
 
 
     try{
 
         const produceResult =
-            await supabaseClient
-                .from("produce")
-                .select("*");
+        await supabaseClient
+        .from("produce")
+        .select("*");
 
 
         const marketplaceResult =
-            await supabaseClient
-                .from("marketplace")
-                .select("*");
+        await supabaseClient
+        .from("marketplace")
+        .select("*");
 
 
         const produceCount =
-            produceResult.data
-                ? produceResult.data.length
-                : 0;
+        produceResult.data
+        ?
+        produceResult.data.length
+        :
+        0;
 
 
         const marketplaceCount =
-            marketplaceResult.data
-                ? marketplaceResult.data.length
-                : 0;
+        marketplaceResult.data
+        ?
+        marketplaceResult.data.length
+        :
+        0;
 
 
         resultElement.innerHTML =
 
-            "🌱 <strong>AgriLink Farm Summary</strong><br><br>" +
+        "🌱 <strong>AgriLink Farm Summary</strong><br><br>" +
 
-            "🌽 Produce records: " +
-            produceCount +
-            "<br>" +
+        "🌽 Produce records: " +
 
-            "🛒 Marketplace listings: " +
-            marketplaceCount +
-            "<br><br>" +
+        produceCount +
 
-            "🤖 Keep checking weather conditions " +
-            "and use the AI Farming Assistant when " +
-            "you notice crop problems.";
+        "<br>" +
+
+        "🛒 Marketplace listings: " +
+
+        marketplaceCount +
+
+        "<br><br>" +
+
+        "🤖 Keep checking weather conditions " +
+
+        "and use the AI Farming Assistant " +
+
+        "when you notice crop problems.";
+
 
     }catch(error){
 
@@ -1947,15 +2535,14 @@ async function loadFarmInsights(){
             error
         );
 
+
         resultElement.innerHTML =
-            "🌱 Farm insights will appear as your farm data grows.";
+        "🌱 Farm insights will appear as your farm data grows.";
+
     }
+
 }
 
-
-// ========================================
-// START DASHBOARD
-// ========================================
 
 async function startDashboard(){
 
@@ -1965,12 +2552,13 @@ async function startDashboard(){
 
 
     const user =
-        await checkUser();
+    await checkUser();
 
 
     if(!user){
 
         return;
+
     }
 
 
@@ -1986,15 +2574,15 @@ async function startDashboard(){
     console.log(
         "✅ Dashboard ready."
     );
+
 }
 
 
-// ========================================
-// AUTH STATE LISTENER
-// ========================================
-
 supabaseClient.auth.onAuthStateChange(
-    (event, session) => {
+    (
+        event,
+        session
+    ) => {
 
         console.log(
             "Auth event:",
@@ -2008,16 +2596,13 @@ supabaseClient.auth.onAuthStateChange(
         ){
 
             window.location.href =
-                "login.html";
+            "login.html";
+
         }
 
     }
 );
 
-
-// ========================================
-// START
-// ========================================
 
 document.addEventListener(
     "DOMContentLoaded",
