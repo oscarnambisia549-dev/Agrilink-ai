@@ -247,9 +247,7 @@ A better future through AI. 🚀
 </p>
 
 </section>
-<!-- ============================= -->
 <!-- PROFILE -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -270,9 +268,7 @@ A better future through AI. 🚀
 </section>
 
 
-<!-- ============================= -->
 <!-- LIVE WEATHER -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -289,15 +285,11 @@ A better future through AI. 🚀
 </section>
 
 
-<!-- ============================= -->
 <!-- FARMING RECOMMENDATION -->
-<!-- ============================= -->
 
 <section class="card">
 
-<h2>
-🌱 Today's Farming Recommendation
-</h2>
+<h2>🌱 Today's Farming Recommendation</h2>
 
 <div id="farming-recommendation">
 
@@ -308,15 +300,11 @@ A better future through AI. 🚀
 </section>
 
 
-<!-- ============================= -->
 <!-- WEATHER TIPS -->
-<!-- ============================= -->
 
 <section class="card">
 
-<h2>
-🌦️ Weather-Based Farming Tips
-</h2>
+<h2>🌦️ Weather-Based Farming Tips</h2>
 
 <div id="weather-tips">
 
@@ -328,15 +316,11 @@ after the live weather loads.
 </div>
 
 </section>
-<!-- ============================= -->
-<!-- AI PEST & DISEASE DETECTION -->
-<!-- ============================= -->
+<!-- AI CROP DETECTION -->
 
 <section class="card">
 
-<h2>
-🔬 AI Pest & Disease Detection
-</h2>
+<h2>🔬 AI Pest & Disease Detection</h2>
 
 <p>
 Upload a clear photo of your crop and let
@@ -426,9 +410,7 @@ or other visible issues.
 </section>
 
 
-<!-- ============================= -->
 <!-- WHAT AI CHECKS -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -463,9 +445,7 @@ or entire plant.
 </p>
 
 </section>
-<!-- ============================= -->
 <!-- MY PRODUCE -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -474,8 +454,8 @@ or entire plant.
 </h2>
 
 <p>
-Add the crops or produce you currently have
-available on your farm.
+Add the crops or produce you currently
+have available on your farm.
 </p>
 
 
@@ -565,9 +545,7 @@ Pieces
 </section>
 
 
-<!-- ============================= -->
-<!-- PRODUCE LIST -->
-<!-- ============================= -->
+<!-- PRODUCE LISTINGS -->
 
 <section class="card">
 
@@ -584,9 +562,7 @@ Pieces
 </div>
 
 </section>
-<!-- ============================= -->
 <!-- SELL PRODUCE -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -710,9 +686,7 @@ Pieces
 </section>
 
 
-<!-- ============================= -->
 <!-- MARKETPLACE -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -745,9 +719,7 @@ farmers on AgriLink AI.
 </button>
 
 
-<div
-    id="marketplace-list"
->
+<div id="marketplace-list">
 
 <p class="loading">
 🛒 Loading marketplace...
@@ -756,9 +728,7 @@ farmers on AgriLink AI.
 </div>
 
 </section>
-<!-- ============================= -->
 <!-- CONTACT SELLER -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -766,14 +736,12 @@ farmers on AgriLink AI.
 📞 Contact Seller
 </h2>
 
-<div
-    id="seller-contact"
->
+<div id="seller-contact">
 
 <p>
 Select a marketplace listing and tap
-<strong>Contact Seller</strong> to see
-the seller's contact information.
+<strong>Contact Seller</strong>
+to see the seller's contact information.
 </p>
 
 </div>
@@ -781,9 +749,7 @@ the seller's contact information.
 </section>
 
 
-<!-- ============================= -->
 <!-- AI FARMING ASSISTANT -->
-<!-- ============================= -->
 
 <section class="card">
 
@@ -829,12 +795,8 @@ practical agricultural guidance.
 
 </section>
 
-
-<!-- ============================= -->
-<!-- FOOTER -->
-<!-- ============================= -->
-
 </main>
+
 
 <footer>
 
@@ -854,24 +816,20 @@ Growing Agriculture Through Innovation
 </footer>
 
 
-<!-- ============================= -->
 <!-- SUPABASE -->
-<!-- ============================= -->
 
-<script
-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
+<!-- IMPORTANT: ALL JAVASCRIPT STARTS HERE -->
 
 <script>
 
 const SUPABASE_URL =
     "https://cjgbeankvgtychqqgvlq.supabase.co";
 
-
 const SUPABASE_KEY =
     "sb_publishable_4Xv8GlAQ0eRDHX8MGDL00A_3-fjBrIj";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -882,25 +840,21 @@ const supabaseClient =
 
 const AI_FUNCTION_URL =
     "https://cjgbeankvgtychqqgvlq.supabase.co/functions/v1/smooth-handler";
-
-</script>
 // =============================
 // AUTHENTICATION
 // =============================
 
 async function checkUser(){
 
-    console.log("🔎 Checking user...");
-
     try{
 
         const result =
-            await supabaseClient.auth.getSession();
+        await supabaseClient.auth.getSession();
 
         if(result.error){
 
             console.log(
-                "❌ Auth error:",
+                "Auth error:",
                 result.error
             );
 
@@ -912,30 +866,18 @@ async function checkUser(){
             !result.data.session
         ){
 
-            console.log(
-                "⚠️ No active session."
-            );
-
             window.location.href =
                 "login.html";
 
             return null;
         }
 
-        const user =
-            result.data.session.user;
-
-        console.log(
-            "✅ Logged in:",
-            user.email
-        );
-
-        return user;
+        return result.data.session.user;
 
     }catch(error){
 
         console.log(
-            "❌ Check user error:",
+            "Check user error:",
             error
         );
 
@@ -970,15 +912,12 @@ async function logoutUser(){
             "Logout error:",
             error
         );
-
-        window.location.href =
-            "login.html";
     }
 }
 
 
 // =============================
-// LOAD PROFILE
+// PROFILE
 // =============================
 
 async function loadProfile(user){
@@ -999,26 +938,23 @@ async function loadProfile(user){
         );
 
 
-    emailElement.innerHTML =
-        "📧 " +
-        escapeHTML(
-            user.email || ""
-        );
+    emailElement.textContent =
+        "📧 " + user.email;
 
 
     try{
 
         const result =
-            await supabaseClient
-                .from("users")
-                .select(
-                    "full_name,email,role,location"
-                )
-                .eq(
-                    "auth_id",
-                    user.id
-                )
-                .maybeSingle();
+        await supabaseClient
+        .from("users")
+        .select(
+            "full_name,email,role,location"
+        )
+        .eq(
+            "auth_id",
+            user.id
+        )
+        .maybeSingle();
 
 
         if(result.error){
@@ -1028,10 +964,10 @@ async function loadProfile(user){
                 result.error
             );
 
-            nameElement.innerHTML =
+            nameElement.textContent =
                 "👋 Welcome, Farmer";
 
-            locationElement.innerHTML =
+            locationElement.textContent =
                 "📍 Location unavailable";
 
             return;
@@ -1040,9 +976,9 @@ async function loadProfile(user){
 
         if(result.data){
 
-            nameElement.innerHTML =
+            nameElement.textContent =
                 "👋 Welcome, " +
-                escapeHTML(
+                (
                     result.data.full_name ||
                     "Farmer"
                 );
@@ -1050,28 +986,18 @@ async function loadProfile(user){
 
             if(result.data.email){
 
-                emailElement.innerHTML =
+                emailElement.textContent =
                     "📧 " +
-                    escapeHTML(
-                        result.data.email
-                    );
+                    result.data.email;
             }
 
 
-            if(result.data.location){
-
-                locationElement.innerHTML =
-                    "📍 " +
-                    escapeHTML(
-                        result.data.location
-                    );
-
-            }else{
-
-                locationElement.innerHTML =
-                    "📍 Location not provided";
-            }
-
+            locationElement.textContent =
+                "📍 " +
+                (
+                    result.data.location ||
+                    "Location not provided"
+                );
         }
 
     }catch(error){
@@ -1081,32 +1007,27 @@ async function loadProfile(user){
             error
         );
 
-        nameElement.innerHTML =
+        nameElement.textContent =
             "👋 Welcome, Farmer";
-
-        locationElement.innerHTML =
-            "📍 Location unavailable";
     }
 }
 
 
 // =============================
-// LIVE WEATHER
+// WEATHER
 // =============================
 
 async function loadWeather(){
 
-    const weatherResult =
+    const weatherBox =
         document.getElementById(
             "weather-result"
         );
-
 
     const recommendation =
         document.getElementById(
             "farming-recommendation"
         );
-
 
     const tips =
         document.getElementById(
@@ -1117,12 +1038,12 @@ async function loadWeather(){
     try{
 
         const url =
-            "https://api.open-meteo.com/v1/forecast" +
-            "?latitude=-1.286389" +
-            "&longitude=36.817223" +
-            "&current=temperature_2m,wind_speed_10m,precipitation" +
-            "&hourly=precipitation_probability" +
-            "&timezone=Africa%2FNairobi";
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=-1.286389" +
+        "&longitude=36.817223" +
+        "&current=temperature_2m,wind_speed_10m,precipitation" +
+        "&hourly=precipitation_probability" +
+        "&timezone=Africa%2FNairobi";
 
 
         const response =
@@ -1132,7 +1053,7 @@ async function loadWeather(){
         if(!response.ok){
 
             throw new Error(
-                "Weather service unavailable."
+                "Weather service unavailable"
             );
         }
 
@@ -1142,249 +1063,147 @@ async function loadWeather(){
 
 
         const temperature =
-            data.current?.temperature_2m;
+            data.current.temperature_2m;
 
 
         const wind =
-            data.current?.wind_speed_10m;
+            data.current.wind_speed_10m;
 
 
         const precipitation =
-            data.current?.precipitation;
+            data.current.precipitation;
+
+
+        const currentHour =
+            new Date()
+            .getHours();
 
 
         const rainProbability =
             data.hourly
-                ?.precipitation_probability?.[0];
+            .precipitation_probability[
+                currentHour
+            ] ?? 0;
 
 
-        weatherResult.innerHTML = `
+        weatherBox.innerHTML = `
 
-            <div class="result">
+            <p>📍 <strong>Nairobi, Kenya</strong></p>
 
-                <h3>
-                    📍 Nairobi, Kenya
-                </h3>
+            <p>🌡️ Temperature:
+            <strong>${temperature}°C</strong></p>
 
-                <p>
-                    🌡️ Temperature:
-                    <strong>
-                        ${temperature ?? "--"}°C
-                    </strong>
-                </p>
+            <p>🌧️ Rain probability:
+            <strong>${rainProbability}%</strong></p>
 
-                <p>
-                    🌧️ Rain probability:
-                    <strong>
-                        ${rainProbability ?? "--"}%
-                    </strong>
-                </p>
+            <p>💨 Wind:
+            <strong>${wind} km/h</strong></p>
 
-                <p>
-                    💨 Wind:
-                    <strong>
-                        ${wind ?? "--"} km/h
-                    </strong>
-                </p>
+            <p>💧 Precipitation:
+            <strong>${precipitation} mm</strong></p>
 
-                <p>
-                    💧 Precipitation:
-                    <strong>
-                        ${precipitation ?? "--"} mm
-                    </strong>
-                </p>
-
-                <p>
-                    🟢 Live weather
-                </p>
-
-            </div>
+            <p class="small">
+            ✅ Live weather
+            </p>
 
         `;
 
 
-        updateFarmingRecommendation(
-            rainProbability,
-            recommendation,
-            tips
-        );
+        if(rainProbability >= 70){
+
+            recommendation.innerHTML = `
+
+                🌧️ <strong>Heavy rain is possible.</strong>
+
+                <ul>
+                    <li>Avoid unnecessary irrigation.</li>
+                    <li>Check drainage around crops.</li>
+                    <li>Watch for fungal diseases.</li>
+                    <li>Avoid working in very wet soil.</li>
+                </ul>
+
+            `;
+
+
+            tips.innerHTML = `
+
+                <ul>
+                    <li>Keep drainage channels clear.</li>
+                    <li>Check crops for fungal infection.</li>
+                    <li>Protect harvested produce from moisture.</li>
+                    <li>Monitor soil waterlogging.</li>
+                </ul>
+
+            `;
+
+        }else if(rainProbability >= 40){
+
+            recommendation.innerHTML = `
+
+                🌦️ <strong>Moderate rain is possible.</strong>
+
+                <ul>
+                    <li>Check soil moisture before irrigation.</li>
+                    <li>Monitor crops for pests and disease.</li>
+                    <li>Keep drainage areas clear.</li>
+                </ul>
+
+            `;
+
+
+            tips.innerHTML = `
+
+                <ul>
+                    <li>Check leaves for disease symptoms.</li>
+                    <li>Monitor soil moisture.</li>
+                    <li>Watch for pest activity.</li>
+                </ul>
+
+            `;
+
+        }else{
+
+            recommendation.innerHTML = `
+
+                ☀️ <strong>Lower rain probability.</strong>
+
+                <ul>
+                    <li>Check irrigation needs.</li>
+                    <li>Maintain adequate soil moisture.</li>
+                    <li>Continue monitoring for pests.</li>
+                </ul>
+
+            `;
+
+
+            tips.innerHTML = `
+
+                <ul>
+                    <li>Check soil moisture regularly.</li>
+                    <li>Water crops according to their needs.</li>
+                    <li>Look for signs of water stress.</li>
+                </ul>
+
+            `;
+        }
 
 
     }catch(error){
 
-        console.error(
+        console.log(
             "Weather error:",
             error
         );
 
 
-        weatherResult.innerHTML = `
+        weatherBox.innerHTML = `
 
             <div class="error-box">
-
-                ❌ Could not load live weather.
-
-                <br><br>
-
-                ${escapeHTML(
-                    error.message
-                )}
-
+            ❌ Unable to load live weather.
             </div>
 
         `;
 
-
-        recommendation.innerHTML =
-            "🌱 Weather recommendation unavailable.";
-
-        tips.innerHTML =
-            "🌦️ Please try again later.";
-    }
-}
-
-
-// =============================
-// FARMING RECOMMENDATION
-// =============================
-
-function updateFarmingRecommendation(
-    rainProbability,
-    recommendation,
-    tips
-){
-
-    const rain =
-        Number(
-            rainProbability || 0
-        );
-
-
-    if(rain >= 70){
-
-        recommendation.innerHTML = `
-
-            <p>
-                🌧️ <strong>High rain probability.</strong>
-            </p>
-
-            <p>
-                Avoid unnecessary irrigation and
-                check your farm drainage.
-            </p>
-
-        `;
-
-
-        tips.innerHTML = `
-
-            <ul>
-
-                <li>
-                    💧 Check drainage around crops.
-                </li>
-
-                <li>
-                    🦠 Watch for fungal diseases.
-                </li>
-
-                <li>
-                    🌱 Avoid working in excessively
-                    wet soil.
-                </li>
-
-                <li>
-                    🌧️ Protect harvested produce
-                    from rain.
-                </li>
-
-            </ul>
-
-        `;
-
-    }else if(rain >= 40){
-
-        recommendation.innerHTML = `
-
-            <p>
-                🌦️ <strong>
-                Moderate rain probability.
-                </strong>
-            </p>
-
-            <p>
-                Check soil moisture before
-                irrigating your crops.
-            </p>
-
-        `;
-
-
-        tips.innerHTML = `
-
-            <ul>
-
-                <li>
-                    💧 Check soil moisture.
-                </li>
-
-                <li>
-                    🐛 Monitor crops for pests.
-                </li>
-
-                <li>
-                    🦠 Watch for disease symptoms.
-                </li>
-
-                <li>
-                    🌱 Keep monitoring crop growth.
-                </li>
-
-            </ul>
-
-        `;
-
-    }else{
-
-        recommendation.innerHTML = `
-
-            <p>
-                ☀️ <strong>
-                Low rain probability.
-                </strong>
-            </p>
-
-            <p>
-                Check soil moisture and consider
-                irrigation if your crops need water.
-            </p>
-
-        `;
-
-
-        tips.innerHTML = `
-
-            <ul>
-
-                <li>
-                    💧 Check soil moisture.
-                </li>
-
-                <li>
-                    🚿 Irrigate when necessary.
-                </li>
-
-                <li>
-                    🐛 Monitor for pests.
-                </li>
-
-                <li>
-                    🌱 Maintain good crop care.
-                </li>
-
-            </ul>
-
-        `;
     }
 }
 // =============================
@@ -1398,20 +1217,24 @@ async function addProduce(){
             "produce-name"
         ).value.trim();
 
+
     const quantity =
         document.getElementById(
             "produce-quantity"
         ).value;
+
 
     const unit =
         document.getElementById(
             "produce-unit"
         ).value;
 
+
     const location =
         document.getElementById(
             "produce-location"
         ).value.trim();
+
 
     const resultBox =
         document.getElementById(
@@ -1426,9 +1249,11 @@ async function addProduce(){
     ){
 
         resultBox.innerHTML = `
+
             <div class="error-box">
-                ⚠️ Please fill in all produce fields.
+            ❌ Please fill in all produce fields.
             </div>
+
         `;
 
         return;
@@ -1437,32 +1262,20 @@ async function addProduce(){
 
     try{
 
-        const user =
-            await checkUser();
-
-
-        if(!user){
-
-            return;
-        }
-
-
         const result =
-            await supabaseClient
-                .from("produce")
-                .insert([{
+        await supabaseClient
+        .from("produce")
+        .insert([{
 
-                    produce_name:name,
+            produce_name:name,
 
-                    quantity:Number(
-                        quantity
-                    ),
+            quantity:Number(quantity),
 
-                    unit:unit,
+            unit:unit,
 
-                    location:location
+            location:location
 
-                }]);
+        }]);
 
 
         if(result.error){
@@ -1475,7 +1288,17 @@ async function addProduce(){
 
             <div class="success-box">
 
-                ✅ Produce added successfully!
+            ✅ Produce added successfully!
+
+            <br><br>
+
+            🌽 ${escapeHTML(name)}
+            <br>
+
+            📦 ${quantity} ${escapeHTML(unit)}
+            <br>
+
+            📍 ${escapeHTML(location)}
 
             </div>
 
@@ -1486,20 +1309,22 @@ async function addProduce(){
             "produce-name"
         ).value = "";
 
+
         document.getElementById(
             "produce-quantity"
         ).value = "";
+
 
         document.getElementById(
             "produce-location"
         ).value = "";
 
 
-        await loadProduce();
+        loadProduce();
 
     }catch(error){
 
-        console.error(
+        console.log(
             "Add produce error:",
             error
         );
@@ -1508,16 +1333,11 @@ async function addProduce(){
         resultBox.innerHTML = `
 
             <div class="error-box">
-
-                ❌ Could not add produce.
-
-                <br><br>
-
-                ${escapeHTML(
-                    error.message ||
-                    String(error)
-                )}
-
+            ❌ Could not add produce.
+            <br><br>
+            ${escapeHTML(
+                error.message || "Unknown error"
+            )}
             </div>
 
         `;
@@ -1540,15 +1360,15 @@ async function loadProduce(){
     try{
 
         const result =
-            await supabaseClient
-                .from("produce")
-                .select("*")
-                .order(
-                    "created_at",
-                    {
-                        ascending:false
-                    }
-                );
+        await supabaseClient
+        .from("produce")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
         if(result.error){
@@ -1557,16 +1377,15 @@ async function loadProduce(){
         }
 
 
-        const items =
-            result.data || [];
-
-
-        if(items.length === 0){
+        if(
+            !result.data ||
+            result.data.length === 0
+        ){
 
             list.innerHTML = `
 
                 <p>
-                    🌱 No produce added yet.
+                🌱 No produce added yet.
                 </p>
 
             `;
@@ -1576,57 +1395,40 @@ async function loadProduce(){
 
 
         list.innerHTML =
-            items.map(
-                item => `
+        result.data.map(
+            item => `
 
                 <div class="produce-item">
 
-                    <h3>
-                        🌱
-                        ${escapeHTML(
-                            item.produce_name
-                        )}
-                    </h3>
+                    <strong>
+                    🌽 ${escapeHTML(
+                        item.produce_name
+                    )}
+                    </strong>
 
                     <p>
-                        📦 Quantity:
-                        <strong>
-                            ${escapeHTML(
-                                String(
-                                    item.quantity
-                                )
-                            )}
-                            ${escapeHTML(
-                                item.unit
-                            )}
-                        </strong>
+                    📦 ${item.quantity}
+                    ${escapeHTML(item.unit)}
                     </p>
 
                     <p>
-                        📍 Location:
-                        ${escapeHTML(
-                            item.location
-                        )}
+                    📍 ${escapeHTML(item.location)}
                     </p>
 
-                    <button
-                        type="button"
-                        onclick="prepareSellProduce(
-                            ${item.id}
-                        )"
-                    >
-                        💰 Sell This Produce
-                    </button>
+                    <p class="small">
+                    Added:
+                    ${formatDate(item.created_at)}
+                    </p>
 
                 </div>
 
             `
-            ).join("");
+        ).join("");
 
 
     }catch(error){
 
-        console.error(
+        console.log(
             "Load produce error:",
             error
         );
@@ -1635,111 +1437,14 @@ async function loadProduce(){
         list.innerHTML = `
 
             <div class="error-box">
-
-                ❌ Could not load produce.
-
-                <br><br>
-
-                ${escapeHTML(
-                    error.message ||
-                    String(error)
-                )}
-
+            ❌ Could not load produce.
+            <br><br>
+            ${escapeHTML(
+                error.message || "Unknown error"
+            )}
             </div>
 
         `;
-    }
-}
-
-
-// =============================
-// PREPARE SELL PRODUCE
-// =============================
-
-async function prepareSellProduce(id){
-
-    try{
-
-        const result =
-            await supabaseClient
-                .from("produce")
-                .select("*")
-                .eq(
-                    "id",
-                    id
-                )
-                .maybeSingle();
-
-
-        if(result.error){
-
-            throw result.error;
-        }
-
-
-        if(!result.data){
-
-            alert(
-                "Produce listing not found."
-            );
-
-            return;
-        }
-
-
-        const item =
-            result.data;
-
-
-        document.getElementById(
-            "sell-produce-name"
-        ).value =
-            item.produce_name || "";
-
-
-        document.getElementById(
-            "sell-quantity"
-        ).value =
-            item.quantity || "";
-
-
-        document.getElementById(
-            "sell-unit"
-        ).value =
-            item.unit || "Kilograms";
-
-
-        document.getElementById(
-            "sell-location"
-        ).value =
-            item.location || "";
-
-
-        document.getElementById(
-            "sell-price"
-        ).focus();
-
-
-        window.scrollTo({
-            top:
-                document.getElementById(
-                    "sell-produce-name"
-                ).offsetTop - 80,
-
-            behavior:"smooth"
-        });
-
-
-    }catch(error){
-
-        console.error(
-            "Prepare sell error:",
-            error
-        );
-
-        alert(
-            "Could not prepare produce for sale."
-        );
     }
 }
 
@@ -1755,35 +1460,35 @@ async function sellProduce(){
             "sell-produce-name"
         ).value.trim();
 
+
     const quantity =
         document.getElementById(
             "sell-quantity"
         ).value;
+
 
     const unit =
         document.getElementById(
             "sell-unit"
         ).value;
 
+
     const price =
         document.getElementById(
             "sell-price"
         ).value;
+
 
     const location =
         document.getElementById(
             "sell-location"
         ).value.trim();
 
-    const phoneInput =
-        document.getElementById(
-            "sell-phone"
-        );
 
     const phone =
-        phoneInput
-        ? phoneInput.value.trim()
-        : "";
+        document.getElementById(
+            "sell-phone"
+        ).value.trim();
 
 
     const resultBox =
@@ -1796,16 +1501,14 @@ async function sellProduce(){
         !name ||
         !quantity ||
         !price ||
-        !location
+        !location ||
+        !phone
     ){
 
         resultBox.innerHTML = `
 
             <div class="error-box">
-
-                ⚠️ Please fill in all
-                required selling fields.
-
+            ❌ Please fill in all marketplace fields.
             </div>
 
         `;
@@ -1817,7 +1520,7 @@ async function sellProduce(){
     try{
 
         const user =
-            await checkUser();
+        await checkUser();
 
 
         if(!user){
@@ -1829,21 +1532,16 @@ async function sellProduce(){
         let sellerName =
             "Farmer";
 
-        let sellerPhone =
-            phone;
-
 
         const profile =
-            await supabaseClient
-                .from("users")
-                .select(
-                    "full_name,phone"
-                )
-                .eq(
-                    "auth_id",
-                    user.id
-                )
-                .maybeSingle();
+        await supabaseClient
+        .from("users")
+        .select("full_name")
+        .eq(
+            "auth_id",
+            user.id
+        )
+        .maybeSingle();
 
 
         if(
@@ -1856,41 +1554,26 @@ async function sellProduce(){
         }
 
 
-        if(
-            !sellerPhone &&
-            profile.data &&
-            profile.data.phone
-        ){
-
-            sellerPhone =
-                profile.data.phone;
-        }
-
-
         const result =
-            await supabaseClient
-                .from("marketplace")
-                .insert([{
+        await supabaseClient
+        .from("marketplace")
+        .insert([{
 
-                    produce_name:name,
+            produce_name:name,
 
-                    quantity:Number(
-                        quantity
-                    ),
+            quantity:Number(quantity),
 
-                    unit:unit,
+            unit:unit,
 
-                    price:Number(
-                        price
-                    ),
+            price:Number(price),
 
-                    location:location,
+            location:location,
 
-                    seller_name:sellerName,
+            seller_name:sellerName,
 
-                    seller_phone:sellerPhone
+            seller_phone:phone
 
-                }]);
+        }]);
 
 
         if(result.error){
@@ -1903,8 +1586,25 @@ async function sellProduce(){
 
             <div class="success-box">
 
-                ✅ Your produce is now listed
-                in the marketplace!
+            ✅ Your produce is now listed
+            in the marketplace!
+
+            <br><br>
+
+            🌽 ${escapeHTML(name)}
+
+            <br>
+
+            📦 ${quantity}
+            ${escapeHTML(unit)}
+
+            <br>
+
+            💵 KSh ${Number(price).toLocaleString()}
+
+            <br>
+
+            📍 ${escapeHTML(location)}
 
             </div>
 
@@ -1915,20 +1615,32 @@ async function sellProduce(){
             "sell-produce-name"
         ).value = "";
 
+
         document.getElementById(
             "sell-quantity"
         ).value = "";
+
 
         document.getElementById(
             "sell-price"
         ).value = "";
 
 
-        await loadMarketplace();
+        document.getElementById(
+            "sell-location"
+        ).value = "";
+
+
+        document.getElementById(
+            "sell-phone"
+        ).value = "";
+
+
+        loadMarketplace();
 
     }catch(error){
 
-        console.error(
+        console.log(
             "Sell produce error:",
             error
         );
@@ -1937,90 +1649,18 @@ async function sellProduce(){
         resultBox.innerHTML = `
 
             <div class="error-box">
-
-                ❌ Could not list produce.
-
-                <br><br>
-
-                ${escapeHTML(
-                    error.message ||
-                    String(error)
-                )}
-
+            ❌ Could not list produce.
+            <br><br>
+            ${escapeHTML(
+                error.message || "Unknown error"
+            )}
             </div>
 
         `;
     }
 }
-
-
 // =============================
-// LOAD MARKETPLACE
-// =============================
-
-async function loadMarketplace(){
-
-    const list =
-        document.getElementById(
-            "marketplace-list"
-        );
-
-
-    try{
-
-        const result =
-            await supabaseClient
-                .from("marketplace")
-                .select("*")
-                .order(
-                    "created_at",
-                    {
-                        ascending:false
-                    }
-                );
-
-
-        if(result.error){
-
-            throw result.error;
-        }
-
-
-        displayMarketplace(
-            result.data || []
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Marketplace error:",
-            error
-        );
-
-
-        list.innerHTML = `
-
-            <div class="error-box">
-
-                ❌ Could not load marketplace.
-
-                <br><br>
-
-                ${escapeHTML(
-                    error.message ||
-                    String(error)
-                )}
-
-            </div>
-
-        `;
-    }
-}
-
-
-// =============================
-// SEARCH MARKETPLACE
+// MARKETPLACE
 // =============================
 
 async function searchMarketplace(){
@@ -2030,6 +1670,14 @@ async function searchMarketplace(){
             "market-search"
         ).value.trim();
 
+
+    loadMarketplace(search);
+}
+
+
+async function loadMarketplace(
+    searchText = ""
+){
 
     const list =
         document.getElementById(
@@ -2041,22 +1689,24 @@ async function searchMarketplace(){
 
         let query =
             supabaseClient
-                .from("marketplace")
-                .select("*")
-                .order(
-                    "created_at",
-                    {
-                        ascending:false
-                    }
-                );
+            .from("marketplace")
+            .select("*")
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
 
 
-        if(search){
+        if(searchText){
 
             query =
                 query.ilike(
                     "produce_name",
-                    `%${search}%`
+                    "%" +
+                    searchText +
+                    "%"
                 );
         }
 
@@ -2071,15 +1721,81 @@ async function searchMarketplace(){
         }
 
 
-        displayMarketplace(
-            result.data || []
-        );
+        if(
+            !result.data ||
+            result.data.length === 0
+        ){
+
+            list.innerHTML = `
+
+                <p>
+                🛒 No marketplace listings found.
+                </p>
+
+            `;
+
+            return;
+        }
+
+
+        list.innerHTML =
+        result.data.map(
+            item => `
+
+                <div class="market-item">
+
+                    <h3>
+                    🌽 ${escapeHTML(
+                        item.produce_name
+                    )}
+                    </h3>
+
+                    <p>
+                    📦 ${item.quantity}
+                    ${escapeHTML(item.unit)}
+                    </p>
+
+                    <p>
+                    💵 KSh
+                    ${Number(item.price)
+                        .toLocaleString()}
+                    </p>
+
+                    <p>
+                    📍 ${escapeHTML(item.location)}
+                    </p>
+
+                    <p>
+                    👨‍🌾 Seller:
+                    ${escapeHTML(
+                        item.seller_name ||
+                        "Farmer"
+                    )}
+                    </p>
+
+                    <button
+                        type="button"
+                        onclick='contactSeller(
+                            ${JSON.stringify({
+                                name:item.seller_name || "Farmer",
+                                phone:item.seller_phone || "",
+                                produce:item.produce_name
+                            })}
+                        )'
+                    >
+                    📞 Contact Seller
+                    </button>
+
+                </div>
+
+            `
+        ).join("");
 
 
     }catch(error){
 
-        console.error(
-            "Marketplace search error:",
+        console.log(
+            "Marketplace error:",
             error
         );
 
@@ -2088,46 +1804,41 @@ async function searchMarketplace(){
 
             <div class="error-box">
 
-                ❌ Marketplace search failed.
+            ❌ Could not load marketplace.
 
-                <br><br>
+            <br><br>
 
-                ${escapeHTML(
-                    error.message ||
-                    String(error)
-                )}
+            ${escapeHTML(
+                error.message || "Unknown error"
+            )}
 
             </div>
 
         `;
     }
 }
+
+
 // =============================
-// DISPLAY MARKETPLACE
+// CONTACT SELLER
 // =============================
 
-function displayMarketplace(items){
+function contactSeller(seller){
 
-    const list =
+    const box =
         document.getElementById(
-            "marketplace-list"
+            "seller-contact"
         );
 
 
-    if(!items || items.length === 0){
+    if(!seller.phone){
 
-        list.innerHTML = `
+        box.innerHTML = `
 
-            <div class="result">
+            <div class="error-box">
 
-                <p>
-                    🛒 No marketplace listings found.
-                </p>
-
-                <p class="small">
-                    Try another produce name or
-                    add your own produce for sale.
-                </p>
+            📞 Seller contact information
+            is not available.
 
             </div>
 
@@ -2137,363 +1848,227 @@ function displayMarketplace(items){
     }
 
 
-    list.innerHTML =
-        items.map(
-            item => `
+    box.innerHTML = `
 
-            <div class="market-item">
+        <div class="contact-box">
 
-                <h3>
-                    🌱
-                    ${escapeHTML(
-                        item.produce_name
-                    )}
-                </h3>
+            <h3>
+            📞 Seller Contact
+            </h3>
 
-                <p>
-                    📦 Quantity:
-                    <strong>
-                        ${escapeHTML(
-                            String(
-                                item.quantity
-                            )
-                        )}
-                        ${escapeHTML(
-                            item.unit
-                        )}
-                    </strong>
-                </p>
+            <p>
+            👨‍🌾
+            ${escapeHTML(seller.name)}
+            </p>
 
-                <p>
-                    💰 Price:
-                    <strong>
-                        KSh
-                        ${escapeHTML(
-                            Number(
-                                item.price || 0
-                            ).toLocaleString()
-                        )}
-                    </strong>
-                </p>
+            <p>
+            🌽
+            ${escapeHTML(seller.produce)}
+            </p>
 
-                <p>
-                    📍 Location:
-                    ${escapeHTML(
-                        item.location
-                    )}
-                </p>
+            <p>
+            📱
+            <a href="tel:${escapeHTML(
+                seller.phone
+            )}">
+            ${escapeHTML(seller.phone)}
+            </a>
+            </p>
 
-                <p>
-                    👨‍🌾 Seller:
-                    ${escapeHTML(
-                        item.seller_name ||
-                        "Farmer"
-                    )}
-                </p>
+            <br>
 
-                <button
-                    type="button"
-                    onclick="contactSellerById(
-                        ${item.id}
-                    )"
-                >
-                    📞 Contact Seller
+            <a
+                href="tel:${escapeHTML(
+                    seller.phone
+                )}"
+            >
+                <button type="button">
+                📞 Call Seller
                 </button>
+            </a>
 
-            </div>
+        </div>
 
-        `
-        ).join("");
+    `;
 }
 
 
 // =============================
-// CONTACT SELLER
+// IMAGE PREVIEW
 // =============================
 
-async function contactSellerById(
-    marketplaceId
-){
+document
+.getElementById("crop-image")
+.addEventListener(
+    "change",
+    function(){
 
-    const contactBox =
-        document.getElementById(
-            "seller-contact"
-        );
-
-
-    try{
-
-        const result =
-            await supabaseClient
-                .from("marketplace")
-                .select(
-                    "produce_name,seller_name,seller_phone,location"
-                )
-                .eq(
-                    "id",
-                    marketplaceId
-                )
-                .maybeSingle();
+        const file =
+            this.files[0];
 
 
-        if(result.error){
+        const preview =
+            document.getElementById(
+                "crop-preview"
+            );
 
-            throw result.error;
-        }
 
+        if(!file){
 
-        if(!result.data){
-
-            contactBox.innerHTML = `
-
-                <div class="error-box">
-
-                    ❌ Seller information
-                    could not be found.
-
-                </div>
-
-            `;
+            preview.style.display =
+                "none";
 
             return;
         }
 
 
-        const seller =
-            result.data;
+        const reader =
+            new FileReader();
 
 
-        const sellerName =
-            seller.seller_name ||
-            "Farmer";
+        reader.onload =
+            function(event){
+
+                preview.src =
+                    event.target.result;
+
+                preview.style.display =
+                    "block";
+            };
 
 
-        const phone =
-            seller.seller_phone ||
-            "";
-
-
-        contactBox.innerHTML = `
-
-            <div class="contact-box">
-
-                <h3>
-                    👨‍🌾 ${escapeHTML(
-                        sellerName
-                    )}
-                </h3>
-
-                <p>
-                    🌱 Produce:
-                    ${escapeHTML(
-                        seller.produce_name
-                    )}
-                </p>
-
-                <p>
-                    📍 Location:
-                    ${escapeHTML(
-                        seller.location
-                    )}
-                </p>
-
-                ${
-                    phone
-                    ? `
-                        <p>
-                            📱 Phone:
-                            <strong>
-                                ${escapeHTML(
-                                    phone
-                                )}
-                            </strong>
-                        </p>
-
-                        <br>
-
-                        <a
-                            href="tel:${encodeURIComponent(
-                                phone
-                            )}"
-                            style="
-                                display:inline-block;
-                                background:#126b2f;
-                                color:white;
-                                padding:12px 18px;
-                                border-radius:8px;
-                                text-decoration:none;
-                                font-weight:bold;
-                            "
-                        >
-                            📞 Call Seller
-                        </a>
-                    `
-                    :
-                    `
-                        <p>
-                            ⚠️ Seller has not provided
-                            a phone number.
-                        </p>
-                    `
-                }
-
-            </div>
-
-        `;
-
-
-        contactBox.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-
-    }catch(error){
-
-        console.error(
-            "Contact seller error:",
-            error
-        );
-
-
-        contactBox.innerHTML = `
-
-            <div class="error-box">
-
-                ❌ Could not load seller details.
-
-                <br><br>
-
-                ${escapeHTML(
-                    error.message ||
-                    String(error)
-                )}
-
-            </div>
-
-        `;
+        reader.readAsDataURL(file);
     }
-}
+);
 
 
 // =============================
-// IMAGE COMPRESSION
+// COMPRESS IMAGE
 // =============================
 
-async function compressImage(
-    file,
-    maxWidth = 1200,
-    quality = 0.75
-){
+function compressImage(file){
 
     return new Promise(
-        (resolve,reject) => {
+        (resolve,reject)=>{
 
             const reader =
                 new FileReader();
 
 
-            reader.onload = event => {
+            reader.onload =
+                function(event){
 
-                const image =
-                    new Image();
-
-
-                image.onload = () => {
-
-                    let width =
-                        image.width;
-
-                    let height =
-                        image.height;
+                    const img =
+                        new Image();
 
 
-                    if(width > maxWidth){
+                    img.onload =
+                        function(){
 
-                        height =
-                            height *
-                            (maxWidth / width);
-
-                        width =
-                            maxWidth;
-                    }
-
-
-                    const canvas =
-                        document.createElement(
-                            "canvas"
-                        );
-
-
-                    canvas.width =
-                        width;
-
-                    canvas.height =
-                        height;
-
-
-                    const context =
-                        canvas.getContext(
-                            "2d"
-                        );
-
-
-                    context.drawImage(
-                        image,
-                        0,
-                        0,
-                        width,
-                        height
-                    );
-
-
-                    canvas.toBlob(
-                        blob => {
-
-                            if(!blob){
-
-                                reject(
-                                    new Error(
-                                        "Could not compress image."
-                                    )
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
                                 );
 
-                                return;
+
+                            const maxSize =
+                                1200;
+
+
+                            let width =
+                                img.width;
+
+
+                            let height =
+                                img.height;
+
+
+                            if(
+                                width >
+                                maxSize
+                            ){
+
+                                height =
+                                    height *
+                                    maxSize /
+                                    width;
+
+                                width =
+                                    maxSize;
                             }
 
 
-                            resolve(blob);
+                            if(
+                                height >
+                                maxSize
+                            ){
 
-                        },
-                        "image/jpeg",
-                        quality
-                    );
+                                width =
+                                    width *
+                                    maxSize /
+                                    height;
+
+                                height =
+                                    maxSize;
+                            }
+
+
+                            canvas.width =
+                                width;
+
+                            canvas.height =
+                                height;
+
+
+                            const ctx =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            ctx.drawImage(
+                                img,
+                                0,
+                                0,
+                                width,
+                                height
+                            );
+
+
+                            canvas.toBlob(
+                                function(blob){
+
+                                    if(!blob){
+
+                                        reject(
+                                            new Error(
+                                                "Image compression failed"
+                                            )
+                                        );
+
+                                        return;
+                                    }
+
+
+                                    resolve(blob);
+
+                                },
+                                "image/jpeg",
+                                0.8
+                            );
+                        };
+
+
+                    img.onerror =
+                        reject;
+
+                    img.src =
+                        event.target.result;
                 };
 
 
-                image.onerror = () => {
-
-                    reject(
-                        new Error(
-                            "Could not process image."
-                        )
-                    );
-                };
-
-
-                image.src =
-                    event.target.result;
-            };
-
-
-            reader.onerror = () => {
-
-                reject(
-                    new Error(
-                        "Could not read image."
-                    )
-                );
-            };
+            reader.onerror =
+                reject;
 
 
             reader.readAsDataURL(file);
@@ -2503,27 +2078,21 @@ async function compressImage(
 
 
 // =============================
-// AI CROP ANALYSIS
+// CROP AI
 // =============================
 
 async function analyzeCrop(){
 
-    const imageInput =
+    const fileInput =
         document.getElementById(
             "crop-image"
         );
 
 
-    const cropSelect =
+    const crop =
         document.getElementById(
             "crop-select"
-        );
-
-
-    const preview =
-        document.getElementById(
-            "crop-preview"
-        );
+        ).value;
 
 
     const resultBox =
@@ -2532,23 +2101,21 @@ async function analyzeCrop(){
         );
 
 
-    const analyzeButton =
+    const button =
         document.getElementById(
             "analyze-crop-button"
         );
 
 
     if(
-        !imageInput.files ||
-        !imageInput.files[0]
+        !fileInput.files ||
+        !fileInput.files[0]
     ){
 
         resultBox.innerHTML = `
 
             <div class="error-box">
-
-                ⚠️ Please upload a crop photo first.
-
+            ❌ Please upload a crop photo first.
             </div>
 
         `;
@@ -2557,177 +2124,76 @@ async function analyzeCrop(){
     }
 
 
-    const file =
-        imageInput.files[0];
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "🔄 AI is analyzing...";
+
+
+    resultBox.innerHTML = `
+
+        <p class="loading">
+        🔬 Examining your crop image...
+        </p>
+
+    `;
 
 
     try{
 
-        analyzeButton.disabled =
-            true;
-
-
-        analyzeButton.innerText =
-            "🔬 Analyzing crop...";
-
-
-        resultBox.innerHTML = `
-
-            <p class="loading">
-
-                🤖 AgriLink AI is examining
-                your crop photo...
-
-                <br><br>
-
-                Please wait.
-
-            </p>
-
-        `;
-
-
-        preview.src =
-            URL.createObjectURL(file);
-
-        preview.style.display =
-            "block";
-
-
         const compressed =
             await compressImage(
-                file
+                fileInput.files[0]
             );
 
 
         const base64 =
-            await new Promise(
-                (resolve,reject) => {
-
-                    const reader =
-                        new FileReader();
-
-
-                    reader.onload =
-                        () => {
-
-                            const data =
-                                reader.result;
-
-
-                            if(
-                                typeof data !==
-                                "string"
-                            ){
-
-                                reject(
-                                    new Error(
-                                        "Could not convert image."
-                                    )
-                                );
-
-                                return;
-                            }
-
-
-                            const comma =
-                                data.indexOf(",");
-
-
-                            resolve(
-                                comma >= 0
-                                ? data.substring(
-                                    comma + 1
-                                )
-                                : data
-                            );
-                        };
-
-
-                    reader.onerror =
-                        () => {
-
-                            reject(
-                                new Error(
-                                    "Could not read image."
-                                )
-                            );
-                        };
-
-
-                    reader.readAsDataURL(
-                        compressed
-                    );
-
-                }
+            await blobToBase64(
+                compressed
             );
 
 
         const prompt = `
 
-You are AgriLink AI,
-an agricultural assistant.
+You are AgriLink AI, an agricultural assistant.
 
-Analyze this photo of a
-${cropSelect.value} crop.
+Analyze this photo of a ${crop} crop.
 
 IMPORTANT:
-
-Do not claim that a pest or disease
-is confirmed from a photograph alone.
-
-Clearly separate visible observations
-from possible explanations.
+Do not claim that a pest or disease is confirmed from a photograph alone.
+Clearly separate visible observations from possible explanations.
 
 Use exactly these sections:
 
 PROBLEM
-
 Give the main possible crop problem.
 
 WHAT I SEE
-
-Describe the visible evidence
-in the image.
+Describe the visible evidence in the image.
 
 POSSIBLE CAUSES
-
 List the most plausible causes.
-Distinguish possibilities from confirmed
-observations.
+Distinguish possibilities from confirmed observations.
 
 CONFIDENCE
-
-Give Low, Moderate, or High confidence
-and briefly explain why.
+Give Low, Moderate, or High confidence and briefly explain why.
 
 WHAT TO DO NOW
-
-Give practical immediate steps
-the farmer can take.
+Give practical immediate steps the farmer can take.
 
 WHAT TO MONITOR
-
 List signs the farmer should watch for.
 
 WHEN TO GET HELP
-
-Explain when the farmer should contact
-an agricultural extension officer,
-agronomist, or crop specialist.
+Explain when the farmer should contact an agricultural extension officer, agronomist, or crop specialist.
 
 SAFETY NOTE
+Explain that this is an AI-assisted visual assessment and not a confirmed diagnosis.
+Pesticide and fertilizer decisions should follow local agricultural guidance and registered product labels.
 
-Explain that this is an AI-assisted
-visual assessment and not a confirmed
-diagnosis.
-
-Pesticide and fertilizer decisions should
-follow local agricultural guidance and
-registered product labels.
-
-Keep the response practical,
-clear, and easy for a farmer to understand.
+Keep the response practical, clear, and easy for a farmer to understand.
 
 `;
 
@@ -2736,7 +2202,6 @@ clear, and easy for a farmer to understand.
             await fetch(
                 AI_FUNCTION_URL,
                 {
-
                     method:"POST",
 
                     headers:{
@@ -2755,87 +2220,50 @@ clear, and easy for a farmer to understand.
                             "image/jpeg"
 
                     })
-
                 }
             );
 
 
-        let data = {};
-
-
-        try{
-
-            data =
-                await response.json();
-
-        }catch(error){
-
-            throw new Error(
-                "The AI server returned an invalid response."
-            );
-        }
+        const data =
+            await response.json();
 
 
         if(!response.ok){
 
-            const details =
-                data.details ||
-                data.error ||
-                "Unknown AI error.";
-
-
             throw new Error(
-                details
+                data.error ||
+                "AI service failed"
             );
         }
 
 
-        if(
-            !data.answer ||
-            typeof data.answer !==
-            "string"
-        ){
+        if(!data.answer){
 
             throw new Error(
-                "The AI returned no crop analysis."
+                "No AI answer returned"
             );
         }
 
 
         resultBox.innerHTML = `
 
-            <div class="success-box">
-
-                ✅ AI crop analysis completed.
-
-            </div>
-
-
             <div class="ai-analysis">
 
                 <h3>
-                    🤖 AgriLink AI Crop Analysis
+                🔬 AI Crop Analysis
                 </h3>
 
-                ${formatAIAnswer(
+                ${formatAIText(
                     data.answer
                 )}
 
-            </div>
+                <div class="ai-warning">
 
+                ⚠️ This is an
+                AI-assisted visual assessment,
+                not a confirmed diagnosis.
 
-            <div class="ai-warning">
-
-                ⚠️ <strong>Important:</strong>
-
-                This is an AI-assisted visual
-                assessment, not a confirmed
-                agricultural diagnosis.
-
-                Confirm serious crop problems
-                with a qualified agricultural
-                expert before making major
-                treatment decisions.
+                </div>
 
             </div>
 
@@ -2844,8 +2272,8 @@ clear, and easy for a farmer to understand.
 
     }catch(error){
 
-        console.error(
-            "Crop analysis error:",
+        console.log(
+            "Crop AI error:",
             error
         );
 
@@ -2854,16 +2282,14 @@ clear, and easy for a farmer to understand.
 
             <div class="error-box">
 
-                ❌ Crop analysis failed.
+            ❌ AI crop analysis failed.
 
-                <br><br>
+            <br><br>
 
-                <strong>
-                    ${escapeHTML(
-                        error.message ||
-                        String(error)
-                    )}
-                </strong>
+            ${escapeHTML(
+                error.message ||
+                "Unknown AI error"
+            )}
 
             </div>
 
@@ -2871,13 +2297,52 @@ clear, and easy for a farmer to understand.
 
     }finally{
 
-        analyzeButton.disabled =
+        button.disabled =
             false;
 
-
-        analyzeButton.innerText =
-            "🤖 Analyze Crop";
+        button.textContent =
+            "🔍 Analyze Crop";
     }
+}
+
+
+// =============================
+// BLOB TO BASE64
+// =============================
+
+function blobToBase64(blob){
+
+    return new Promise(
+        (resolve,reject)=>{
+
+            const reader =
+                new FileReader();
+
+
+            reader.onloadend =
+                function(){
+
+                    const result =
+                        reader.result;
+
+
+                    const base64 =
+                        result.split(",")[1];
+
+
+                    resolve(base64);
+                };
+
+
+            reader.onerror =
+                reject;
+
+
+            reader.readAsDataURL(
+                blob
+            );
+        }
+    );
 }
 // =============================
 // AI FARMING ASSISTANT
@@ -2889,6 +2354,7 @@ async function askAI(){
         document.getElementById(
             "question"
         );
+
 
     const answerBox =
         document.getElementById(
@@ -2906,7 +2372,7 @@ async function askAI(){
 
             <div class="error-box">
 
-                🌱 Please enter a farming question.
+            🌱 Please enter a farming question.
 
             </div>
 
@@ -2916,28 +2382,21 @@ async function askAI(){
     }
 
 
+    answerBox.innerHTML = `
+
+        <p class="loading">
+        🤖 AgriLink AI is thinking...
+        </p>
+
+    `;
+
+
     try{
-
-        answerBox.innerHTML = `
-
-            <p class="loading">
-
-                🤖 AgriLink AI is thinking...
-
-                <br><br>
-
-                Please wait.
-
-            </p>
-
-        `;
-
 
         const response =
             await fetch(
                 AI_FUNCTION_URL,
                 {
-
                     method:"POST",
 
                     headers:{
@@ -2950,49 +2409,27 @@ async function askAI(){
                         question:question
 
                     })
-
                 }
             );
 
 
-        let data = {};
-
-
-        try{
-
-            data =
-                await response.json();
-
-        }catch(error){
-
-            throw new Error(
-                "The AI server returned an invalid response."
-            );
-        }
+        const data =
+            await response.json();
 
 
         if(!response.ok){
 
-            const details =
-                data.details ||
-                data.error ||
-                "Unknown AI error.";
-
-
             throw new Error(
-                details
+                data.error ||
+                "AI request failed"
             );
         }
 
 
-        if(
-            !data.answer ||
-            typeof data.answer !==
-            "string"
-        ){
+        if(!data.answer){
 
             throw new Error(
-                "The AI returned no answer."
+                "No answer returned by AI"
             );
         }
 
@@ -3002,21 +2439,22 @@ async function askAI(){
             <div class="ai-analysis">
 
                 <h3>
-                    🤖 AgriLink AI Answer
+                🤖 AgriLink AI
                 </h3>
 
-                ${formatAIAnswer(
+                ${formatAIText(
                     data.answer
                 )}
 
-            </div>
+                <div class="ai-warning">
 
-            <div class="ai-warning">
+                ⚠️ Agricultural advice should
+                be confirmed with local
+                agricultural guidance when
+                making important pesticide,
+                fertilizer, or treatment decisions.
 
-                ⚠️ AI-generated agricultural
-                guidance should be verified
-                locally when the decision could
-                affect your crops or farm.
+                </div>
 
             </div>
 
@@ -3025,7 +2463,7 @@ async function askAI(){
 
     }catch(error){
 
-        console.error(
+        console.log(
             "AI assistant error:",
             error
         );
@@ -3035,16 +2473,14 @@ async function askAI(){
 
             <div class="error-box">
 
-                ❌ AI assistant failed.
+            ❌ AI assistant failed.
 
-                <br><br>
+            <br><br>
 
-                <strong>
-                    ${escapeHTML(
-                        error.message ||
-                        String(error)
-                    )}
-                </strong>
+            ${escapeHTML(
+                error.message ||
+                "Unknown AI error"
+            )}
 
             </div>
 
@@ -3054,16 +2490,10 @@ async function askAI(){
 
 
 // =============================
-// FORMAT AI ANSWER
+// FORMAT AI TEXT
 // =============================
 
-function formatAIAnswer(text){
-
-    if(!text){
-
-        return "";
-    }
-
+function formatAIText(text){
 
     let safe =
         escapeHTML(text);
@@ -3078,29 +2508,22 @@ function formatAIAnswer(text){
 
     safe =
         safe.replace(
-            /^###\s*(.*?)$/gm,
-            "<h4>$1</h4>"
-        );
-
-
-    safe =
-        safe.replace(
-            /^##\s*(.*?)$/gm,
+            /^### (.*)$/gm,
             "<h3>$1</h3>"
         );
 
 
     safe =
         safe.replace(
-            /^#\s*(.*?)$/gm,
+            /^## (.*)$/gm,
             "<h3>$1</h3>"
         );
 
 
     safe =
         safe.replace(
-            /^[-•]\s*(.*?)$/gm,
-            "• $1"
+            /^# (.*)$/gm,
+            "<h3>$1</h3>"
         );
 
 
@@ -3116,35 +2539,76 @@ function formatAIAnswer(text){
 
 
 // =============================
-// ESCAPE HTML
+// SECURITY
 // =============================
 
 function escapeHTML(value){
 
-    const div =
-        document.createElement(
-            "div"
+    if(value === null ||
+       value === undefined){
+
+        return "";
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
         );
-
-
-    div.textContent =
-        value == null
-        ? ""
-        : String(value);
-
-
-    return div.innerHTML;
 }
 
 
 // =============================
-// START DASHBOARD
+// DATE FORMATTER
+// =============================
+
+function formatDate(date){
+
+    if(!date){
+
+        return "Unknown";
+    }
+
+
+    try{
+
+        return new Date(date)
+            .toLocaleString(
+                "en-KE"
+            );
+
+    }catch(error){
+
+        return "Unknown";
+    }
+}
+
+
+// =============================
+// DASHBOARD STARTUP
 // =============================
 
 async function startDashboard(){
 
     console.log(
-        "🚀 Starting AgriLink AI dashboard..."
+        "🌱 Starting AgriLink AI Dashboard..."
     );
 
 
@@ -3158,91 +2622,33 @@ async function startDashboard(){
     }
 
 
-    await loadProfile(
-        user
+    console.log(
+        "✅ User authenticated:",
+        user.email
     );
 
 
-    await loadWeather();
+    await Promise.allSettled([
 
+        loadProfile(user),
 
-    await loadProduce();
+        loadWeather(),
 
+        loadProduce(),
 
-    await loadMarketplace();
+        loadMarketplace()
+
+    ]);
 
 
     console.log(
-        "✅ AgriLink AI dashboard ready."
+        "✅ Dashboard loaded."
     );
 }
 
 
 // =============================
-// CROP IMAGE PREVIEW
-// =============================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        const cropImage =
-            document.getElementById(
-                "crop-image"
-            );
-
-
-        const cropPreview =
-            document.getElementById(
-                "crop-preview"
-            );
-
-
-        if(
-            cropImage &&
-            cropPreview
-        ){
-
-            cropImage.addEventListener(
-                "change",
-                function(){
-
-                    const file =
-                        this.files &&
-                        this.files[0];
-
-
-                    if(!file){
-
-                        cropPreview.style.display =
-                            "none";
-
-                        return;
-                    }
-
-
-                    const imageURL =
-                        URL.createObjectURL(
-                            file
-                        );
-
-
-                    cropPreview.src =
-                        imageURL;
-
-
-                    cropPreview.style.display =
-                        "block";
-                }
-            );
-        }
-
-    }
-);
-
-
-// =============================
-// DASHBOARD INITIALIZATION
+// START
 // =============================
 
 document.addEventListener(
@@ -3253,6 +2659,11 @@ document.addEventListener(
 
     }
 );
+
+
+// =============================
+// END JAVASCRIPT
+// =============================
 
 </script>
 
