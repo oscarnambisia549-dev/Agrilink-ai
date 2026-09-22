@@ -59,10 +59,6 @@ nav button{
     font-weight:bold;
 }
 
-nav button:hover{
-    opacity:.85;
-}
-
 .container{
     max-width:1150px;
     margin:auto;
@@ -119,11 +115,6 @@ button.action:hover{
     background:#f1f8f3;
     border-radius:10px;
     white-space:pre-wrap;
-}
-
-.small{
-    font-size:14px;
-    color:#666;
 }
 
 .hidden{
@@ -286,21 +277,10 @@ placeholder="Quantity e.g. 50"
 
 <select id="produce-unit">
 
-<option value="kg">
-Kilograms
-</option>
-
-<option value="bags">
-Bags
-</option>
-
-<option value="tons">
-Tons
-</option>
-
-<option value="pieces">
-Pieces
-</option>
+<option value="kg">Kilograms</option>
+<option value="bags">Bags</option>
+<option value="tons">Tons</option>
+<option value="pieces">Pieces</option>
 
 </select>
 
@@ -349,21 +329,10 @@ placeholder="Quantity e.g. 50"
 
 <select id="sell-unit">
 
-<option value="kg">
-Kilograms
-</option>
-
-<option value="bags">
-Bags
-</option>
-
-<option value="tons">
-Tons
-</option>
-
-<option value="pieces">
-Pieces
-</option>
+<option value="kg">Kilograms</option>
+<option value="bags">Bags</option>
+<option value="tons">Tons</option>
+<option value="pieces">Pieces</option>
 
 </select>
 
@@ -536,7 +505,6 @@ class="result">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 </script>
 
-
 <script>
 // ========================================
 // SUPABASE CONFIGURATION
@@ -576,9 +544,11 @@ function scrollToSection(id){
         document.getElementById(id);
 
     if(element){
+
         element.scrollIntoView({
             behavior:"smooth"
         });
+
     }
 }
 
@@ -595,10 +565,12 @@ async function checkUser(){
             await supabaseClient.auth.getSession();
 
         if(result.error){
+
             console.error(
                 "Auth error:",
                 result.error
             );
+
             return null;
         }
 
@@ -667,19 +639,13 @@ async function logoutUser(){
 async function loadProfile(user){
 
     const nameElement =
-        document.getElementById(
-            "profile-name"
-        );
+        document.getElementById("profile-name");
 
     const emailElement =
-        document.getElementById(
-            "profile-email"
-        );
+        document.getElementById("profile-email");
 
     const locationElement =
-        document.getElementById(
-            "profile-location"
-        );
+        document.getElementById("profile-location");
 
 
     emailElement.innerHTML =
@@ -828,30 +794,27 @@ async function loadWeather(){
         }
 
 
-        let recommendation = "";
+        let recommendation;
 
 
         if(rainProbability >= 70){
 
             recommendation =
                 "🌧️ Heavy rain is possible. " +
-                "Avoid unnecessary irrigation, " +
-                "check drainage, and monitor crops " +
-                "for fungal diseases.";
+                "Avoid unnecessary irrigation, check drainage, " +
+                "and monitor crops for fungal diseases.";
 
         }else if(rainProbability >= 40){
 
             recommendation =
                 "🌦️ Moderate rain is possible. " +
-                "Check soil moisture and monitor " +
-                "your crops for pests and diseases.";
+                "Check soil moisture and monitor your crops.";
 
         }else{
 
             recommendation =
                 "☀️ Rain probability is relatively low. " +
-                "Check irrigation needs and maintain " +
-                "adequate soil moisture.";
+                "Check irrigation needs and maintain soil moisture.";
 
         }
 
@@ -877,10 +840,10 @@ async function loadWeather(){
             " mm<br><br>" +
 
             "🤖 <strong>AgriLink Recommendation</strong><br>" +
-            recommendation +
-            "<br><br>" +
 
-            "✅ Live weather";
+            recommendation +
+
+            "<br><br>✅ Live weather";
 
     }catch(error){
 
@@ -952,11 +915,8 @@ async function addProduce(){
                 .insert([{
 
                     produce_name:name,
-
                     quantity:Number(quantity),
-
                     unit:unit,
-
                     location:location
 
                 }]);
@@ -970,15 +930,6 @@ async function addProduce(){
 
         resultElement.innerHTML =
             "✅ Produce added successfully!";
-
-
-        document.getElementById(
-            "produce-name"
-        ).value = "";
-
-        document.getElementById(
-            "produce-quantity"
-        ).value = "";
 
 
         await loadProduce();
@@ -1152,19 +1103,12 @@ async function sellProduce(){
                 .insert([{
 
                     produce_name:name,
-
                     quantity:Number(quantity),
-
                     unit:unit,
-
                     price:Number(price),
-
                     location:location,
-
                     seller_name:
-                        sellerName ||
-                        "Farmer",
-
+                        sellerName || "Farmer",
                     seller_phone:
                         sellerPhone
 
@@ -1179,19 +1123,6 @@ async function sellProduce(){
 
         resultElement.innerHTML =
             "✅ Your produce has been listed in the marketplace!";
-
-
-        document.getElementById(
-            "sell-name"
-        ).value = "";
-
-        document.getElementById(
-            "sell-quantity"
-        ).value = "";
-
-        document.getElementById(
-            "sell-price"
-        ).value = "";
 
 
         await loadMarketplace();
@@ -1264,12 +1195,10 @@ async function loadMarketplace(){
         result.data.forEach(item => {
 
             const seller =
-                item.seller_name ||
-                "Farmer";
+                item.seller_name || "Farmer";
 
             const phone =
-                item.seller_phone ||
-                "Not provided";
+                item.seller_phone || "Not provided";
 
 
             html +=
@@ -1343,18 +1272,18 @@ async function searchMarketplace(){
         ).value.trim();
 
 
-    const resultElement =
-        document.getElementById(
-            "marketplace-result"
-        );
-
-
     if(!search){
 
         await loadMarketplace();
 
         return;
     }
+
+
+    const resultElement =
+        document.getElementById(
+            "marketplace-result"
+        );
 
 
     resultElement.innerHTML =
@@ -1391,9 +1320,7 @@ async function searchMarketplace(){
         ){
 
             resultElement.innerHTML =
-                "🔎 No listings found for <strong>" +
-                search +
-                "</strong>.";
+                "🔎 No listings found.";
 
             return;
         }
@@ -1405,12 +1332,10 @@ async function searchMarketplace(){
         result.data.forEach(item => {
 
             const seller =
-                item.seller_name ||
-                "Farmer";
+                item.seller_name || "Farmer";
 
             const phone =
-                item.seller_phone ||
-                "Not provided";
+                item.seller_phone || "Not provided";
 
 
             html +=
@@ -1557,14 +1482,10 @@ function contactSeller(){
 async function askAI(){
 
     const questionElement =
-        document.getElementById(
-            "question"
-        );
+        document.getElementById("question");
 
     const answerElement =
-        document.getElementById(
-            "answer"
-        );
+        document.getElementById("answer");
 
 
     const question =
@@ -1586,10 +1507,7 @@ async function askAI(){
 
     try{
 
-        // --------------------------------
-        // GET CURRENT SUPABASE SESSION
-        // --------------------------------
-
+        // Check current login session
         const sessionResult =
             await supabaseClient.auth.getSession();
 
@@ -1602,7 +1520,7 @@ async function askAI(){
             );
 
             answerElement.innerHTML =
-                "❌ Your login session could not be verified. Please log in again.";
+                "❌ Could not verify your login.";
 
             return;
         }
@@ -1615,7 +1533,8 @@ async function askAI(){
         if(!session){
 
             answerElement.innerHTML =
-                "⚠️ Your login session has expired. Please log in again.";
+                "⚠️ Your login session has expired.<br><br>" +
+                "Please log in again.";
 
             setTimeout(() => {
 
@@ -1629,76 +1548,91 @@ async function askAI(){
 
 
         console.log(
-            "🔐 Sending authenticated AI request..."
+            "🔐 Authenticated user:",
+            session.user.email
         );
 
 
-        // --------------------------------
-        // SEND REQUEST TO EDGE FUNCTION
-        // --------------------------------
+        // ====================================
+        // SUPABASE EDGE FUNCTION INVOKE
+        // ====================================
 
-        const response =
-            await fetch(
-                AI_FUNCTION_URL,
+        const result =
+            await supabaseClient.functions.invoke(
+                "smooth-handler",
                 {
-                    method:"POST",
-
-                    headers:{
-
-                        "Content-Type":
-                            "application/json",
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            "Bearer " +
-                            session.access_token
-
-                    },
-
-                    body:JSON.stringify({
-
+                    body:{
                         question:question
-
-                    })
+                    }
                 }
             );
 
 
-        const data =
-            await response.json();
-
-
         console.log(
-            "🤖 AI response:",
-            response.status,
-            data
+            "🤖 AI function result:",
+            result
         );
 
 
-        // --------------------------------
-        // AUTHORIZATION ERROR
-        // --------------------------------
+        // ====================================
+        // FUNCTION ERROR
+        // ====================================
 
-        if(
-            response.status === 401 ||
-            response.status === 403
-        ){
+        if(result.error){
+
+            console.error(
+                "AI Edge Function error:",
+                result.error
+            );
+
+
+            const message =
+                result.error.message || "";
+
+
+            if(
+                message
+                    .toLowerCase()
+                    .includes("authorization") ||
+                message
+                    .toLowerCase()
+                    .includes("unauthorized") ||
+                message
+                    .includes("401")
+            ){
+
+                answerElement.innerHTML =
+                    "⚠️ Your login authorization needs to be refreshed.<br><br>" +
+                    "Please log out and log in again.";
+
+                return;
+            }
+
 
             answerElement.innerHTML =
-                "⚠️ Your login session is no longer valid.<br><br>" +
-                "Please log out and log in again.";
+                "❌ <strong>AI assistant could not respond.</strong><br><br>" +
+                message;
 
             return;
         }
 
 
-        // --------------------------------
+        const data =
+            result.data;
+
+
+        console.log(
+            "🤖 AI response data:",
+            data
+        );
+
+
+        // ====================================
         // GEMINI RATE LIMIT
-        // --------------------------------
+        // ====================================
 
         if(
+            data &&
             data.code ===
             "RATE_LIMITED"
         ){
@@ -1713,36 +1647,35 @@ async function askAI(){
         }
 
 
-        // --------------------------------
-        // OTHER ERROR
-        // --------------------------------
+        // ====================================
+        // BACKEND ERROR
+        // ====================================
 
-        if(!response.ok){
-
-            console.error(
-                "AI request failed:",
-                data
-            );
-
+        if(
+            data &&
+            data.error
+        ){
 
             answerElement.innerHTML =
                 "❌ <strong>AI assistant could not respond.</strong><br><br>" +
 
                 (
                     data.message ||
-                    data.error ||
-                    "AI request failed."
+                    data.error
                 );
 
             return;
         }
 
 
-        // --------------------------------
+        // ====================================
         // SUCCESS
-        // --------------------------------
+        // ====================================
 
-        if(data.answer){
+        if(
+            data &&
+            data.answer
+        ){
 
             answerElement.innerHTML =
                 "🤖 <strong>AgriLink AI:</strong><br><br>" +
@@ -1750,12 +1683,12 @@ async function askAI(){
                 data.answer
                     .replace(/\n/g,"<br>");
 
-        }else{
-
-            answerElement.innerHTML =
-                "❌ AI returned no answer.";
-
+            return;
         }
+
+
+        answerElement.innerHTML =
+            "❌ AI returned no answer.";
 
 
     }catch(error){
@@ -1768,8 +1701,7 @@ async function askAI(){
 
         answerElement.innerHTML =
             "❌ <strong>AI assistant could not respond.</strong><br><br>" +
-
-            "Please check your internet connection and try again.";
+            "Please try again.";
     }
 }
 
@@ -1789,7 +1721,6 @@ async function analyzeCrop(){
         document.getElementById(
             "crop-question"
         ).value.trim();
-
 
     const resultElement =
         document.getElementById(
@@ -1860,119 +1791,78 @@ async function analyzeCrop(){
             try{
 
                 const base64 =
-                    reader.result
-                        .split(",")[1];
+                    reader.result.split(",")[1];
 
 
-                const response =
-                    await fetch(
-                        AI_FUNCTION_URL,
+                const result =
+                    await supabaseClient.functions.invoke(
+                        "smooth-handler",
                         {
-                            method:"POST",
-
-                            headers:{
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Authorization":
-                                    "Bearer " +
-                                    session.access_token
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    question:
-                                        question,
-
-                                    imageBase64:
-                                        base64,
-
-                                    imageMimeType:
-                                        file.type ||
-                                        "image/jpeg"
-
-                                })
+                            body:{
+                                question:question,
+                                imageBase64:base64,
+                                imageMimeType:
+                                    file.type ||
+                                    "image/jpeg"
+                            }
                         }
                     );
 
 
-                const data =
-                    await response.json();
-
-
                 console.log(
-                    "Crop AI response:",
-                    response.status,
-                    data
+                    "🩺 Crop AI result:",
+                    result
                 );
 
 
-                if(
-                    response.status === 401 ||
-                    response.status === 403
-                ){
+                if(result.error){
 
                     resultElement.innerHTML =
-                        "⚠️ Your login session has expired. Please log in again.";
+                        "❌ <strong>Crop AI could not respond.</strong><br><br>" +
+                        result.error.message;
 
                     return;
                 }
 
 
+                const data =
+                    result.data;
+
+
                 if(
+                    data &&
                     data.code ===
                     "RATE_LIMITED"
                 ){
 
                     resultElement.innerHTML =
                         "⚠️ <strong>AgriLink AI is temporarily unavailable.</strong><br><br>" +
-
-                        "The Gemini free-tier request limit has been reached. " +
-                        "Please try again later.";
+                        "The Gemini free-tier request limit has been reached. Please try again later.";
 
                     return;
                 }
 
 
-                if(!response.ok){
-
-                    resultElement.innerHTML =
-                        "❌ Crop analysis failed.<br><br>" +
-
-                        (
-                            data.message ||
-                            data.error ||
-                            "AI request failed."
-                        );
-
-                    return;
-                }
-
-
-                if(data.answer){
+                if(data && data.answer){
 
                     resultElement.innerHTML =
                         "🩺 <strong>AgriLink AI Crop Analysis:</strong><br><br>" +
-
-                        data.answer
-                            .replace(/\n/g,"<br>");
+                        data.answer.replace(
+                            /\n/g,
+                            "<br>"
+                        );
 
                 }else{
 
                     resultElement.innerHTML =
                         "❌ No crop analysis was returned.";
-                }
 
+                }
 
             }catch(error){
 
                 console.error(
-                    "Crop analysis error:",
+                    "Crop AI error:",
                     error
                 );
 
@@ -1988,510 +1878,7 @@ async function analyzeCrop(){
     }catch(error){
 
         console.error(
-            "Crop AI error:",
-            error
-        );
-
-        resultElement.innerHTML =
-            "❌ Crop AI could not start.";
-    }
-}
-// ========================================
-// CONTACT SELLER
-// ========================================
-
-function contactSeller(){
-
-    const name =
-        document.getElementById(
-            "contact-name"
-        ).value.trim();
-
-    const phone =
-        document.getElementById(
-            "contact-phone"
-        ).value.trim();
-
-    const message =
-        document.getElementById(
-            "contact-message"
-        ).value.trim();
-
-    const resultElement =
-        document.getElementById(
-            "contact-result"
-        );
-
-
-    if(!phone){
-
-        resultElement.innerHTML =
-            "⚠️ Seller phone number is not available.";
-
-        return;
-    }
-
-
-    resultElement.innerHTML =
-        "📞 Seller: <strong>" +
-        name +
-        "</strong><br><br>" +
-
-        "📱 Phone: " +
-        phone +
-        "<br><br>" +
-
-        (
-            message
-            ? "💬 Your message:<br>" +
-              message +
-              "<br><br>"
-            : ""
-        ) +
-
-        "You can contact the seller using the phone number above.";
-}
-
-
-// ========================================
-// AI FARMING ASSISTANT
-// ========================================
-
-async function askAI(){
-
-    const questionElement =
-        document.getElementById(
-            "question"
-        );
-
-    const answerElement =
-        document.getElementById(
-            "answer"
-        );
-
-
-    const question =
-        questionElement.value.trim();
-
-
-    if(!question){
-
-        answerElement.innerHTML =
-            "🌱 Please enter a farming question.";
-
-        return;
-    }
-
-
-    answerElement.innerHTML =
-        "🤖 AgriLink AI is thinking...";
-
-
-    try{
-
-        // --------------------------------
-        // GET CURRENT SUPABASE SESSION
-        // --------------------------------
-
-        const sessionResult =
-            await supabaseClient.auth.getSession();
-
-
-        if(sessionResult.error){
-
-            console.error(
-                "Session error:",
-                sessionResult.error
-            );
-
-            answerElement.innerHTML =
-                "❌ Your login session could not be verified. Please log in again.";
-
-            return;
-        }
-
-
-        const session =
-            sessionResult.data.session;
-
-
-        if(!session){
-
-            answerElement.innerHTML =
-                "⚠️ Your login session has expired. Please log in again.";
-
-            setTimeout(() => {
-
-                window.location.href =
-                    "login.html";
-
-            },1500);
-
-            return;
-        }
-
-
-        console.log(
-            "🔐 Sending authenticated AI request..."
-        );
-
-
-        // --------------------------------
-        // SEND REQUEST TO EDGE FUNCTION
-        // --------------------------------
-
-        const response =
-            await fetch(
-                AI_FUNCTION_URL,
-                {
-                    method:"POST",
-
-                    headers:{
-
-                        "Content-Type":
-                            "application/json",
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            "Bearer " +
-                            session.access_token
-
-                    },
-
-                    body:JSON.stringify({
-
-                        question:question
-
-                    })
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "🤖 AI response:",
-            response.status,
-            data
-        );
-
-
-        // --------------------------------
-        // AUTHORIZATION ERROR
-        // --------------------------------
-
-        if(
-            response.status === 401 ||
-            response.status === 403
-        ){
-
-            answerElement.innerHTML =
-                "⚠️ Your login session is no longer valid.<br><br>" +
-                "Please log out and log in again.";
-
-            return;
-        }
-
-
-        // --------------------------------
-        // GEMINI RATE LIMIT
-        // --------------------------------
-
-        if(
-            data.code ===
-            "RATE_LIMITED"
-        ){
-
-            answerElement.innerHTML =
-                "⚠️ <strong>AgriLink AI is temporarily unavailable.</strong><br><br>" +
-
-                "The Gemini free-tier request limit has been reached. " +
-                "Please try again later.";
-
-            return;
-        }
-
-
-        // --------------------------------
-        // OTHER ERROR
-        // --------------------------------
-
-        if(!response.ok){
-
-            console.error(
-                "AI request failed:",
-                data
-            );
-
-
-            answerElement.innerHTML =
-                "❌ <strong>AI assistant could not respond.</strong><br><br>" +
-
-                (
-                    data.message ||
-                    data.error ||
-                    "AI request failed."
-                );
-
-            return;
-        }
-
-
-        // --------------------------------
-        // SUCCESS
-        // --------------------------------
-
-        if(data.answer){
-
-            answerElement.innerHTML =
-                "🤖 <strong>AgriLink AI:</strong><br><br>" +
-
-                data.answer
-                    .replace(/\n/g,"<br>");
-
-        }else{
-
-            answerElement.innerHTML =
-                "❌ AI returned no answer.";
-
-        }
-
-
-    }catch(error){
-
-        console.error(
-            "AI assistant error:",
-            error
-        );
-
-
-        answerElement.innerHTML =
-            "❌ <strong>AI assistant could not respond.</strong><br><br>" +
-
-            "Please check your internet connection and try again.";
-    }
-}
-
-
-// ========================================
-// CROP AI
-// ========================================
-
-async function analyzeCrop(){
-
-    const imageInput =
-        document.getElementById(
-            "crop-image"
-        );
-
-    const question =
-        document.getElementById(
-            "crop-question"
-        ).value.trim();
-
-
-    const resultElement =
-        document.getElementById(
-            "crop-result"
-        );
-
-
-    if(
-        !imageInput.files ||
-        !imageInput.files[0]
-    ){
-
-        resultElement.innerHTML =
-            "⚠️ Please upload a crop image first.";
-
-        return;
-    }
-
-
-    if(!question){
-
-        resultElement.innerHTML =
-            "⚠️ Please describe what you want AgriLink AI to check.";
-
-        return;
-    }
-
-
-    resultElement.innerHTML =
-        "🔍 Analyzing your crop image...";
-
-
-    try{
-
-        const sessionResult =
-            await supabaseClient.auth.getSession();
-
-
-        if(sessionResult.error){
-
-            throw sessionResult.error;
-        }
-
-
-        const session =
-            sessionResult.data.session;
-
-
-        if(!session){
-
-            resultElement.innerHTML =
-                "⚠️ Please log in again.";
-
-            return;
-        }
-
-
-        const file =
-            imageInput.files[0];
-
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload = async function(){
-
-            try{
-
-                const base64 =
-                    reader.result
-                        .split(",")[1];
-
-
-                const response =
-                    await fetch(
-                        AI_FUNCTION_URL,
-                        {
-                            method:"POST",
-
-                            headers:{
-
-                                "Content-Type":
-                                    "application/json",
-
-                                "apikey":
-                                    SUPABASE_KEY,
-
-                                "Authorization":
-                                    "Bearer " +
-                                    session.access_token
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    question:
-                                        question,
-
-                                    imageBase64:
-                                        base64,
-
-                                    imageMimeType:
-                                        file.type ||
-                                        "image/jpeg"
-
-                                })
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                console.log(
-                    "Crop AI response:",
-                    response.status,
-                    data
-                );
-
-
-                if(
-                    response.status === 401 ||
-                    response.status === 403
-                ){
-
-                    resultElement.innerHTML =
-                        "⚠️ Your login session has expired. Please log in again.";
-
-                    return;
-                }
-
-
-                if(
-                    data.code ===
-                    "RATE_LIMITED"
-                ){
-
-                    resultElement.innerHTML =
-                        "⚠️ <strong>AgriLink AI is temporarily unavailable.</strong><br><br>" +
-
-                        "The Gemini free-tier request limit has been reached. " +
-                        "Please try again later.";
-
-                    return;
-                }
-
-
-                if(!response.ok){
-
-                    resultElement.innerHTML =
-                        "❌ Crop analysis failed.<br><br>" +
-
-                        (
-                            data.message ||
-                            data.error ||
-                            "AI request failed."
-                        );
-
-                    return;
-                }
-
-
-                if(data.answer){
-
-                    resultElement.innerHTML =
-                        "🩺 <strong>AgriLink AI Crop Analysis:</strong><br><br>" +
-
-                        data.answer
-                            .replace(/\n/g,"<br>");
-
-                }else{
-
-                    resultElement.innerHTML =
-                        "❌ No crop analysis was returned.";
-                }
-
-
-            }catch(error){
-
-                console.error(
-                    "Crop analysis error:",
-                    error
-                );
-
-                resultElement.innerHTML =
-                    "❌ Unable to analyze the crop image.";
-            }
-        };
-
-
-        reader.readAsDataURL(file);
-
-
-    }catch(error){
-
-        console.error(
-            "Crop AI error:",
+            "Crop AI startup error:",
             error
         );
 
@@ -2589,12 +1976,9 @@ async function startDashboard(){
 
     await loadProfile(user);
 
-
     await loadProduce();
 
-
     await loadMarketplace();
-
 
     await loadFarmInsights();
 
@@ -2616,6 +2000,7 @@ supabaseClient.auth.onAuthStateChange(
             "Auth event:",
             event
         );
+
 
         if(
             event ===
